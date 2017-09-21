@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
-import { Grid, Sidebar, Segment, Menu, Icon, Header } from 'semantic-ui-react';
-import { CategoryCard } from './components/CategoryCard.js';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { Grid, Sidebar, Segment, Icon } from "semantic-ui-react";
+
+import SideMenu from "./components/SideMenu";
 
 class App extends Component {
   constructor(props) {
@@ -15,14 +17,14 @@ class App extends Component {
   showSidebar(e) {
     e.stopPropagation();
     this.setState({
-      visible: true,
+      visible: true
     });
   }
 
   hideSidebar() {
     if (this.state.visible) {
       this.setState({
-        visible: false,
+        visible: false
       });
     }
   }
@@ -30,38 +32,17 @@ class App extends Component {
   render() {
     return (
       <Sidebar.Pushable>
-        <Sidebar as={Menu} animation="overlay" width="thin" visible={this.state.visible} icon="labeled" vertical inverted color="purple">
-          <Header as="h2" inverted>
-            MENU
-          </Header>
-          <Menu.Item name="categories">
-            <Icon name="browser" />Categories
-          </Menu.Item>
-          <Menu.Item name="ordering">
-            <Icon name="shopping basket" />Ordering Online
-          </Menu.Item>
-          <Menu.Item name="service">
-            <Icon name="setting" />Customer Service
-          </Menu.Item>
-          <Menu.Item name="shipping">
-            <Icon name="truck" />Shipping
-          </Menu.Item>
-          <Menu.Item name="locations">
-            <Icon name="marker" />Locations
-          </Menu.Item>
-          <Menu.Item name="contact">
-            <Icon name="envelope" />Contact
-          </Menu.Item>
-          <Menu.Item name="account">
-            <Icon name="user" />User Account
-          </Menu.Item>
-        </Sidebar>
+        <SideMenu isVisible={this.state.visible} />
         <Sidebar.Pusher dimmed={this.state.visible} onClick={this.hideSidebar}>
           <Segment basic color="purple" inverted size="tiny">
             <Grid columns="three" relaxed>
               <Grid.Row>
                 <Grid.Column floated="left" width={1}>
-                  <Icon name="content" size="large" onClick={this.showSidebar} />
+                  <Icon
+                    name="content"
+                    size="large"
+                    onClick={this.showSidebar}
+                  />
                 </Grid.Column>
                 <Grid.Column>MY SHOP</Grid.Column>
                 <Grid.Column>
@@ -71,19 +52,22 @@ class App extends Component {
               </Grid.Row>
             </Grid>
           </Segment>
-          <Header textAlign="center">CATEGORIES</Header>
-
-          <CategoryCard src="http://vignette2.wikia.nocookie.net/wiiu/images/5/5e/New-Super-Mario-Bros-Art-21-400x400.jpg" name="Apples" />
-
-          <CategoryCard src="http://vignette2.wikia.nocookie.net/wiiu/images/5/5e/New-Super-Mario-Bros-Art-21-400x400.jpg" name="Apples" />
-
-          <CategoryCard src="http://vignette2.wikia.nocookie.net/wiiu/images/5/5e/New-Super-Mario-Bros-Art-21-400x400.jpg" name="Apples" />
-
-          <CategoryCard src="http://vignette2.wikia.nocookie.net/wiiu/images/5/5e/New-Super-Mario-Bros-Art-21-400x400.jpg" name="Apples" />
+          {this.props.children}
         </Sidebar.Pusher>
       </Sidebar.Pushable>
     );
   }
 }
+
+App.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ])
+};
+
+App.defaultProps = {
+  children: null
+};
 
 export default App;
