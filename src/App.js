@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { CategoryCard } from './components/CategoryCard.js';
 import { Grid, Sidebar, Segment, Menu, Icon, Header } from 'semantic-ui-react';
+import { CategoryCard } from './components/CategoryCard.js';
 
 class App extends Component {
-
-
   constructor(props) {
     super(props);
 
@@ -31,10 +29,10 @@ class App extends Component {
 
   render() {
     return (
-      <Sidebar.Pushable >
+      <Sidebar.Pushable>
         <Sidebar as={Menu} animation="overlay" width="thin" visible={this.state.visible} icon="labeled" vertical inverted color="purple">
           <Header as="h2" inverted>
-              MENU
+            MENU
           </Header>
           <Menu.Item name="categories">
             <Icon name="browser" />Categories
@@ -65,9 +63,7 @@ class App extends Component {
                 <Grid.Column floated="left" width={1}>
                   <Icon name="content" size="large" onClick={this.showSidebar} />
                 </Grid.Column>
-                <Grid.Column>
-                        MY SHOP
-                </Grid.Column>
+                <Grid.Column>MY SHOP</Grid.Column>
                 <Grid.Column>
                   <Icon name="search" size="large" />
                   <Icon name="cart" size="large" />
@@ -75,21 +71,15 @@ class App extends Component {
               </Grid.Row>
             </Grid>
           </Segment>
-          <Header textAlign="center">
-              CATEGORIES
-          </Header>
+          <Header textAlign="center">CATEGORIES</Header>
 
           <CategoryCard src="http://vignette2.wikia.nocookie.net/wiiu/images/5/5e/New-Super-Mario-Bros-Art-21-400x400.jpg" name="Apples" />
 
+          <CategoryCard src="http://vignette2.wikia.nocookie.net/wiiu/images/5/5e/New-Super-Mario-Bros-Art-21-400x400.jpg" name="Apples" />
 
           <CategoryCard src="http://vignette2.wikia.nocookie.net/wiiu/images/5/5e/New-Super-Mario-Bros-Art-21-400x400.jpg" name="Apples" />
 
-
           <CategoryCard src="http://vignette2.wikia.nocookie.net/wiiu/images/5/5e/New-Super-Mario-Bros-Art-21-400x400.jpg" name="Apples" />
-
-
-          <CategoryCard src="http://vignette2.wikia.nocookie.net/wiiu/images/5/5e/New-Super-Mario-Bros-Art-21-400x400.jpg" name="Apples" />
-
         </Sidebar.Pusher>
       </Sidebar.Pushable>
     );
