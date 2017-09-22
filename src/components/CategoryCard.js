@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Component } from 'react';
 import { Card, Image, Button, Grid, Header } from 'semantic-ui-react';
 
-const CategoryCard = {
+class CategoryCard extends Component {
   render() {
     return (
       <Card raised centered>
@@ -21,8 +21,8 @@ const CategoryCard = {
         </Card.Content>
       </Card>
     );
-  },
-};
+  }
+}
 
 CategoryCard.PropTypes = {
   name: PropTypes.string.isRequired,

@@ -45,7 +45,6 @@ App.defaultProps = {
 function mapStateToProps(state) {
   return {
     sideMenuVisible: state.sideMenuVisible,
-    children: state.children,
   };
 }
 
