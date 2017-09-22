@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { Card, Image, Button, Grid, Header } from 'semantic-ui-react';
 
-export default class CategoryCard extends Component {
+const CategoryCard = {
   render() {
     return (
       <Card raised centered>
@@ -13,12 +14,19 @@ export default class CategoryCard extends Component {
             </Grid.Row>
             <Grid.Row>
               <Button color="purple" compact>
-                View Products >
+                View Products &gt;
               </Button>
             </Grid.Row>
           </Grid>
         </Card.Content>
       </Card>
     );
-  }
-}
+  },
+};
+
+CategoryCard.PropTypes = {
+  name: PropTypes.string.isRequired,
+  src: PropTypes.string.isRequired,
+};
+
+export default CategoryCard;

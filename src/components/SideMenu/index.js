@@ -1,18 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Sidebar, Menu, Icon, Header } from "semantic-ui-react";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Sidebar, Menu, Icon, Header } from 'semantic-ui-react';
 
 const SideMenu = props => (
-  <Sidebar
-    as={Menu}
-    animation="overlay"
-    width="thin"
-    visible={props.isVisible}
-    icon="labeled"
-    vertical
-    inverted
-    color="purple"
-  >
+  <Sidebar as={Menu} animation="overlay" width="thin" visible={props.isVisible} icon="labeled" vertical inverted color="purple">
     <Header as="h2" inverted>
       MENU
     </Header>
@@ -41,7 +32,7 @@ const SideMenu = props => (
 );
 
 SideMenu.propTypes = {
-  isVisible: PropTypes.bool.isRequired
+  isVisible: PropTypes.bool.isRequired,
 };
 
 export default SideMenu;

@@ -1,15 +1,16 @@
-import React from "react";
-import { render } from "react-dom";
-import { Provider } from "react-redux";
-import { HashRouter, Route, Switch } from "react-router-dom";
-import store, { history } from "./configureStore";
+import React from 'react';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { HashRouter, Route, Switch } from 'react-router-dom';
+import store, { history } from './configureStore';
 // import GLOBAL_VARIABLES from './config/config';
-import registerServiceWorker from "./registerServiceWorker";
-import App from "./App";
+import registerServiceWorker from './registerServiceWorker';
+import App from './App';
 
-import Home from "./views/Home";
+import Home from './views/Home';
 
-import "./index.css";
+import './index.css';
+
 render(
   <Provider store={store}>
     <HashRouter history={history}>
@@ -20,6 +21,6 @@ render(
       </App>
     </HashRouter>
   </Provider>,
-  document.getElementById("root")
+  document.getElementById('root'),
 );
 registerServiceWorker();
