@@ -24,7 +24,7 @@ class CategoryCard extends Component {
   }
 }
 
-CategoryCard.PropTypes = {
+CategoryCard.propTypes = {
   name: PropTypes.string.isRequired,
   src: PropTypes.string.isRequired,
 };
