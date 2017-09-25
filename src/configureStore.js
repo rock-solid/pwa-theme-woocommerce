@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import createHistory from 'history/createBrowserHistory';
 import { routerMiddleware } from 'react-router-redux';
-import sideMenuVisible from './views/Home/reducer';
+import sideMenuVisible from './components/NavBar/reducer';
 
 const history = createHistory();
 

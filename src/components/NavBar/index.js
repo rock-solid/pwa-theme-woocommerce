@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Grid, Segment, Icon } from 'semantic-ui-react';
-import { openMenu } from '../../views/Home/actions';
+import { openMenu } from './actions';
 
 class NavBar extends Component {
   constructor(props) {

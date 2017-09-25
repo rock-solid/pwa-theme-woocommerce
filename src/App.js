@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Sidebar } from 'semantic-ui-react';
-import { closeMenu } from './views/Home/actions';
+import { closeMenu } from './components/NavBar/actions';
 import NavBar from './components/NavBar';
-import SideMenu from './components/SideMenu';
+import SideMenu from './views/SideMenu';
 
 class App extends Component {
   constructor(props) {
