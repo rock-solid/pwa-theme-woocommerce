@@ -26,7 +26,11 @@ class CategoryCard extends Component {
 
 CategoryCard.propTypes = {
   name: PropTypes.string.isRequired,
-  src: PropTypes.string.isRequired,
+  src: PropTypes.string,
+};
+
+CategoryCard.defaultProps = {
+  src: 'placeholderurl',
 };
 
 export default CategoryCard;
