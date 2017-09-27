@@ -5,13 +5,19 @@ import CategoryCard from './CategoryCard';
 
 class CategoriesList extends Component {
   render() {
-    const list = this.props.categories.map(element => <CategoryCard key={element.id} src={element.image.src} name={element.name} />);
-    return (
-      <div>
-        <Loader active={Boolean(this.props.loading)} />
-        {list}
-      </div>
-    );
+    if (this.props.loading === 1) {
+      return (
+        <div>
+          <Loader active />
+        </div>
+      );
+    }
+
+    const list = this.props.categories.map(element => (
+      <CategoryCard key={element.id} categId={element.id} src={element.image.src} name={element.name} />
+    ));
+
+    return <div>{list}</div>;
   }
 }
 

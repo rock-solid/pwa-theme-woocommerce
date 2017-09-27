@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 import React, { Component } from 'react';
 import { Card, Image, Button, Grid, Header } from 'semantic-ui-react';
 
@@ -13,9 +14,11 @@ class CategoryCard extends Component {
               <Card.Header as={Header}>{this.props.name}</Card.Header>
             </Grid.Row>
             <Grid.Row>
-              <Button color="purple" compact>
-                View Products &gt;
-              </Button>
+              <NavLink to={'/category/' + this.props.categId + '/' + this.props.name}>
+                <Button color="purple" compact>
+                  View Products &gt;
+                </Button>
+              </NavLink>
             </Grid.Row>
           </Grid>
         </Card.Content>
@@ -27,6 +30,7 @@ class CategoryCard extends Component {
 CategoryCard.propTypes = {
   name: PropTypes.string.isRequired,
   src: PropTypes.string,
+  categId: PropTypes.number.isRequired,
 };
 
 CategoryCard.defaultProps = {

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Sidebar } from 'semantic-ui-react';
+import { withRouter } from 'react-router';
 import { closeMenu } from './components/NavBar/actions';
 import NavBar from './components/NavBar';
 import SideMenu from './views/SideMenu';
@@ -48,4 +49,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { closeMenu })(App);
+export default withRouter(connect(mapStateToProps, { closeMenu })(App));
