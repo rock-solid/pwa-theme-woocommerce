@@ -8,7 +8,7 @@ class CategoryProductsList extends Component {
     if (this.props.loading === 1) {
       return (
         <div>
-          <Header textAlign="center">Category Name</Header>;
+          <Header textAlign="center">Category Name</Header>
           <Loader active />
         </div>
       );
