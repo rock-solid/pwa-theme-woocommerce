@@ -18,7 +18,7 @@ render(
       <App>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/category/:categId/:categName" component={Category} />
+          <Route exact path="/category/:categId" component={Category} />
         </Switch>
       </App>
     </HashRouter>

@@ -13,13 +13,7 @@ class Category extends Component {
   }
 
   render() {
-    return (
-      <CategoryProductsList
-        categName={this.props.match.params.categName}
-        loading={this.props.loading}
-        categoryProducts={this.props.categoryProducts}
-      />
-    );
+    return <CategoryProductsList loading={this.props.loading} categoryProducts={this.props.categoryProducts} />;
   }
 }
 
@@ -50,7 +44,6 @@ Category.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       categId: PropTypes.string.isRequired,
-      categName: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
 };

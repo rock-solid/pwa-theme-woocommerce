@@ -14,7 +14,7 @@ class CategoryCard extends Component {
               <Card.Header as={Header}>{this.props.name}</Card.Header>
             </Grid.Row>
             <Grid.Row>
-              <NavLink to={'/category/' + this.props.categId + '/' + this.props.name}>
+              <NavLink to={'/category/' + this.props.categId}>
                 <Button color="purple" compact>
                   View Products &gt;
                 </Button>

@@ -8,7 +8,7 @@ class CategoryProductsList extends Component {
     if (this.props.loading === 1) {
       return (
         <div>
-          <Header textAlign="center">{this.props.categName}</Header>;
+          <Header textAlign="center">Category Name</Header>;
           <Loader active />
         </div>
       );
@@ -27,7 +27,7 @@ class CategoryProductsList extends Component {
 
     return (
       <div>
-        <Header textAlign="center">{this.props.categName}</Header>
+        <Header textAlign="center">Category Name</Header>
         {list}
       </div>
     );
@@ -48,7 +48,6 @@ CategoryProductsList.propTypes = {
       categories: PropTypes.array.isRequired,
     }),
   ).isRequired,
-  categName: PropTypes.string.isRequired,
 };
 
 export default CategoryProductsList;
