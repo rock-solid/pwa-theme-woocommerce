@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchCategories } from './actions';
 import { getCategories, getCategoriesFetching } from './reducer';
+import { Loader } from 'semantic-ui-react';
 import CategoriesList from '../../components/CategoriesList';
 
 class Categories extends Component {
@@ -13,7 +14,15 @@ class Categories extends Component {
   }
 
   render() {
-    return <CategoriesList loading={this.props.loading} categories={this.props.categories} />;
+    if (this.props.loading === 1) {
+      return (
+        <div>
+          <Loader active />
+        </div>
+      );
+    }
+
+    return <CategoriesList categories={this.props.categories} />;
   }
 }
 
