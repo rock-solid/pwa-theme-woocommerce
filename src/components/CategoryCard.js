@@ -8,7 +8,7 @@ class CategoryCard extends Component {
     return (
       <Card raised centered>
         <Card.Content>
-          <Image floated="left" size="tiny" shape="circular" src={this.props.src} />
+          {this.props.src !== '' ? <Image floated="left" size="tiny" shape="circular" src={this.props.src} /> : null}
           <Grid>
             <Grid.Row>
               <Card.Header as={Header}>{this.props.name}</Card.Header>
@@ -34,7 +34,7 @@ CategoryCard.propTypes = {
 };
 
 CategoryCard.defaultProps = {
-  src: 'placeholderurl',
+  src: '',
 };
 
 export default CategoryCard;
