@@ -27,9 +27,12 @@ CategoriesList.propTypes = {
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
-      image: PropTypes.shape({
-        src: PropTypes.string,
-      }),
+      image: PropTypes.oneOfType([
+        PropTypes.array,
+        PropTypes.shape({
+          src: PropTypes.string,
+        }),
+      ]),
     }),
   ).isRequired,
 };
