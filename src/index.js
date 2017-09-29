@@ -3,13 +3,12 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import store, { history } from './configureStore';
-// import GLOBAL_VARIABLES from './config/config';
 import registerServiceWorker from './registerServiceWorker';
 import App from './App';
 
 import Home from './views/Home';
 import Category from './views/Category';
-import Categories from './components/Categories';
+import Categories from './views/Categories';
 
 import './index.css';
 

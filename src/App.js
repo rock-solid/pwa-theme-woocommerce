@@ -43,10 +43,8 @@ App.defaultProps = {
   children: null,
 };
 
-function mapStateToProps(state) {
-  return {
-    sideMenuVisible: state.sideMenuVisible,
-  };
-}
+const mapStateToProps = state => ({
+  sideMenuVisible: state.sideMenuVisible,
+});
 
 export default withRouter(connect(mapStateToProps, { closeMenu })(App));

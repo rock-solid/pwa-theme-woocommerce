@@ -24,15 +24,6 @@ class Category extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  loading: getCategoryProductsFetching(state.categoryProducts),
-  categoryProducts: getCategoryProducts(state.categoryProducts),
-});
-
-function mapDispatchToProps(dispatch) {
-  return Object.assign({ dispatch }, bindActionCreators({ fetchCategoryProducts }, dispatch));
-}
-
 Category.propTypes = {
   dispatch: PropTypes.func.isRequired,
   loading: PropTypes.number.isRequired,
@@ -54,5 +45,14 @@ Category.propTypes = {
     }).isRequired,
   }).isRequired,
 };
+
+const mapStateToProps = state => ({
+  loading: getCategoryProductsFetching(state.categoryProducts),
+  categoryProducts: getCategoryProducts(state.categoryProducts),
+});
+
+function mapDispatchToProps(dispatch) {
+  return Object.assign({ dispatch }, bindActionCreators({ fetchCategoryProducts }, dispatch));
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Category);

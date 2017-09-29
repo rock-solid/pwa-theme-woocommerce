@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchCategories } from './actions';
 import { getCategories, getCategoriesFetching } from './reducer';
-import CategoriesList from '../CategoriesList';
+import CategoriesList from '../../components/CategoriesList';
 
 class Categories extends Component {
   componentWillMount() {
@@ -15,15 +15,6 @@ class Categories extends Component {
   render() {
     return <CategoriesList loading={this.props.loading} categories={this.props.categories} />;
   }
-}
-
-const mapStateToProps = state => ({
-  loading: getCategoriesFetching(state.categories),
-  categories: getCategories(state.categories),
-});
-
-function mapDispatchToProps(dispatch) {
-  return Object.assign({ dispatch }, bindActionCreators({ fetchCategories }, dispatch));
 }
 
 Categories.propTypes = {
@@ -39,5 +30,14 @@ Categories.propTypes = {
     }),
   ).isRequired,
 };
+
+const mapStateToProps = state => ({
+  loading: getCategoriesFetching(state.categories),
+  categories: getCategories(state.categories),
+});
+
+function mapDispatchToProps(dispatch) {
+  return Object.assign({ dispatch }, bindActionCreators({ fetchCategories }, dispatch));
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Categories);
