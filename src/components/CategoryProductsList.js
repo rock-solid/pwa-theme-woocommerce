@@ -1,19 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Loader, Header } from 'semantic-ui-react';
+import { Header } from 'semantic-ui-react';
 import ProductCard from './ProductCard';
 
 class CategoryProductsList extends Component {
   render() {
-    if (this.props.loading === 1) {
-      return (
-        <div>
-          <Header textAlign="center">Category Name</Header>
-          <Loader active />
-        </div>
-      );
-    }
-
     const list = this.props.categoryProducts.map(element => (
       <ProductCard
         key={element.id}
@@ -35,7 +26,6 @@ class CategoryProductsList extends Component {
 }
 
 CategoryProductsList.propTypes = {
-  loading: PropTypes.number.isRequired,
   categoryProducts: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,

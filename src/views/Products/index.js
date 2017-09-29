@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchCategoryProducts } from './actions';
-import { getCategoryProducts, getCategoryProductsFetching } from './reducer';
+import { Loader, Header } from 'semantic-ui-react';
+import { fetchProducts } from './actions';
+import { getProductsFetching, getProducts } from './reducer';
 import CategoryProductsList from '../../components/CategoryProductsList';
 
-class Category extends Component {
+class CategoryProducts extends Component {
   componentWillMount() {
     const { dispatch } = this.props;
-    dispatch(fetchCategoryProducts(this.props.match.params.categId));
+    dispatch(fetchProducts(this.props.match.params.categId));
   }
 
   hasCurrentCategory(product) {
@@ -18,13 +19,22 @@ class Category extends Component {
   }
 
   render() {
+    if (this.props.loading === 1) {
+      return (
+        <div>
+          <Header textAlign="center">Category Name</Header>
+          <Loader active />
+        </div>
+      );
+    }
+
     const filteredProducts = this.props.categoryProducts.filter(product => this.hasCurrentCategory(product));
 
-    return <CategoryProductsList loading={this.props.loading} categoryProducts={filteredProducts} />;
+    return <CategoryProductsList categoryProducts={filteredProducts} />;
   }
 }
 
-Category.propTypes = {
+CategoryProducts.propTypes = {
   dispatch: PropTypes.func.isRequired,
   loading: PropTypes.number.isRequired,
   categoryProducts: PropTypes.arrayOf(
@@ -47,12 +57,12 @@ Category.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  loading: getCategoryProductsFetching(state.categoryProducts),
-  categoryProducts: getCategoryProducts(state.categoryProducts),
+  loading: getProductsFetching(state.products),
+  categoryProducts: getProducts(state.products),
 });
 
 function mapDispatchToProps(dispatch) {
-  return Object.assign({ dispatch }, bindActionCreators({ fetchCategoryProducts }, dispatch));
+  return Object.assign({ dispatch }, bindActionCreators({ fetchProducts }, dispatch));
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Category);
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryProducts);

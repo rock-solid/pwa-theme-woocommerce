@@ -5,8 +5,8 @@ import createHistory from 'history/createBrowserHistory';
 import { routerMiddleware } from 'react-router-redux';
 import sideMenuVisible from './components/NavBar/reducer';
 
-import categories from './components/Categories/reducer';
-import categoryProducts from './views/Category/reducer';
+import categories from './views/Categories/reducer';
+import products from './views/Products/reducer';
 
 const history = createHistory();
 
@@ -15,13 +15,13 @@ const defaultState = {
     items: [],
     isFetching: 0,
   },
-  categoryProducts: {
+  products: {
     items: [],
     isFetching: 0,
   },
 };
 
-const rootReducer = combineReducers({ sideMenuVisible, categories, categoryProducts });
+const rootReducer = combineReducers({ sideMenuVisible, categories, products });
 
 const store = createStore(rootReducer, defaultState, applyMiddleware(thunk, logger, routerMiddleware(history)));
 

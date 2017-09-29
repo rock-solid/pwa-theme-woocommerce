@@ -7,7 +7,7 @@ import registerServiceWorker from './registerServiceWorker';
 import App from './App';
 
 import Home from './views/Home';
-import Category from './views/Category';
+import CategoryProducts from './views/Products';
 import Categories from './views/Categories';
 
 import './index.css';
@@ -19,7 +19,7 @@ render(
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/categories" component={Categories} />
-          <Route exact path="/category/:categId" component={Category} />
+          <Route exact path="/category/:categId" component={CategoryProducts} />
         </Switch>
       </App>
     </HashRouter>
