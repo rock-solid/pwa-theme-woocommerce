@@ -9,6 +9,7 @@ import App from './App';
 
 import Home from './views/Home';
 import Category from './views/Category';
+import Categories from './components/Categories';
 
 import './index.css';
 
@@ -18,6 +19,7 @@ render(
       <App>
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route exact path="/categories" component={Categories} />
           <Route exact path="/category/:categId" component={Category} />
         </Switch>
       </App>

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { Sidebar, Menu, Icon, Header } from 'semantic-ui-react';
 
 const SideMenu = props => (
@@ -7,9 +8,11 @@ const SideMenu = props => (
     <Header as="h2" inverted>
       MENU
     </Header>
-    <Menu.Item name="categories">
-      <Icon name="browser" />Categories
-    </Menu.Item>
+    <Link to="/categories" onClick={props.closeMenu}>
+      <Menu.Item name="categories">
+        <Icon name="browser" />Categories
+      </Menu.Item>
+    </Link>
     <Menu.Item name="ordering">
       <Icon name="shopping basket" />Ordering Online
     </Menu.Item>
@@ -33,6 +36,7 @@ const SideMenu = props => (
 
 SideMenu.propTypes = {
   isVisible: PropTypes.bool.isRequired,
+  closeMenu: PropTypes.func.isRequired,
 };
 
 export default SideMenu;

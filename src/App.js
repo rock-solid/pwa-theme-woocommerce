@@ -23,7 +23,7 @@ class App extends Component {
   render() {
     return (
       <Sidebar.Pushable>
-        <SideMenu isVisible={this.props.sideMenuVisible} />
+        <SideMenu isVisible={this.props.sideMenuVisible} closeMenu={this.props.closeMenu} />
         <Sidebar.Pusher dimmed={this.props.sideMenuVisible} onClick={this.hideSidebar}>
           <NavBar />
           {this.props.children}

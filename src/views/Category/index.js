@@ -12,8 +12,15 @@ class Category extends Component {
     dispatch(fetchCategoryProducts(this.props.match.params.categId));
   }
 
+  hasCurrentCategory(product) {
+    const categId = this.props.match.params.categId;
+    return product.categories.find(category => Number(category.id) === Number(categId)) !== undefined;
+  }
+
   render() {
-    return <CategoryProductsList loading={this.props.loading} categoryProducts={this.props.categoryProducts} />;
+    const filteredProducts = this.props.categoryProducts.filter(product => this.hasCurrentCategory(product));
+
+    return <CategoryProductsList loading={this.props.loading} categoryProducts={filteredProducts} />;
   }
 }
 

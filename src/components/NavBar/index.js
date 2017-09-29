@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Grid, Segment, Icon } from 'semantic-ui-react';
@@ -24,7 +25,9 @@ class NavBar extends Component {
             <Grid.Column floated="left" width={1}>
               <Icon name="content" size="large" onClick={this.showSidebar} />
             </Grid.Column>
-            <Grid.Column>MY SHOP</Grid.Column>
+            <Grid.Column>
+              <Link to="/">MY SHOP</Link>
+            </Grid.Column>
             <Grid.Column>
               <Icon name="search" size="large" />
               <Icon name="cart" size="large" />
