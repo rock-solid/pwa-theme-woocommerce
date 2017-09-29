@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import { Header } from 'semantic-ui-react';
 import ProductCard from './ProductCard';
 
-class CategoryProductsList extends Component {
+class ProductsList extends Component {
   render() {
-    const list = this.props.categoryProducts.map(element => (
+    const list = this.props.products.map(element => (
       <ProductCard
         key={element.id}
         id={element.id}
@@ -25,8 +25,8 @@ class CategoryProductsList extends Component {
   }
 }
 
-CategoryProductsList.propTypes = {
-  categoryProducts: PropTypes.arrayOf(
+ProductsList.propTypes = {
+  products: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
@@ -40,4 +40,4 @@ CategoryProductsList.propTypes = {
   ).isRequired,
 };
 
-export default CategoryProductsList;
+export default ProductsList;

@@ -7,7 +7,7 @@ const items = (state = [], action) => {
   case REQUEST_PRODUCTS:
     return state;
   case RECEIVE_PRODUCTS:
-    return _.unionBy(state, action.categoryProducts, 'id');
+    return _.unionBy(state, action.products, 'id');
   default:
     return state;
   }

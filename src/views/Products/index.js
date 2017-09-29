@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Loader, Header } from 'semantic-ui-react';
 import { fetchProducts } from './actions';
 import { getProductsFetching, getProducts } from './reducer';
-import CategoryProductsList from '../../components/CategoryProductsList';
+import ProductsList from '../../components/ProductsList';
 
 class CategoryProducts extends Component {
   componentWillMount() {
@@ -28,16 +28,16 @@ class CategoryProducts extends Component {
       );
     }
 
-    const filteredProducts = this.props.categoryProducts.filter(product => this.hasCurrentCategory(product));
+    const filteredProducts = this.props.products.filter(product => this.hasCurrentCategory(product));
 
-    return <CategoryProductsList categoryProducts={filteredProducts} />;
+    return <ProductsList products={filteredProducts} />;
   }
 }
 
 CategoryProducts.propTypes = {
   dispatch: PropTypes.func.isRequired,
   loading: PropTypes.number.isRequired,
-  categoryProducts: PropTypes.arrayOf(
+  products: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
@@ -58,7 +58,7 @@ CategoryProducts.propTypes = {
 
 const mapStateToProps = state => ({
   loading: getProductsFetching(state.products),
-  categoryProducts: getProducts(state.products),
+  products: getProducts(state.products),
 });
 
 function mapDispatchToProps(dispatch) {

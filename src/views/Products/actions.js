@@ -8,9 +8,9 @@ export const requestProducts = () => ({
   type: REQUEST_PRODUCTS,
 });
 
-export const receiveProducts = categoryProducts => ({
+export const receiveProducts = products => ({
   type: RECEIVE_PRODUCTS,
-  categoryProducts,
+  products,
 });
 
 export const fetchProducts = id => (dispatch) => {
