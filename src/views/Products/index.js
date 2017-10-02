@@ -41,12 +41,17 @@ CategoryProducts.propTypes = {
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
-      image: PropTypes.shape({
-        src: PropTypes.string,
-      }),
       price: PropTypes.string.isRequired,
-      images: PropTypes.array.isRequired,
-      categories: PropTypes.array.isRequired,
+      images: PropTypes.arrayOf(
+        PropTypes.shape({
+          src: PropTypes.string.isRequired,
+        }),
+      ),
+      categories: PropTypes.arrayOf(
+        PropTypes.shape({
+          name: PropTypes.string.isRequired,
+        }),
+      ).isRequired,
     }),
   ).isRequired,
   match: PropTypes.shape({
