@@ -13,10 +13,10 @@ export const receiveProducts = products => ({
   products,
 });
 
-export const fetchProducts = id => (dispatch) => {
+export const fetchProducts = (categId, productId) => (dispatch) => {
   dispatch(requestProducts());
 
-  const url = config.API_CATEGORY_PRODUCTS_URL + '/' + id;
+  const url = productId === null ? config.API_CATEGORY_PRODUCTS_URL + categId : config.API_PRODUCT_URL + productId;
 
   return fetch(url)
     .then(response => response.json())
