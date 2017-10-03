@@ -18,7 +18,7 @@ class ProductsList extends Component {
 
     return (
       <div>
-        <Header textAlign="center">Category Name</Header>
+        <Header textAlign="center">{this.props.categoryName}</Header>
         {list}
       </div>
     );
@@ -43,6 +43,7 @@ ProductsList.propTypes = {
       ).isRequired,
     }),
   ).isRequired,
+  categoryName: PropTypes.string.isRequired,
 };
 
 export default ProductsList;

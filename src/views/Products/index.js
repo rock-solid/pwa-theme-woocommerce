@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Loader, Header } from 'semantic-ui-react';
+import { Loader } from 'semantic-ui-react';
 import { fetchProducts } from './actions';
 import { getProductsFetching, getProducts } from './reducer';
 import ProductsList from '../../components/ProductsList';
@@ -11,6 +11,10 @@ class Products extends Component {
   componentWillMount() {
     const { dispatch } = this.props;
     dispatch(fetchProducts(this.props.match.params.categId, null));
+  }
+
+  getCategoryName(categories) {
+    return categories.find(category => Number(category.id) === Number(this.props.match.params.categId)).name;
   }
 
   hasCurrentCategory(product) {
@@ -22,7 +26,6 @@ class Products extends Component {
     if (this.props.loading === 1) {
       return (
         <div>
-          <Header textAlign="center">Category Name</Header>
           <Loader active />
         </div>
       );
@@ -30,7 +33,11 @@ class Products extends Component {
 
     const filteredProducts = this.props.products.filter(product => this.hasCurrentCategory(product));
 
-    return <ProductsList products={filteredProducts} />;
+    if (filteredProducts.length === 0) {
+      return <p>Categ has no products</p>;
+    }
+
+    return <ProductsList products={filteredProducts} categoryName={this.getCategoryName(filteredProducts[0].categories)} />;
   }
 }
 
