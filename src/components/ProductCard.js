@@ -4,7 +4,7 @@ import { Card, Image, Button, Grid, Header } from 'semantic-ui-react';
 
 class ProductCard extends Component {
   render() {
-    const categories = this.props.categories.map(category => <Header.Subheader>{category.name}</Header.Subheader>);
+    const categories = this.props.categories.map(category => <Header.Subheader key={category.id}>{category.name}</Header.Subheader>);
 
     return (
       <Card raised centered>
@@ -35,17 +35,13 @@ class ProductCard extends Component {
 
 ProductCard.propTypes = {
   name: PropTypes.string.isRequired,
-  src: PropTypes.string,
+  src: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
   categories: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
     }),
   ).isRequired,
-};
-
-ProductCard.defaultProps = {
-  src: 'placeholderurl',
 };
 
 export default ProductCard;
