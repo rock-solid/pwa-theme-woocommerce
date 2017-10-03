@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Grid, Segment, Icon } from 'semantic-ui-react';
 import { openMenu } from './actions';
+import './NavBar.css';
 
 class NavBar extends Component {
   constructor(props) {
@@ -26,7 +27,9 @@ class NavBar extends Component {
               <Icon name="content" size="large" onClick={this.showSidebar} />
             </Grid.Column>
             <Grid.Column>
-              <Link to="/">MY SHOP</Link>
+              <Link className="shop-name" to="/">
+                MY SHOP
+              </Link>
             </Grid.Column>
             <Grid.Column>
               <Icon name="search" size="large" />
