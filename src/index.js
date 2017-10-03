@@ -7,8 +7,9 @@ import registerServiceWorker from './registerServiceWorker';
 import App from './App';
 
 import Home from './views/Home';
-import CategoryProducts from './views/Products';
+import Products from './views/Products';
 import Categories from './views/Categories';
+import Product from './views/Product';
 
 import './index.css';
 
@@ -19,7 +20,8 @@ render(
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/categories" component={Categories} />
-          <Route exact path="/category/:categId" component={CategoryProducts} />
+          <Route exact path="/category/:categId" component={Products} />
+          <Route exact path="/product/:productId" component={Product} />
         </Switch>
       </App>
     </HashRouter>

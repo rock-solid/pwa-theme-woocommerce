@@ -7,10 +7,10 @@ import { fetchProducts } from './actions';
 import { getProductsFetching, getProducts } from './reducer';
 import ProductsList from '../../components/ProductsList';
 
-class CategoryProducts extends Component {
+class Products extends Component {
   componentWillMount() {
     const { dispatch } = this.props;
-    dispatch(fetchProducts(this.props.match.params.categId));
+    dispatch(fetchProducts(this.props.match.params.categId, null));
   }
 
   hasCurrentCategory(product) {
@@ -34,7 +34,7 @@ class CategoryProducts extends Component {
   }
 }
 
-CategoryProducts.propTypes = {
+Products.propTypes = {
   dispatch: PropTypes.func.isRequired,
   loading: PropTypes.number.isRequired,
   products: PropTypes.arrayOf(
@@ -70,4 +70,4 @@ function mapDispatchToProps(dispatch) {
   return Object.assign({ dispatch }, bindActionCreators({ fetchProducts }, dispatch));
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CategoryProducts);
+export default connect(mapStateToProps, mapDispatchToProps)(Products);
