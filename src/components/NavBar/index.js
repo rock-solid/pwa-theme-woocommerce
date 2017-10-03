@@ -20,22 +20,20 @@ class NavBar extends Component {
 
   render() {
     return (
-      <Segment basic color="purple" inverted size="tiny">
+      <Segment basic color="purple" inverted size="small">
         <Grid columns="three" relaxed>
           <Grid.Row>
             <Grid.Column floated="left" width={1}>
               <Icon name="content" size="large" onClick={this.showSidebar} />
             </Grid.Column>
             <Grid.Column>
-              <Link className="shop-name" to="/" centered>
+              <Link className="shop-name" to="/">
                 MY SHOP
               </Link>
             </Grid.Column>
             <Grid.Column>
-              <Icon.Group className="right-icons">
-                <Icon name="search" size="large" />
-                <Icon name="cart" size="large" />
-              </Icon.Group>
+              <Icon name="search" size="large" />
+              <Icon name="cart" size="large" />
             </Grid.Column>
           </Grid.Row>
         </Grid>
