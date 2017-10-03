@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Header, Loader } from 'semantic-ui-react';
 import { fetchCategories } from './actions';
 import { getCategories, getCategoriesFetching } from './reducer';
-import { Loader } from 'semantic-ui-react';
 import CategoriesList from '../../components/CategoriesList';
 
 class Categories extends Component {
@@ -22,7 +22,12 @@ class Categories extends Component {
       );
     }
 
-    return <CategoriesList categories={this.props.categories} />;
+    return (
+      <div>
+        <Header textAlign="center">Categories</Header>
+        <CategoriesList categories={this.props.categories} />
+      </div>
+    );
   }
 }
 
