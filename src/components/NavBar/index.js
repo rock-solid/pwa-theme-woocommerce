@@ -27,13 +27,15 @@ class NavBar extends Component {
               <Icon name="content" size="large" onClick={this.showSidebar} />
             </Grid.Column>
             <Grid.Column>
-              <Link className="shop-name" to="/">
+              <Link className="shop-name" to="/" centered>
                 MY SHOP
               </Link>
             </Grid.Column>
             <Grid.Column>
-              <Icon name="search" size="large" />
-              <Icon name="cart" size="large" />
+              <Icon.Group className="right-icons">
+                <Icon name="search" size="large" />
+                <Icon name="cart" size="large" />
+              </Icon.Group>
             </Grid.Column>
           </Grid.Row>
         </Grid>

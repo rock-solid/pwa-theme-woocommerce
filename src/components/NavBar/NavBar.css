@@ -1,3 +1,10 @@
+.shop-name:focus,
 .shop-name {
   color: white;
+  margin-left: 1rem;
+}
+
+.right-icons,
+.cart {
+  margin-left: 2rem !important;
 }
