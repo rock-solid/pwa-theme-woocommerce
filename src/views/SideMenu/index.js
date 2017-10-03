@@ -8,6 +8,11 @@ const SideMenu = props => (
     <Header as="h2" inverted>
       MENU
     </Header>
+    <Link to="/" onClick={props.closeMenu}>
+      <Menu.Item name="home">
+        <Icon name="home" />Home
+      </Menu.Item>
+    </Link>
     <Link to="/categories" onClick={props.closeMenu}>
       <Menu.Item name="categories">
         <Icon name="browser" />Categories
