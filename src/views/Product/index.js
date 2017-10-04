@@ -14,7 +14,7 @@ class Product extends Component {
   }
 
   getProduct(productId) {
-    return this.props.products.find(product => product.id === productId);
+    return this.props.products.find(product => product.id === Number(productId));
   }
 
   render() {
@@ -26,13 +26,11 @@ class Product extends Component {
       );
     }
 
-    const product = this.getProduct(this.props.match.params.productId);
-
-    if (typeof product === 'undefined') {
+    if (this.props.products.length === 0) {
       return <p>Product does not exist</p>;
     }
 
-    return <ProductDetails {...product} />;
+    return <ProductDetails product={this.getProduct(this.props.match.params.productId)} />;
   }
 }
 
