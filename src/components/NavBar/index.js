@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Grid, Segment, Icon } from 'semantic-ui-react';
+import { Grid, Segment, Icon, Label } from 'semantic-ui-react';
 import { openMenu } from './actions';
 import './NavBar.css';
 
@@ -33,7 +33,12 @@ class NavBar extends Component {
             </Grid.Column>
             <Grid.Column>
               <Icon name="search" size="large" />
-              <Icon name="cart" size="large" />
+              <Icon.Group>
+                <Icon name="cart" size="large" />
+                <Label color="orange" size="mini" floating circular className="cart-counter">
+                  2
+                </Label>
+              </Icon.Group>
             </Grid.Column>
           </Grid.Row>
         </Grid>
