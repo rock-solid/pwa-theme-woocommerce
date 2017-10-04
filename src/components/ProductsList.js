@@ -13,6 +13,7 @@ class ProductsList extends Component {
         name={element.name}
         price={element.price}
         categories={element.categories}
+        productId={element.id}
       />
     ));
 

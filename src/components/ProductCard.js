@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 import { Card, Image, Button, Grid, Header } from 'semantic-ui-react';
 
@@ -22,9 +23,11 @@ class ProductCard extends Component {
               </Card.Header>
             </Grid.Row>
             <Grid.Row>
-              <Button color="purple" compact>
-                Shop Now &gt;
-              </Button>
+              <Link to={'/product/' + this.props.productId}>
+                <Button color="purple" compact>
+                  Shop Now &gt;
+                </Button>
+              </Link>
             </Grid.Row>
           </Grid>
         </Card.Content>
@@ -37,6 +40,7 @@ ProductCard.propTypes = {
   name: PropTypes.string.isRequired,
   src: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
+  productId: PropTypes.number.isRequired,
   categories: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
