@@ -1,6 +1,23 @@
 import { combineReducers } from 'redux';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { REQUEST_PRODUCTS, RECEIVE_PRODUCTS } from './actions';
+
+export const productPropType = PropTypes.shape({
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  price: PropTypes.string.isRequired,
+  images: PropTypes.arrayOf(
+    PropTypes.shape({
+      src: PropTypes.string.isRequired,
+    }),
+  ),
+  categories: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
+});
 
 const items = (state = [], action) => {
   switch (action.type) {

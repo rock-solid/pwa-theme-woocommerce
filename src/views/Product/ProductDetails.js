@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Header, Card, Image, Icon, Button } from 'semantic-ui-react';
-import Rating from './Rating';
+import { productPropType } from '../Products/reducer';
+import Rating from '../../components/Rating';
 
 class ProductDetails extends Component {
   getCategories() {
@@ -49,14 +50,7 @@ class ProductDetails extends Component {
 }
 
 ProductDetails.propTypes = {
-  product: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      price: PropTypes.string.isRequired,
-    }),
-  ]).isRequired,
+  product: productPropType.isRequired,
 };
 
 export default ProductDetails;

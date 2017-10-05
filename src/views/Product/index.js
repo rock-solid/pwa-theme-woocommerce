@@ -3,18 +3,25 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { Loader } from 'semantic-ui-react';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import { fetchProducts } from '../Products/actions';
-import { getProducts, getProductsFetching } from '../Products/reducer';
-import ProductDetails from '../../components/ProductDetails';
+import { getProducts, getProductsFetching, productPropType } from '../Products/reducer';
+import ProductDetails from './ProductDetails';
 
 class Product extends Component {
   componentWillMount() {
-    const { dispatch } = this.props;
-    dispatch(fetchProducts(null, this.props.match.params.productId));
+    this.readProduct(this.props.match.params.productId);
   }
 
-  getProduct(productId) {
-    return this.props.products.find(product => product.id === Number(productId));
+  componentWillReceiveProps(nextProps) {
+    if (this.props.match.params.productId !== nextProps.match.params.productId) {
+      this.readProduct(nextProps.match.params.productId);
+    }
+  }
+
+  readProduct(productId) {
+    const { dispatch } = this.props;
+    dispatch(fetchProducts(null, productId));
   }
 
   render() {
@@ -26,11 +33,13 @@ class Product extends Component {
       );
     }
 
-    if (this.props.products.length === 0) {
+    const product = this.props.products.find(obj => obj.id === Number(this.props.match.params.productId));
+
+    if (_.isNil(product)) {
       return <p>Product does not exist</p>;
     }
 
-    return <ProductDetails product={this.getProduct(this.props.match.params.productId)} />;
+    return <ProductDetails product={product} />;
   }
 }
 
@@ -42,7 +51,7 @@ Product.propTypes = {
       productId: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
-  products: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
+  products: PropTypes.arrayOf(productPropType).isRequired,
 };
 
 const mapStateToProps = state => ({
