@@ -5,12 +5,10 @@ import Rating from './Rating';
 
 class ProductDetails extends Component {
   getCategories() {
-    const categories = [];
-    this.props.product.categories.forEach((category) => {
-      categories.push(category.name);
-    });
-
-    return categories.join(', ');
+    return this.props.product.categories.reduce(
+      (categString, category, index) => categString + category.name + (index === this.props.product.categories.length - 1 ? '' : ', '),
+      ' ',
+    );
   }
 
   render() {
@@ -21,7 +19,7 @@ class ProductDetails extends Component {
           <Image src={this.props.product.images[0].src} />
           <Card.Content extra>
             {Number(this.props.product.average_rating) === 0 ? (
-              <p>Not yet rated</p>
+              <p>No ratings</p>
             ) : (
               <Rating rating={Number(this.props.product.average_rating)} ratingCount={this.props.product.rating_count} />
             )}
