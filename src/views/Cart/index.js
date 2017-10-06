@@ -8,40 +8,43 @@ import { getCart } from './reducer';
 class Cart extends Component {
   createProductRows() {
     return this.props.cart.map(product => (
-      <Grid.Row centered>
+      <Grid.Row centered key={product.id}>
         <Grid.Column width={4} textAlign="center">
           <Image shape="circular" src={product.image} />
         </Grid.Column>
-        <Grid.Column width={4}>{product.name}</Grid.Column>
+        <Grid.Column width={5}>{product.name}</Grid.Column>
         <Grid.Column width={4}>
-          {product.quantity} x $ {product.price}
+          {product.quantity} x ${product.price}
         </Grid.Column>
-        <Grid.Column width={4}>$ {product.price * product.quantity} </Grid.Column>
+        <Grid.Column width={3}>${product.price * product.quantity} </Grid.Column>
       </Grid.Row>
     ));
   }
 
   createOrderSummary() {
-    const itemsPrice = this.props.cart.reduce((total, item) => total + Number(item.price) * item.quantity, 0);
+    const itemsPrice = this.props.cart.reduce(
+      (total, item) => total + Number(item.price) * item.quantity,
+      0,
+    );
 
     return (
       <Grid doubling>
         <Grid.Row>
-          <Grid.Column>Items price</Grid.Column>
-          <Grid.Column textAlign="right" width={13}>
-            $ {itemsPrice}
+          <Grid.Column width={12}>Items price</Grid.Column>
+          <Grid.Column textAlign="right" width={4}>
+            ${itemsPrice}
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
-          <Grid.Column>Transportation price</Grid.Column>
-          <Grid.Column textAlign="right" width={13}>
-            $ 10
+          <Grid.Column width={12}>Transportation price</Grid.Column>
+          <Grid.Column textAlign="right" width={4}>
+            $10
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
-          <Grid.Column>Total</Grid.Column>
-          <Grid.Column textAlign="right" width={13}>
-            $ {itemsPrice + 10}
+          <Grid.Column width={12}>Total</Grid.Column>
+          <Grid.Column textAlign="right" width={4}>
+            ${itemsPrice + 10}
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -55,7 +58,7 @@ class Cart extends Component {
       </Segment>
     ) : (
       <div>
-        <Header textAlign="center">Cart</Header>
+        <Header textAlign="center">Shopping Cart</Header>
         <Card centered raised>
           <Card.Content>
             <Card.Header as={Header} textAlign="left">
