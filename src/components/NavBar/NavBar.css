@@ -11,3 +11,8 @@
 .cart-counter {
   left: 111% !important;
 }
+
+.cart-link:focus,
+.cart-link {
+  color: white;
+}
