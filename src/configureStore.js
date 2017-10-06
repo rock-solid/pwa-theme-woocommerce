@@ -7,6 +7,7 @@ import sideMenuVisible from './components/NavBar/reducer';
 
 import categories from './views/Categories/reducer';
 import products from './views/Products/reducer';
+import cart from './views/Cart/reducer';
 
 const history = createHistory();
 
@@ -19,9 +20,12 @@ const defaultState = {
     items: [],
     isFetching: 0,
   },
+  cart: {
+    items: [],
+  },
 };
 
-const rootReducer = combineReducers({ sideMenuVisible, categories, products });
+const rootReducer = combineReducers({ sideMenuVisible, categories, products, cart });
 
 const store = createStore(rootReducer, defaultState, applyMiddleware(thunk, logger, routerMiddleware(history)));
 

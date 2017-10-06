@@ -10,6 +10,7 @@ import Home from './views/Home';
 import Products from './views/Products';
 import Categories from './views/Categories';
 import Product from './views/Product';
+import Cart from './views/Cart';
 
 import './index.css';
 
@@ -22,6 +23,7 @@ render(
           <Route path="/categories" component={Categories} />
           <Route path="/category/:categId" component={Products} />
           <Route path="/product/:productId" component={Product} />
+          <Route path="/cart" component={Cart} />
         </Switch>
       </App>
     </HashRouter>

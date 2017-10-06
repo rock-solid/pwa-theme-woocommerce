@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Grid, Segment, Icon, Label } from 'semantic-ui-react';
 import { openMenu } from './actions';
+import { getCart } from '../../views/Cart/reducer';
 import './NavBar.css';
 
 class NavBar extends Component {
@@ -11,6 +13,11 @@ class NavBar extends Component {
     super(props);
 
     this.showSidebar = this.showSidebar.bind(this);
+  }
+
+  getQuantity() {
+    const cart = this.props.cart;
+    return cart.reduce((quantity, item) => item.quantity + quantity, 0);
   }
 
   showSidebar(e) {
@@ -35,9 +42,9 @@ class NavBar extends Component {
               <Icon name="search" size="large" />
               <Icon.Group>
                 <Icon name="cart" size="large" />
-                <Label color="orange" size="mini" floating circular className="cart-counter">
-                  2
-                </Label>
+                {_.isEmpty(this.props.cart) ? null : (
+                  <Label color="orange" size="mini" floating circular content={this.getQuantity()} className="cart-counter" />
+                )}
               </Icon.Group>
             </Grid.Column>
           </Grid.Row>
@@ -49,6 +56,16 @@ class NavBar extends Component {
 
 NavBar.propTypes = {
   openMenu: PropTypes.func.isRequired,
+  cart: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      quantity: PropTypes.number.isRequired,
+    }),
+  ).isRequired,
 };
 
-export default connect(null, { openMenu })(NavBar);
+const mapStateToProps = state => ({
+  cart: getCart(state.cart),
+});
+
+export default connect(mapStateToProps, { openMenu })(NavBar);
