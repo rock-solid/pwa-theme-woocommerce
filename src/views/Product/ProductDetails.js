@@ -1,16 +1,30 @@
-import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Header, Card, Image, Icon, Button } from 'semantic-ui-react';
-import Rating from './Rating';
+import { productPropType } from '../Products/reducer';
+import { addProduct } from '../Cart/actions';
+import Rating from '../../components/Rating';
 
 class ProductDetails extends Component {
-  getCategories() {
-    const categories = [];
-    this.props.product.categories.forEach((category) => {
-      categories.push(category.name);
-    });
+  constructor(props) {
+    super(props);
 
-    return categories.join(', ');
+    this.addItem = this.addItem.bind(this);
+  }
+
+  getCategories() {
+    return this.props.product.categories.reduce(
+      (categString, category, index) => categString + category.name + (index === this.props.product.categories.length - 1 ? '' : ', '),
+      ' ',
+    );
+  }
+
+  addItem() {
+    const { dispatch } = this.props;
+    const product = this.props.product;
+    dispatch(addProduct(product.id, product.name, product.price, product.images[0].src));
   }
 
   render() {
@@ -21,7 +35,7 @@ class ProductDetails extends Component {
           <Image src={this.props.product.images[0].src} />
           <Card.Content extra>
             {Number(this.props.product.average_rating) === 0 ? (
-              <p>Not yet rated</p>
+              <p>No ratings</p>
             ) : (
               <Rating rating={Number(this.props.product.average_rating)} ratingCount={this.props.product.rating_count} />
             )}
@@ -29,7 +43,7 @@ class ProductDetails extends Component {
           {this.props.product.categories.length === 0 ? null : <Card.Content>Categories: {this.getCategories()}</Card.Content>}
           <Card.Content>Stock: {this.props.product.in_stock ? 'In Stock' : 'Out of Stock'}</Card.Content>
           <Card.Content>Price: {this.props.product.price}$</Card.Content>
-          <Button color="purple" fluid>
+          <Button color="purple" fluid onClick={this.addItem}>
             ADD TO CART &nbsp;<Icon name="cart" />
           </Button>
         </Card>
@@ -51,14 +65,12 @@ class ProductDetails extends Component {
 }
 
 ProductDetails.propTypes = {
-  product: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      price: PropTypes.string.isRequired,
-    }),
-  ]).isRequired,
+  dispatch: PropTypes.func.isRequired,
+  product: productPropType.isRequired,
 };
 
-export default ProductDetails;
+function mapDispatchToProps(dispatch) {
+  return Object.assign({ dispatch }, bindActionCreators({ addProduct }, dispatch));
+}
+
+export default connect(null, mapDispatchToProps)(ProductDetails);
