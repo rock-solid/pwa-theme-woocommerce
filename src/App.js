@@ -7,6 +7,8 @@ import { closeMenu } from './components/NavBar/actions';
 import NavBar from './components/NavBar';
 import SideMenu from './views/SideMenu';
 
+import './App.css';
+
 class App extends Component {
   constructor(props) {
     super(props);
