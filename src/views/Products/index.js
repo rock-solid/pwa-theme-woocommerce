@@ -9,14 +9,24 @@ import ProductsList from '../../components/ProductsList';
 
 class Products extends Component {
   componentWillMount() {
-    const { dispatch } = this.props;
-    dispatch(fetchProducts({ categoryId: this.props.match.params.categId }));
+    this.readProducts(this.props.match.params.categId);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.match.params.categId !== nextProps.match.params.categId) {
+      this.readProducts(nextProps.match.params.categId);
+    }
   }
 
   getCategoryName(categories) {
     return categories.find(
       category => Number(category.id) === Number(this.props.match.params.categId),
     ).name;
+  }
+
+  readProducts(categoryId) {
+    const { dispatch } = this.props;
+    dispatch(fetchProducts({ categoryId }));
   }
 
   hasCurrentCategory(product) {
@@ -35,9 +45,10 @@ class Products extends Component {
       );
     }
 
-    const filteredProducts = this.props.products.filter(product =>
-      this.hasCurrentCategory(product),
-    );
+    let filteredProducts = [];
+    if (this.props.products.length > 0) {
+      filteredProducts = this.props.products.filter(product => this.hasCurrentCategory(product));
+    }
 
     if (filteredProducts.length === 0) {
       return <p>No products found.</p>;
