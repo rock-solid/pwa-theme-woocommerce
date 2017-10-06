@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import { Loader } from 'semantic-ui-react';
 import { fetchProducts } from './actions';
 import { getProductsFetching, getProducts, productPropType } from './reducer';
@@ -24,16 +25,22 @@ class Products extends Component {
     ).name;
   }
 
+  getProductsByCategory() {
+    const categoryId = Number(this.props.match.params.categId);
+    if (this.props.products.length === 0) {
+      return [];
+    }
+
+    return this.props.products.filter(
+      product =>
+        Array.isArray(product.categories) &&
+        !_.isNil(_.find(product.categories, { id: categoryId })),
+    );
+  }
+
   readProducts(categoryId) {
     const { dispatch } = this.props;
     dispatch(fetchProducts({ categoryId }));
-  }
-
-  hasCurrentCategory(product) {
-    const categId = this.props.match.params.categId;
-    return (
-      product.categories.find(category => Number(category.id) === Number(categId)) !== undefined
-    );
   }
 
   render() {
@@ -45,10 +52,7 @@ class Products extends Component {
       );
     }
 
-    let filteredProducts = [];
-    if (this.props.products.length > 0) {
-      filteredProducts = this.props.products.filter(product => this.hasCurrentCategory(product));
-    }
+    const filteredProducts = this.getProductsByCategory();
 
     if (filteredProducts.length === 0) {
       return <p>No products found.</p>;
