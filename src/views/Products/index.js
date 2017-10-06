@@ -38,9 +38,9 @@ class Products extends Component {
     );
   }
 
-  readProducts(categoryId) {
+  readProducts(categId) {
     const { dispatch } = this.props;
-    dispatch(fetchProducts({ categoryId }));
+    dispatch(fetchProducts({ categId }));
   }
 
   render() {

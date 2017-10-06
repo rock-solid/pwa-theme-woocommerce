@@ -19,11 +19,9 @@ export const fetchProducts = (params = {}) => (dispatch) => {
   let url;
   if (params && params.id) {
     url = config.API_PRODUCT_URL + String(params.id);
-  } else if (params && params.categoryId) {
-    url = config.API_CATEGORY_PRODUCTS_URL + String(params.categoryId);
   } else {
     url =
-      config.API_CATEGORY_PRODUCTS_URL +
+      config.API_PRODUCTS_URL +
       '?' +
       Object.keys(params)
         .map(k => k + '=' + encodeURIComponent(params[k]))
