@@ -10,7 +10,7 @@ import ProductsList from '../../components/ProductsList';
 class Products extends Component {
   componentWillMount() {
     const { dispatch } = this.props;
-    dispatch(fetchProducts(this.props.match.params.categId, null));
+    dispatch(fetchProducts({ categoryId: this.props.match.params.categId }));
   }
 
   getCategoryName(categories) {

@@ -21,7 +21,7 @@ class Product extends Component {
 
   readProduct(productId) {
     const { dispatch } = this.props;
-    dispatch(fetchProducts(null, productId));
+    dispatch(fetchProducts({ id: productId }));
   }
 
   render() {
@@ -33,7 +33,9 @@ class Product extends Component {
       );
     }
 
-    const product = this.props.products.find(obj => obj.id === Number(this.props.match.params.productId));
+    const product = this.props.products.find(
+      obj => obj.id === Number(this.props.match.params.productId),
+    );
 
     if (_.isNil(product)) {
       return <p>Product does not exist</p>;

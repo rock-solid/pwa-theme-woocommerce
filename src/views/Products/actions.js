@@ -13,10 +13,22 @@ export const receiveProducts = products => ({
   products,
 });
 
-export const fetchProducts = (categId, productId) => (dispatch) => {
+export const fetchProducts = (params = {}) => (dispatch) => {
   dispatch(requestProducts());
 
-  const url = productId === null ? config.API_CATEGORY_PRODUCTS_URL + categId : config.API_PRODUCT_URL + productId;
+  let url;
+  if (params && params.id) {
+    url = config.API_PRODUCT_URL + String(params.id);
+  } else if (params && params.categoryId) {
+    url = config.API_CATEGORY_PRODUCTS_URL + String(params.categoryId);
+  } else {
+    url =
+      config.API_CATEGORY_PRODUCTS_URL +
+      '?' +
+      Object.keys(params)
+        .map(k => k + '=' + encodeURIComponent(params[k]))
+        .join('&');
+  }
 
   return fetch(url)
     .then(response => response.json())
