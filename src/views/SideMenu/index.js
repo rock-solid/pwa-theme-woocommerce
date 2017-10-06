@@ -3,8 +3,20 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Sidebar, Menu, Icon, Header } from 'semantic-ui-react';
 
+import './styles.css';
+
 const SideMenu = props => (
-  <Sidebar as={Menu} borderless animation="overlay" width="thin" visible={props.isVisible} icon="labeled" vertical inverted color="purple">
+  <Sidebar
+    as={Menu}
+    borderless
+    animation="overlay"
+    width="thin"
+    visible={props.isVisible}
+    icon="labeled"
+    vertical
+    inverted
+    color="purple"
+  >
     <Header as="h2" inverted>
       MENU
     </Header>

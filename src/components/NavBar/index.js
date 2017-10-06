@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Grid, Segment, Icon, Label } from 'semantic-ui-react';
+import { Segment, Icon, Label, Menu } from 'semantic-ui-react';
 import { openMenu } from './actions';
 import { getCart } from '../../views/Cart/reducer';
 import './NavBar.css';
@@ -27,30 +27,30 @@ class NavBar extends Component {
 
   render() {
     return (
-      <Segment basic color="purple" inverted size="small">
-        <Grid columns="three" relaxed>
-          <Grid.Row>
-            <Grid.Column floated="left" width={1}>
-              <Icon name="content" size="large" onClick={this.showSidebar} />
-            </Grid.Column>
-            <Grid.Column>
-              <Link className="shop-name" to="/">
-                MY SHOP
-              </Link>
-            </Grid.Column>
-            <Grid.Column>
-              <Icon name="search" size="large" />
+      <Segment basic color="purple" inverted size="small" className="nav-bar">
+        <Menu fluid secondary>
+          <Menu.Item onClick={this.showSidebar} fitted>
+            <Icon name="content" size="large" onClick={this.showSidebar} className="shop-icon" />
+          </Menu.Item>
+          <Menu.Item className="shop-name" fitted>
+            <Link to="/">MY SHOP</Link>
+          </Menu.Item>
+          <Menu.Item position="right" fitted>
+            <Menu.Item fitted>
+              <Icon name="search" size="large" className="shop-icon" />
+            </Menu.Item>
+            <Menu.Item fitted>
               <Icon.Group>
                 <Link to="/cart" className="cart-link">
-                  <Icon name="cart" size="large" />
+                  <Icon name="cart" size="large" className="shop-icon" />
                   {_.isEmpty(this.props.cart) ? null : (
                     <Label color="orange" size="mini" floating circular content={this.getQuantity()} className="cart-counter" />
                   )}
                 </Link>
               </Icon.Group>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
+            </Menu.Item>
+          </Menu.Item>
+        </Menu>
       </Segment>
     );
   }

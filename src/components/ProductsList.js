@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Header } from 'semantic-ui-react';
 import ProductCard from './ProductCard';
+import { productPropType } from '../views/Products/reducer';
 
 class ProductsList extends Component {
   render() {
@@ -27,23 +28,7 @@ class ProductsList extends Component {
 }
 
 ProductsList.propTypes = {
-  products: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      price: PropTypes.string.isRequired,
-      images: PropTypes.arrayOf(
-        PropTypes.shape({
-          src: PropTypes.string.isRequired,
-        }),
-      ),
-      categories: PropTypes.arrayOf(
-        PropTypes.shape({
-          name: PropTypes.string.isRequired,
-        }),
-      ).isRequired,
-    }),
-  ).isRequired,
+  products: PropTypes.arrayOf(productPropType).isRequired,
   categoryName: PropTypes.string.isRequired,
 };
 
