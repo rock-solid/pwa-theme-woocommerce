@@ -1,11 +1,14 @@
-.shop-name:focus,
 .shop-name {
+  text-align: center;
+  flex: 1;
+}
+.shop-name a:focus,
+.shop-name a {
   color: white;
-  margin-left: 1rem;
 }
 
-.search {
-  margin-left: 2rem !important;
+.shop-icon {
+  color: white;
 }
 
 .cart-counter {
