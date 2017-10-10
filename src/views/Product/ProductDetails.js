@@ -38,7 +38,7 @@ class ProductDetails extends Component {
       <div>
         <Header textAlign="center">{this.props.product.name}</Header>
         <Card centered raised>
-          <ImageGallery items={this.getImageGallery()} showPlayButton={false} showThumbnails={false} />
+          <ImageGallery items={this.getImageGallery()} slideDuration={550} showPlayButton={false} showThumbnails={false} />
           <Card.Content extra>
             {Number(this.props.product.average_rating) === 0 ? (
               <p>No ratings</p>
