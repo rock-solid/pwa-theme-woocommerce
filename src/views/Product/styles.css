@@ -1,0 +1,10 @@
+.image-gallery-right-nav::before,
+.image-gallery-left-nav::before,
+.image-gallery-fullscreen-button::before {
+  text-shadow: 0 1px 1px #999;
+}
+
+.image-gallery-right-nav:hover::before,
+.image-gallery-left-nav:hover::before {
+  color: #a333c8;
+}

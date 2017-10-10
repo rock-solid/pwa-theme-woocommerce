@@ -8,6 +8,7 @@ import ImageGallery from 'react-image-gallery';
 import { productPropType } from '../Products/reducer';
 import { addProduct } from '../Cart/actions';
 import Rating from '../../components/Rating';
+import './styles.css';
 
 class ProductDetails extends Component {
   constructor(props) {
