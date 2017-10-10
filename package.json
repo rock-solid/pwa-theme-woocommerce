@@ -12,7 +12,6 @@
     "redux-devtools": "^3.4.0"
   },
   "dependencies": {
-    "semantic-ui-react": "^0.72.0",
     "google-maps-react": "^1.0.19",
     "history": "^4.6.1",
     "invariant": "^2.2.2",
@@ -27,11 +26,12 @@
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
     "react-router-redux": "^4.0.8",
-    "react-share": "^1.15.0",
+    "react-share": "^1.16.0",
     "redux": "^3.6.0",
     "redux-logger": "^3.0.6",
     "redux-polyglot": "^0.5.3",
     "redux-thunk": "^2.2.0",
+    "semantic-ui-react": "^0.72.0",
     "whatwg-fetch": "^2.0.3"
   },
   "scripts": {
