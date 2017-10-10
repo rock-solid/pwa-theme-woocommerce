@@ -35,13 +35,11 @@ class ProductDetails extends Component {
         <Header textAlign="center">{this.props.product.name}</Header>
         <Card centered raised>
           <Image src={this.props.product.images[0].src} />
-          <Card.Content extra>
-            {Number(this.props.product.average_rating) === 0 ? (
-              <p>No ratings</p>
-            ) : (
+          {Number(this.props.product.average_rating) === 0 ? null : (
+            <Card.Content extra>
               <Rating rating={Number(this.props.product.average_rating)} ratingCount={this.props.product.rating_count} />
-            )}
-          </Card.Content>
+            </Card.Content>
+          )}
           {this.props.product.categories.length === 0 ? null : <Card.Content>Categories: {this.getCategories()}</Card.Content>}
           <Card.Content>Stock: {this.props.product.in_stock ? 'In Stock' : 'Out of Stock'}</Card.Content>
           <Card.Content>Price: {this.props.product.price}$</Card.Content>
