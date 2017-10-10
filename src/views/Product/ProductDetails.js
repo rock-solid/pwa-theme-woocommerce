@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Header, Card, Image, Icon, Button } from 'semantic-ui-react';
+import { Header, Card, Image, Icon, Button, Grid } from 'semantic-ui-react';
+import { ShareButtons } from 'react-share';
 import { productPropType } from '../Products/reducer';
 import { addProduct } from '../Cart/actions';
 import Rating from '../../components/Rating';
+import './styles.css';
 
 class ProductDetails extends Component {
   constructor(props) {
@@ -59,6 +61,32 @@ class ProductDetails extends Component {
             </Card.Content>
           </Card>
         )}
+        <Card centered raised>
+          <Card.Content>
+            <Card.Header as={Header} size="tiny">
+              Share product
+            </Card.Header>
+            <Grid doubling centered>
+              <Grid.Row>
+                <Grid.Column width={4}>
+                  <ShareButtons.FacebookShareButton className="no-outline" url={this.props.product.permalink}>
+                    <Icon name="facebook f" color="purple" size="big" />
+                  </ShareButtons.FacebookShareButton>
+                </Grid.Column>
+                <Grid.Column width={4}>
+                  <ShareButtons.GooglePlusShareButton className="no-outline" url={this.props.product.permalink}>
+                    <Icon name="google plus" color="purple" size="big" />
+                  </ShareButtons.GooglePlusShareButton>
+                </Grid.Column>
+                <Grid.Column width={4}>
+                  <ShareButtons.TwitterShareButton className="no-outline" url={this.props.product.permalink}>
+                    <Icon name="twitter" color="purple" size="big" />
+                  </ShareButtons.TwitterShareButton>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </Card.Content>
+        </Card>
       </div>
     );
   }
