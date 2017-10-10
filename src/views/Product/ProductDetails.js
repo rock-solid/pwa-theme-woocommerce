@@ -6,6 +6,7 @@ import { Header, Card, Image, Icon, Button } from 'semantic-ui-react';
 import { productPropType } from '../Products/reducer';
 import { addProduct } from '../Cart/actions';
 import Rating from '../../components/Rating';
+import Reviews from '../../components/Reviews';
 
 class ProductDetails extends Component {
   constructor(props) {
@@ -59,6 +60,7 @@ class ProductDetails extends Component {
             </Card.Content>
           </Card>
         )}
+        <Reviews productId={this.props.product.id} />
       </div>
     );
   }
