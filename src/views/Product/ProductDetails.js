@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Header, Card, Image, Icon, Button } from 'semantic-ui-react';
+import { Header, Card, Icon, Button } from 'semantic-ui-react';
+import 'react-image-gallery/styles/css/image-gallery.css';
+import ImageGallery from 'react-image-gallery';
 import { productPropType } from '../Products/reducer';
 import { addProduct } from '../Cart/actions';
 import Rating from '../../components/Rating';
@@ -21,6 +23,10 @@ class ProductDetails extends Component {
     );
   }
 
+  getImageGallery() {
+    return this.props.product.images.map(image => ({ original: image.src }));
+  }
+
   addItem() {
     const { dispatch } = this.props;
     const product = this.props.product;
@@ -32,7 +38,7 @@ class ProductDetails extends Component {
       <div>
         <Header textAlign="center">{this.props.product.name}</Header>
         <Card centered raised>
-          <Image src={this.props.product.images[0].src} />
+          <ImageGallery items={this.getImageGallery()} showPlayButton={false} showThumbnails={false} />
           <Card.Content extra>
             {Number(this.props.product.average_rating) === 0 ? (
               <p>No ratings</p>
