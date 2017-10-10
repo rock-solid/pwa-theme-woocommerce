@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { Card, Header } from 'semantic-ui-react';
 import { fetchReviews } from './actions';
 import { getReviewsFetching, getReviews, reviewPropType } from './reducer';
-import ReviewsList from './ReviewsList';
+import Review from './Review';
 
 class Reviews extends Component {
   componentWillMount() {
@@ -21,7 +21,7 @@ class Reviews extends Component {
           <Card.Header as={Header} size="tiny">
             Reviews
           </Card.Header>
-          <ReviewsList reviews={this.props.reviews} />
+          {this.props.reviews.map(review => <Review rating={review.rating} reviewer={review.name} content={review.review} />)}
         </Card.Content>
       </Card>
     );

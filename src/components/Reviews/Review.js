@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Rating from '../Rating';
-import './Reviews.css';
+import './styles.css';
 
 class Review extends Component {
   render() {

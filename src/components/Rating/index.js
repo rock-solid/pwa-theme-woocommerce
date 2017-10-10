@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Icon } from 'semantic-ui-react';
-import './General.css';
+import './styles.css';
 
 class Rating extends Component {
   generateStarRating() {
