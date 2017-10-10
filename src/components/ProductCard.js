@@ -5,9 +5,7 @@ import { Card, Image, Button, Header } from 'semantic-ui-react';
 
 class ProductCard extends Component {
   render() {
-    const categories = this.props.categories.map(category => (
-      <Header.Subheader key={category.id}>{category.name}</Header.Subheader>
-    ));
+    const categories = this.props.categories.map(category => <Header.Subheader key={category.id}>{category.name}</Header.Subheader>);
 
     return (
       <Card raised centered>
@@ -17,7 +15,7 @@ class ProductCard extends Component {
             {this.props.name}
             <Header.Subheader>{categories}</Header.Subheader>
             <Header.Subheader as={Header} color="purple" size="huge">
-              {this.props.price}$
+              ${this.props.price}
             </Header.Subheader>
           </Card.Header>
         </Card.Content>
