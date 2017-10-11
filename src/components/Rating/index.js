@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Icon } from 'semantic-ui-react';
+import './styles.css';
 
 class Rating extends Component {
   generateStarRating() {
@@ -23,7 +24,7 @@ class Rating extends Component {
         {this.generateStarRating()} ({this.props.ratingCount})
       </div>
     ) : (
-      <div>{this.generateStarRating()}</div>
+      <div className="make-inline">{this.generateStarRating()}</div>
     );
   }
 }
