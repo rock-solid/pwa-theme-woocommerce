@@ -8,6 +8,7 @@ import 'react-image-gallery/styles/css/image-gallery.css';
 import { productPropType } from '../Products/reducer';
 import { addProduct } from '../Cart/actions';
 import Rating from '../../components/Rating';
+import Reviews from '../../components/Reviews';
 import './styles.css';
 
 class ProductDetails extends Component {
@@ -81,6 +82,7 @@ class ProductDetails extends Component {
             </Card.Content>
           </Card>
         )}
+        <Reviews productId={this.props.product.id} />
       </div>
     );
   }
