@@ -8,14 +8,6 @@ import { getCart } from './reducer';
 import { removeProduct, setQuantity } from './actions';
 
 class Cart extends Component {
-  constructor(props) {
-    super(props);
-
-    this.removeItem = this.removeItem.bind(this);
-    this.reduceItemQuantity = this.reduceItemQuantity.bind(this);
-    this.increaseItemQuantity = this.increaseItemQuantity.bind(this);
-  }
-
   reduceItemQuantity(id, quantity) {
     const { dispatch } = this.props;
 
