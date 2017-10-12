@@ -32,17 +32,17 @@ class Cart extends Component {
     dispatch(setQuantity(id, quantity));
   }
 
-  removeItem() {
+  removeItem(id) {
     const { dispatch } = this.props;
 
-    dispatch(removeProduct(1339));
+    dispatch(removeProduct(id));
   }
 
   createProductRows() {
     return this.props.cart.map(product => (
       <Grid.Row centered key={product.id}>
         <Grid.Column width={4} textAlign="center">
-          <Button basic compact size="mini" onClick={this.removeItem}>
+          <Button basic compact size="mini" onClick={this.removeItem.bind(this, product.id)}>
             X
           </Button>
           <Image shape="circular" src={product.image} />
