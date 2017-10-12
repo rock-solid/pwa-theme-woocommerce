@@ -65,7 +65,7 @@ class ProductDetails extends Component {
           <Card.Content>
             Stock: {this.props.product.in_stock ? 'In Stock' : 'Out of Stock'}
           </Card.Content>
-          <Card.Content>Price: {this.props.product.price}$</Card.Content>
+          <Card.Content>Price: ${this.props.product.price}</Card.Content>
           <Button color="purple" fluid onClick={this.addItem}>
             ADD TO CART &nbsp;<Icon name="cart" />
           </Button>
