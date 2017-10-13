@@ -1,4 +1,5 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { reducer as toastrReducer } from 'react-redux-toastr';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import createHistory from 'history/createBrowserHistory';
@@ -30,7 +31,7 @@ const defaultState = {
   },
 };
 
-const rootReducer = combineReducers({ sideMenuVisible, categories, products, reviews, cart });
+const rootReducer = combineReducers({ sideMenuVisible, categories, products, reviews, cart, toastr: toastrReducer });
 
 const store = createStore(rootReducer, defaultState, applyMiddleware(thunk, logger, routerMiddleware(history)));
 
