@@ -21,7 +21,10 @@ class ProductDetails extends Component {
 
   getCategories() {
     return this.props.product.categories.reduce(
-      (categString, category, index) => categString + category.name + (index === this.props.product.categories.length - 1 ? '' : ', '),
+      (categString, category, index) =>
+        categString +
+        category.name +
+        (index === this.props.product.categories.length - 1 ? '' : ', '),
       ' ',
     );
   }
@@ -42,17 +45,27 @@ class ProductDetails extends Component {
       <div>
         <Header textAlign="center">{this.props.product.name}</Header>
         <Card centered raised>
-          <ImageGallery items={this.getImageGallery()} slideDuration={550} showPlayButton={false} showThumbnails={false} />
-          <Card.Content extra>
-            {Number(this.props.product.average_rating) === 0 ? (
-              <p>No ratings</p>
-            ) : (
-              <Rating rating={Number(this.props.product.average_rating)} ratingCount={this.props.product.rating_count} />
-            )}
+          <ImageGallery
+            items={this.getImageGallery()}
+            slideDuration={550}
+            showPlayButton={false}
+            showThumbnails={false}
+          />
+          {Number(this.props.product.average_rating) > 0 ? (
+            <Card.Content extra>
+              <Rating
+                rating={Number(this.props.product.average_rating)}
+                ratingCount={this.props.product.rating_count}
+              />
+            </Card.Content>
+          ) : null}
+          {this.props.product.categories.length === 0 ? null : (
+            <Card.Content>Categories: {this.getCategories()}</Card.Content>
+          )}
+          <Card.Content>
+            Stock: {this.props.product.in_stock ? 'In Stock' : 'Out of Stock'}
           </Card.Content>
-          {this.props.product.categories.length === 0 ? null : <Card.Content>Categories: {this.getCategories()}</Card.Content>}
-          <Card.Content>Stock: {this.props.product.in_stock ? 'In Stock' : 'Out of Stock'}</Card.Content>
-          <Card.Content>Price: {this.props.product.price}$</Card.Content>
+          <Card.Content>Price: ${this.props.product.price}</Card.Content>
           <Button color="purple" fluid onClick={this.addItem}>
             ADD TO CART &nbsp;<Icon name="cart" />
           </Button>
