@@ -18,6 +18,8 @@ export const productPropType = PropTypes.shape({
       name: PropTypes.string.isRequired,
     }),
   ).isRequired,
+  average_rating: PropTypes.string.isRequired,
+  rating_count: PropTypes.number.isRequired,
 });
 
 const items = (state = [], action) => {
