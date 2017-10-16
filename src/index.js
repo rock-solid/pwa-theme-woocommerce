@@ -17,20 +17,18 @@ import './index.css';
 
 render(
   <Provider store={store}>
-    <div>
-      <HashRouter>
-        <App>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/categories" component={Categories} />
-            <Route path="/category/:categId" component={Products} />
-            <Route path="/product/:productId" component={Product} />
-            <Route path="/cart" component={Cart} />
-          </Switch>
-        </App>
-      </HashRouter>
-      <ReduxToastr timeOut={4000} newestOnTop preventDuplicates position="top-center" transitionIn="fadeIn" transitionOut="fadeOut" />
-    </div>
+    <HashRouter>
+      <App>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/categories" component={Categories} />
+          <Route path="/category/:categId" component={Products} />
+          <Route path="/product/:productId" component={Product} />
+          <Route path="/cart" component={Cart} />
+        </Switch>
+        <ReduxToastr timeOut={4000} newestOnTop preventDuplicates position="top-center" transitionIn="fadeIn" transitionOut="fadeOut" />
+      </App>
+    </HashRouter>
   </Provider>,
   document.getElementById('root'),
 );
