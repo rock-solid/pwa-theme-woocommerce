@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { HashRouter, Route, Switch } from 'react-router-dom';
+import ReduxToastr from 'react-redux-toastr';
 import store from './configureStore';
 import registerServiceWorker from './registerServiceWorker';
 import App from './App';
@@ -25,6 +26,7 @@ render(
           <Route path="/product/:productId" component={Product} />
           <Route path="/cart" component={Cart} />
         </Switch>
+        <ReduxToastr timeOut={4000} newestOnTop preventDuplicates position="top-center" transitionIn="fadeIn" transitionOut="fadeOut" />
       </App>
     </HashRouter>
   </Provider>,
