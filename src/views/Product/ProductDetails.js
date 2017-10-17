@@ -3,13 +3,15 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { toastr } from 'react-redux-toastr';
-import { Header, Card, Icon, Button } from 'semantic-ui-react';
-import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
+import { Header, Card, Icon, Button } from 'semantic-ui-react';
+import SocialBox from '../../components/SocialBox';
+import ImageGallery from 'react-image-gallery';
 import { productPropType } from '../Products/reducer';
 import { addProduct } from '../Cart/actions';
 import Rating from '../../components/Rating';
 import Reviews from '../../components/Reviews';
+
 import './styles.css';
 
 class ProductDetails extends Component {
@@ -83,6 +85,7 @@ class ProductDetails extends Component {
           </Card>
         )}
         <Reviews productId={this.props.product.id} />
+        <SocialBox permalink={this.props.product.permalink} />
       </div>
     );
   }
