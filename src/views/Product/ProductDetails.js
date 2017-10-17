@@ -3,13 +3,15 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { toastr } from 'react-redux-toastr';
-import { Header, Card, Icon, Button } from 'semantic-ui-react';
-import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
+import { Header, Card, Icon, Button } from 'semantic-ui-react';
+import SocialBox from '../../components/SocialBox';
+import ImageGallery from 'react-image-gallery';
 import { productPropType } from '../Products/reducer';
 import { addProduct } from '../Cart/actions';
 import Rating from '../../components/Rating';
 import Reviews from '../../components/Reviews';
+
 import './styles.css';
 
 class ProductDetails extends Component {
@@ -43,16 +45,14 @@ class ProductDetails extends Component {
         <Header textAlign="center">{this.props.product.name}</Header>
         <Card centered raised>
           <ImageGallery items={this.getImageGallery()} slideDuration={550} showPlayButton={false} showThumbnails={false} />
-          <Card.Content extra>
-            {Number(this.props.product.average_rating) === 0 ? (
-              <p>No ratings</p>
-            ) : (
+          {Number(this.props.product.average_rating) === 0 ? null : (
+            <Card.Content extra>
               <Rating rating={Number(this.props.product.average_rating)} ratingCount={this.props.product.rating_count} />
-            )}
-          </Card.Content>
+            </Card.Content>
+          )}
           {this.props.product.categories.length === 0 ? null : <Card.Content>Categories: {this.getCategories()}</Card.Content>}
           <Card.Content>Stock: {this.props.product.in_stock ? 'In Stock' : 'Out of Stock'}</Card.Content>
-          <Card.Content>Price: {this.props.product.price}$</Card.Content>
+          <Card.Content>Price: ${this.props.product.price}</Card.Content>
           <Button color="purple" fluid onClick={this.addItem}>
             ADD TO CART &nbsp;<Icon name="cart" />
           </Button>
@@ -70,6 +70,7 @@ class ProductDetails extends Component {
           </Card>
         )}
         <Reviews productId={this.props.product.id} />
+        <SocialBox permalink={this.props.product.permalink} />
       </div>
     );
   }
