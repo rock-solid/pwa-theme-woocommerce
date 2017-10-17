@@ -72,7 +72,9 @@ class CartProduct extends Component {
               <Grid.Column width={4} textAlign="center">
                 <Image shape="circular" src={this.props.product.image} />
               </Grid.Column>
-              <Grid.Column width={5}>{this.props.product.name}</Grid.Column>
+              <Grid.Column width={5} className="break-words">
+                {this.props.product.name}
+              </Grid.Column>
               <Grid.Column width={4}>
                 {this.state.quantity} x ${this.props.product.price}
               </Grid.Column>

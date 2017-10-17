@@ -42,7 +42,9 @@ class ProductDetails extends Component {
   render() {
     return (
       <div>
-        <Header textAlign="center">{this.props.product.name}</Header>
+        <Header textAlign="center" className="break-words">
+          {this.props.product.name}
+        </Header>
         <Card centered>
           <ImageGallery items={this.getImageGallery()} slideDuration={550} showPlayButton={false} showThumbnails={false} />
           {this.props.product.rating_count > 0 ? (
