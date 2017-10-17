@@ -2,11 +2,20 @@ html.ios {
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
 }
-html.ios,
-html.ios body {
-  height: 100% !important;
+
+body {
+  height: auto;
 }
 
+.pushable {
+  min-height: 100vh !important;
+}
+.pusher {
+  min-height: 100vh !important;
+}
+.ui.card:last-child {
+  margin-bottom: 1em !important;
+}
 .animated {
   -webkit-animation-duration: 1s;
   animation-duration: 1s;

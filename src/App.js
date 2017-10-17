@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReduxToastr from 'react-redux-toastr';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Sidebar } from 'semantic-ui-react';
@@ -24,13 +25,16 @@ class App extends Component {
 
   render() {
     return (
-      <Sidebar.Pushable>
-        <SideMenu isVisible={this.props.sideMenuVisible} closeMenu={this.props.closeMenu} />
-        <Sidebar.Pusher dimmed={this.props.sideMenuVisible} onClick={this.hideSidebar}>
-          <NavBar />
-          {this.props.children}
-        </Sidebar.Pusher>
-      </Sidebar.Pushable>
+      <div>
+        <ReduxToastr timeOut={4000} newestOnTop preventDuplicates position="top-center" transitionIn="fadeIn" transitionOut="fadeOut" />
+        <Sidebar.Pushable>
+          <SideMenu isVisible={this.props.sideMenuVisible} closeMenu={this.props.closeMenu} />
+          <Sidebar.Pusher dimmed={this.props.sideMenuVisible} onClick={this.hideSidebar}>
+            <NavBar />
+            {this.props.children}
+          </Sidebar.Pusher>
+        </Sidebar.Pushable>
+      </div>
     );
   }
 }
