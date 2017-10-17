@@ -32,4 +32,5 @@
 
 .cart-quantity-input input {
   text-align: center !important;
+  padding: 10px !important;
 }

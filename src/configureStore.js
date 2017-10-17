@@ -45,7 +45,7 @@ const skipIsFetchingTransform = createTransform((inboundState, key) => {
 
 const store = createStore(rootReducer, defaultState, compose(applyMiddleware(thunk, logger, routerMiddleware(history)), autoRehydrate()));
 
-persistStore(store, { blacklist: ['sideMenuVisible'], transforms: [skipIsFetchingTransform] });
+persistStore(store, { blacklist: ['sideMenuVisible', 'toastr', 'reviews'], transforms: [skipIsFetchingTransform] });
 
 export { history };
 export default store;

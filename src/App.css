@@ -7,6 +7,10 @@ body {
   height: auto;
 }
 
+.break-words {
+  word-break: break-word;
+}
+
 .pushable {
   min-height: 100vh !important;
 }
@@ -661,6 +665,10 @@ body.toastr-confirm-active {
   padding: 15px;
   font-size: 1.1em;
   margin-bottom: 20px;
+}
+
+.rrt-text {
+  word-break: break-word;
 }
 
 .redux-toastr .toastr.rrt-message .rrt-text img {
