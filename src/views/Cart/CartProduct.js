@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import { Grid, Image, Button } from 'semantic-ui-react';
+import { Card, Grid, Image, Button, Icon, Input } from 'semantic-ui-react';
 import { cartProductPropType } from './reducer';
 import { setQuantity, removeProduct } from './actions';
+
+import './styles.css';
 
 class CartProduct extends Component {
   constructor(props) {
@@ -12,11 +14,17 @@ class CartProduct extends Component {
 
     this.state = {
       quantity: this.props.product.quantity,
+      isExpanded: false,
     };
 
+    this.toggleCardHeight = this.toggleCardHeight.bind(this);
     this.increaseItemQuantity = this.increaseItemQuantity.bind(this);
     this.reduceItemQuantity = this.reduceItemQuantity.bind(this);
     this.removeItem = this.removeItem.bind(this);
+  }
+
+  toggleCardHeight() {
+    this.setState({ isExpanded: !this.state.isExpanded });
   }
 
   /**
@@ -57,25 +65,48 @@ class CartProduct extends Component {
 
   render() {
     return (
-      <Grid.Row centered key={this.props.product.id}>
-        <Grid.Column width={4} textAlign="center">
-          <Button basic compact size="mini" onClick={this.removeItem}>
-            X
-          </Button>
-          <Image shape="circular" src={this.props.product.image} />
-        </Grid.Column>
-        <Grid.Column width={5}>{this.props.product.name}</Grid.Column>
-        <Grid.Column width={4}>
-          <Button basic compact size="mini" onClick={this.reduceItemQuantity}>
-            -
-          </Button>
-          {this.state.quantity} x ${this.props.product.price}
-          <Button basic compact size="mini" onClick={this.increaseItemQuantity}>
-            +
-          </Button>
-        </Grid.Column>
-        <Grid.Column width={3}>${this.props.product.price * this.state.quantity} </Grid.Column>
-      </Grid.Row>
+      <Card centered className="cart-product">
+        <Card.Content>
+          <Grid doubling>
+            <Grid.Row centered key={this.props.product.id}>
+              <Grid.Column width={4} textAlign="center">
+                <Image shape="circular" src={this.props.product.image} />
+              </Grid.Column>
+              <Grid.Column width={5}>{this.props.product.name}</Grid.Column>
+              <Grid.Column width={4}>
+                {this.state.quantity} x ${this.props.product.price}
+              </Grid.Column>
+              <Grid.Column width={3} textAlign="right">
+                ${this.props.product.price * this.state.quantity}{' '}
+              </Grid.Column>
+              <div className="cart-buttons">
+                <Button icon onClick={this.toggleCardHeight} color="purple">
+                  <Icon name="pencil" />
+                </Button>
+                <Button icon className="cart-delete" onClick={this.removeItem}>
+                  <Icon name="trash" />
+                </Button>
+              </div>
+            </Grid.Row>
+            {this.state.isExpanded ? (
+              <Grid.Row>
+                <Grid.Column width={4}>
+                  <p className="cart-quantity-label">&nbsp;Quantity:</p>
+                </Grid.Column>
+                <Grid.Column width={10}>
+                  <Button icon onClick={this.reduceItemQuantity} className="cart-button">
+                    <Icon name="minus" />
+                  </Button>
+                  <Input value={this.state.quantity} readOnly className="cart-quantity-input" />
+                  <Button icon onClick={this.increaseItemQuantity} className="cart-button">
+                    <Icon name="plus" />
+                  </Button>
+                </Grid.Column>
+              </Grid.Row>
+            ) : null}
+          </Grid>
+        </Card.Content>
+      </Card>
     );
   }
 }
