@@ -10,7 +10,7 @@ class ProductCard extends Component {
     ));
 
     return (
-      <Card raised centered>
+      <Card centered>
         <Card.Content>
           <Image floated="left" size="tiny" shape="circular" src={this.props.src} />
           <Card.Header as={Header}>

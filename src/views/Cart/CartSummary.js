@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Grid, Card, Header } from 'semantic-ui-react';
 
 const CartSummary = props => (
-  <Card centered raised>
+  <Card centered>
     <Card.Content>
       <Card.Header as={Header} textAlign="left">
         Order Summary
