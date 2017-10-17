@@ -1,6 +1,15 @@
 import { combineReducers } from 'redux';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { ADD_PRODUCT, SET_QUANTITY, REMOVE_PRODUCT } from './actions';
+
+export const cartProductPropType = PropTypes.shape({
+  id: PropTypes.number.isRequired,
+  quantity: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  price: PropTypes.string.isRequired,
+});
 
 const items = (state = [], action) => {
   switch (action.type) {
