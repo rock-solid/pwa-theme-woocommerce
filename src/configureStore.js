@@ -1,4 +1,6 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import { createTransform, persistStore, autoRehydrate } from 'redux-persist';
+import { reducer as toastrReducer } from 'react-redux-toastr';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import createHistory from 'history/createBrowserHistory';
@@ -13,6 +15,7 @@ import cart from './views/Cart/reducer';
 const history = createHistory();
 
 const defaultState = {
+  sideMenuVisible: false,
   categories: {
     items: [],
     isFetching: 0,
@@ -30,9 +33,19 @@ const defaultState = {
   },
 };
 
-const rootReducer = combineReducers({ sideMenuVisible, categories, products, reviews, cart });
+const rootReducer = combineReducers({ sideMenuVisible, categories, products, reviews, cart, toastr: toastrReducer });
 
-const store = createStore(rootReducer, defaultState, applyMiddleware(thunk, logger, routerMiddleware(history)));
+const skipIsFetchingTransform = createTransform((inboundState, key) => {
+  if (key !== 'products' && key !== 'categories' && key !== 'reviews') return inboundState;
+  return {
+    ...inboundState,
+    isFetching: undefined,
+  };
+});
+
+const store = createStore(rootReducer, defaultState, compose(applyMiddleware(thunk, logger, routerMiddleware(history)), autoRehydrate()));
+
+persistStore(store, { blacklist: ['sideMenuVisible', 'toastr', 'reviews'], transforms: [skipIsFetchingTransform] });
 
 export { history };
 export default store;

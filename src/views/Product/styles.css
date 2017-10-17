@@ -1,3 +1,7 @@
+.no-outline {
+  outline: none;
+}
+
 .image-gallery-right-nav::before,
 .image-gallery-left-nav::before,
 .image-gallery-fullscreen-button::before {

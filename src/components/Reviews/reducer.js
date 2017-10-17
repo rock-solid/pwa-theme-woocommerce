@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import { REQUEST_REVIEWS, RECEIVE_REVIEWS } from './actions';
 
 export const reviewPropType = PropTypes.shape({
   rating: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   review: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
 });
 
 const items = (state = [], action) => {
@@ -14,7 +14,7 @@ const items = (state = [], action) => {
   case REQUEST_REVIEWS:
     return state;
   case RECEIVE_REVIEWS:
-    return _.unionBy(state, action.reviews, 'id');
+    return action.reviews;
   default:
     return state;
   }
