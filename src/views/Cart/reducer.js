@@ -1,6 +1,15 @@
 import { combineReducers } from 'redux';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
-import { ADD_PRODUCT } from './actions';
+import { ADD_PRODUCT, SET_QUANTITY, REMOVE_PRODUCT } from './actions';
+
+export const cartProductPropType = PropTypes.shape({
+  id: PropTypes.number.isRequired,
+  quantity: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  price: PropTypes.string.isRequired,
+});
 
 const items = (state = [], action) => {
   switch (action.type) {
@@ -22,6 +31,19 @@ const items = (state = [], action) => {
       if (obj.id === action.id) {
         return Object.assign({}, obj, {
           quantity: obj.quantity + 1,
+        });
+      }
+      return obj;
+    });
+
+  case REMOVE_PRODUCT:
+    return state.filter(item => item.id !== action.id);
+
+  case SET_QUANTITY:
+    return state.map((obj) => {
+      if (obj.id === action.id) {
+        return Object.assign({}, obj, {
+          quantity: action.quantity,
         });
       }
       return obj;

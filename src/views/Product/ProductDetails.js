@@ -46,7 +46,7 @@ class ProductDetails extends Component {
     return (
       <div>
         <Header textAlign="center">{this.props.product.name}</Header>
-        <Card centered raised>
+        <Card centered>
           <ImageGallery
             items={this.getImageGallery()}
             slideDuration={550}
@@ -73,7 +73,7 @@ class ProductDetails extends Component {
           </Button>
         </Card>
         {this.props.product.description.length === 0 ? null : (
-          <Card centered raised>
+          <Card centered>
             <Card.Content>
               <Card.Header as={Header} size="tiny">
                 Description

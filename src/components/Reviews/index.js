@@ -16,12 +16,14 @@ class Reviews extends Component {
 
   render() {
     return this.props.loading === 1 || _.isEmpty(this.props.reviews) ? null : (
-      <Card centered raised>
+      <Card centered>
         <Card.Content>
           <Card.Header as={Header} size="tiny">
             Reviews
           </Card.Header>
-          {this.props.reviews.map(review => <Review rating={review.rating} reviewer={review.name} content={review.review} />)}
+          {this.props.reviews.map(review => (
+            <Review rating={review.rating} reviewer={review.name} content={review.review} />
+          ))}
         </Card.Content>
       </Card>
     );

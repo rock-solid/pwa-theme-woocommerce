@@ -6,7 +6,7 @@ import { Header, Card, Icon, Grid } from 'semantic-ui-react';
 class SocialBox extends Component {
   render() {
     return (
-      <Card centered raised>
+      <Card centered>
         <Card.Content>
           <Card.Header as={Header} size="tiny">
             Share product
@@ -19,7 +19,10 @@ class SocialBox extends Component {
                 </ShareButtons.FacebookShareButton>
               </Grid.Column>
               <Grid.Column width={4}>
-                <ShareButtons.GooglePlusShareButton className="no-outline" url={this.props.permalink}>
+                <ShareButtons.GooglePlusShareButton
+                  className="no-outline"
+                  url={this.props.permalink}
+                >
                   <Icon name="google plus" color="purple" size="big" />
                 </ShareButtons.GooglePlusShareButton>
               </Grid.Column>
