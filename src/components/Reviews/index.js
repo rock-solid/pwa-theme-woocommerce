@@ -21,9 +21,7 @@ class Reviews extends Component {
           <Card.Header as={Header} size="tiny">
             Reviews
           </Card.Header>
-          {this.props.reviews.map(review => (
-            <Review rating={review.rating} reviewer={review.name} content={review.review} />
-          ))}
+          {this.props.reviews.map(review => <Review key={review.id} rating={review.rating} reviewer={review.name} content={review.review} />)}
         </Card.Content>
       </Card>
     );
