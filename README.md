@@ -1,15 +1,15 @@
 PWA E-commerce Theme
 =================
+[![Bootstrapped With](https://img.shields.io/badge/bootstrapped%20with-create%20react%20app-blue.svg)](https://github.com/facebookincubator/create-react-app) [![Code Style](https://img.shields.io/badge/code%20style-airbnb-brightgreen.svg)](https://github.com/airbnb/javascript) [![Open Source](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/appticles/pwa-theme-woocommerce)
+
 
 Turn your [WooCommerce](https://woocommerce.com/) site into a [Progressive Web App](https://developers.google.com/web/progressive-web-apps/)!
+
+DEMO: [https://pwa-woo.wpmobilepack.com](https://pwa-woo.wpmobilepack.com)
 
 
  &nbsp; &nbsp;  &nbsp; &nbsp;  &nbsp; &nbsp;  &nbsp; &nbsp; ![demo](https://i.imgur.com/rLAB49Z.gif) &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; ![demo](https://i.imgur.com/GdyeKjo.gif) &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; ![demo](https://i.imgur.com/3AUek71.gif) &nbsp; &nbsp;  &nbsp; &nbsp;
 
-
-DEMO: [https://pwa-woo.wpmobilepack.com](https://pwa-woo.wpmobilepack.com)
-
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
 You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
