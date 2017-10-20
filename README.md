@@ -4,9 +4,7 @@ PWA E-commerce Theme
 Turn your [WooCommerce](https://woocommerce.com/) site into a [Progressive Web App](https://developers.google.com/web/progressive-web-apps/)!
 
 
-![demo](https://i.imgur.com/rLAB49Z.gif)
-![demo](https://i.imgur.com/GdyeKjo.gif)
-![demo](https://i.imgur.com/3AUek71.gif)
+ &nbsp; &nbsp;  &nbsp; &nbsp;  &nbsp; &nbsp;  &nbsp; &nbsp; ![demo](https://i.imgur.com/rLAB49Z.gif) &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; ![demo](https://i.imgur.com/GdyeKjo.gif) &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; ![demo](https://i.imgur.com/3AUek71.gif) &nbsp; &nbsp;  &nbsp; &nbsp;
 
 
 DEMO: [https://pwa-woo.wpmobilepack.com](https://pwa-woo.wpmobilepack.com)
