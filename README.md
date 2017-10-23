@@ -3,7 +3,7 @@ PWA E-commerce Theme
 [![Bootstrapped With](https://img.shields.io/badge/bootstrapped%20with-create%20react%20app-blue.svg)](https://github.com/facebookincubator/create-react-app) [![Code Style](https://img.shields.io/badge/code%20style-airbnb-brightgreen.svg)](https://github.com/airbnb/javascript) [![Open Source](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/appticles/pwa-theme-woocommerce)
 
 
-Turn your [WooCommerce](https://woocommerce.com/) site into a [Progressive Web App](https://developers.google.com/web/progressive-web-apps/)!
+Turn your [WooCommerce](https://woocommerce.com/) site into a [Progressive Web App](https://wpmobilepack.com/extensions/woo-commerce.html)!
 
 DEMO: [https://pwa-woo.wpmobilepack.com](https://pwa-woo.wpmobilepack.com)
 
