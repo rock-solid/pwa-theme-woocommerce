@@ -11,8 +11,7 @@ DEMO: [https://pwa-woo.wpmobilepack.com](https://pwa-woo.wpmobilepack.com)
  &nbsp; &nbsp;  &nbsp; &nbsp;  &nbsp; &nbsp;  &nbsp; &nbsp; ![demo](http://d3oqwjghculspf.cloudfront.net/github/pwa-theme-woocommerce/rLAB49Z.gif) &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; ![demo](http://d3oqwjghculspf.cloudfront.net/github/pwa-theme-woocommerce/GdyeKjo.gif) &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; ![demo](http://d3oqwjghculspf.cloudfront.net/github/pwa-theme-woocommerce/3AUek71.gif) &nbsp; &nbsp;  &nbsp; &nbsp;
 
 
-Below you will find some information on how to perform common tasks.<br>
-You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
+Below you will find some information on how to perform common tasks. You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
 
 ## Table of Contents
 
