@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Card, Header } from 'semantic-ui-react';
+import { cartProductPropType } from './reducer';
+import Checkout from './Checkout';
 
 const CartSummary = props => (
   <Card centered>
@@ -28,12 +30,14 @@ const CartSummary = props => (
           </Grid.Column>
         </Grid.Row>
       </Grid>
+      <Checkout cart={props.cart} />
     </Card.Content>
   </Card>
 );
 
 CartSummary.propTypes = {
   total: PropTypes.number.isRequired,
+  cart: PropTypes.arrayOf(cartProductPropType).isRequired,
 };
 
 export default CartSummary;
