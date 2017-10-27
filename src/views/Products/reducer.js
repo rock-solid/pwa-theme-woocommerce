@@ -20,6 +20,7 @@ export const productPropType = PropTypes.shape({
   ).isRequired,
   average_rating: PropTypes.string.isRequired,
   rating_count: PropTypes.number.isRequired,
+  variations: PropTypes.arrayOf(PropTypes.number).isRequired,
 });
 
 const items = (state = [], action) => {
