@@ -11,6 +11,7 @@ import categories from './views/Categories/reducer';
 import products from './views/Products/reducer';
 import reviews from './components/Reviews/reducer';
 import cart from './views/Cart/reducer';
+import variations from './components/Variations/reducer';
 
 const history = createHistory();
 
@@ -28,15 +29,19 @@ const defaultState = {
     items: [],
     isFetching: 0,
   },
+  variations: {
+    items: [],
+    isFetching: 0,
+  },
   cart: {
     items: [],
   },
 };
 
-const rootReducer = combineReducers({ sideMenuVisible, categories, products, reviews, cart, toastr: toastrReducer });
+const rootReducer = combineReducers({ sideMenuVisible, categories, products, reviews, cart, variations, toastr: toastrReducer });
 
 const skipIsFetchingTransform = createTransform((inboundState, key) => {
-  if (key !== 'products' && key !== 'categories' && key !== 'reviews') return inboundState;
+  if (key !== 'products' && key !== 'categories' && key !== 'reviews' && key !== 'variations') return inboundState;
   return {
     ...inboundState,
     isFetching: undefined,
