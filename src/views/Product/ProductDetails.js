@@ -5,12 +5,13 @@ import { connect } from 'react-redux';
 import { toastr } from 'react-redux-toastr';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import { Header, Card, Icon, Button } from 'semantic-ui-react';
-import SocialBox from '../../components/SocialBox';
 import ImageGallery from 'react-image-gallery';
+import SocialBox from '../../components/SocialBox';
 import { productPropType } from '../Products/reducer';
 import { addProduct } from '../Cart/actions';
 import Rating from '../../components/Rating';
 import Reviews from '../../components/Reviews';
+import Variations from '../../components/Variations';
 
 import './styles.css';
 
@@ -55,6 +56,9 @@ class ProductDetails extends Component {
           {this.props.product.categories.length === 0 ? null : <Card.Content>Categories: {this.getCategories()}</Card.Content>}
           <Card.Content>Stock: {this.props.product.in_stock ? 'In Stock' : 'Out of Stock'}</Card.Content>
           <Card.Content>Price: ${this.props.product.price}</Card.Content>
+          {this.props.product.variations.length === 0 ? null : (
+            <Variations productId={this.props.product.id} variationIds={this.props.product.variations} />
+          )}
           <Button color="purple" fluid onClick={this.addItem}>
             ADD TO CART &nbsp;<Icon name="cart" />
           </Button>

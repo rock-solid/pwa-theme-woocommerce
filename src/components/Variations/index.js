@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import { fetchVariations } from './actions';
 import { getVariationsFetching, getVariations, variationPropType } from './reducer';
+import VariationsDropdown from './VariationsDropdown';
 
 class Variations extends Component {
   componentWillMount() {
@@ -12,7 +13,7 @@ class Variations extends Component {
   }
 
   getVariationsByProduct() {
-    return this.props.variations.filter(variation => !_.isNil(_.find(this.props.variationIds, { id: variation.id })));
+    return this.props.variations.filter(variation => !_.isNil(_.find(this.props.variationIds, element => element === variation.id)));
   }
 
   readVariations(productId) {
@@ -21,10 +22,11 @@ class Variations extends Component {
   }
 
   render() {
-    if (this.props.loading === 0) {
-      this.getVariationsByProduct();
+    if (this.props.loading === 0 && !_.isEmpty(this.props.variations)) {
+      return <VariationsDropdown variations={this.getVariationsByProduct()} />;
     }
-    return <div />;
+
+    return null;
   }
 }
 
