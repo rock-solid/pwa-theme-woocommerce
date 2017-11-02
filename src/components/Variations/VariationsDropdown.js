@@ -59,6 +59,8 @@ class VariationsDropdown extends Component {
     this.setState({
       options,
     });
+
+    this.props.handleSelect(data.placeholder, data.value);
   }
 
   render() {
@@ -81,6 +83,7 @@ class VariationsDropdown extends Component {
 
 VariationsDropdown.propTypes = {
   variations: PropTypes.arrayOf(variationPropType).isRequired,
+  handleSelect: PropTypes.func.isRequired,
 };
 
 export default VariationsDropdown;

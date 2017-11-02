@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import { toastr } from 'react-redux-toastr';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import { Header, Card, Icon, Button } from 'semantic-ui-react';
@@ -19,6 +20,12 @@ class ProductDetails extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      selections: null,
+      variationId: null,
+    };
+
+    this.receiveSelections = this.receiveSelections.bind(this);
     this.addItem = this.addItem.bind(this);
   }
 
@@ -33,9 +40,24 @@ class ProductDetails extends Component {
     return this.props.product.images.map(image => ({ original: image.src }));
   }
 
+  receiveSelections(selections, variationId) {
+    this.setState({
+      selections,
+      variationId,
+    });
+  }
+
   addItem() {
+    if (this.props.product.variations.length !== 0) {
+      if (_.isNull(this.state.selections)) {
+        toastr.warning('Please make a selection for all of the products actions');
+        return;
+      }
+    }
+
     const { dispatch } = this.props;
     const product = this.props.product;
+
     toastr.success('Added to Cart', product.name + ' was added to your shopping cart.');
     dispatch(addProduct(product.id, product.name, product.price, product.images[0].src));
   }
@@ -57,7 +79,7 @@ class ProductDetails extends Component {
           <Card.Content>Stock: {this.props.product.in_stock ? 'In Stock' : 'Out of Stock'}</Card.Content>
           <Card.Content>Price: ${this.props.product.price}</Card.Content>
           {this.props.product.variations.length === 0 ? null : (
-            <Variations productId={this.props.product.id} variationIds={this.props.product.variations} />
+            <Variations sendSelections={this.receiveSelections} productId={this.props.product.id} variationIds={this.props.product.variations} />
           )}
           <Button color="purple" fluid onClick={this.addItem}>
             ADD TO CART &nbsp;<Icon name="cart" />
