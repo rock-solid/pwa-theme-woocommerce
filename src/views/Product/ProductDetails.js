@@ -81,9 +81,11 @@ class ProductDetails extends Component {
           {this.props.product.variations.length === 0 ? null : (
             <Variations sendSelections={this.receiveSelections} productId={this.props.product.id} variationIds={this.props.product.variations} />
           )}
-          <Button color="purple" fluid onClick={this.addItem}>
-            ADD TO CART &nbsp;<Icon name="cart" />
-          </Button>
+          {this.props.product.backorders_allowed || this.props.product.in_stock ? (
+            <Button color="purple" fluid onClick={this.addItem}>
+              ADD TO CART &nbsp;<Icon name="cart" />
+            </Button>
+          ) : null}
         </Card>
         {this.props.product.description.length === 0 ? null : (
           <Card centered>
