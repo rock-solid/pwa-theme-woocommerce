@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Loader, Card } from 'semantic-ui-react';
 import _ from 'lodash';
 import { fetchVariations } from './actions';
 import { getVariationsFetching, getVariations, variationPropType } from './reducer';
@@ -72,7 +73,11 @@ class Variations extends Component {
       return <VariationsDropdown handleSelect={this.handleSelect} variations={this.getVariationsByProduct()} />;
     }
 
-    return null;
+    return (
+      <Card.Content>
+        <Loader inline="centered" active />
+      </Card.Content>
+    );
   }
 }
 
