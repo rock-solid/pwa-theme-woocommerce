@@ -73,7 +73,13 @@ class VariationsDropdown extends Component {
 
     const dropdowns = options.map((name, index) => (
       <Card.Content key={name}>
-        <Dropdown placeholder={name} fluid selection options={dropdownValues[index]} onChange={(event, data) => this.remakeValues(data)} />{' '}
+        <Dropdown
+          placeholder={_.upperFirst(name)}
+          fluid
+          selection
+          options={dropdownValues[index]}
+          onChange={(event, data) => this.remakeValues(data)}
+        />{' '}
       </Card.Content>
     ));
 

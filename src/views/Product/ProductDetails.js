@@ -75,9 +75,9 @@ class ProductDetails extends Component {
               <Rating rating={Math.round(Number(this.props.product.average_rating))} ratingCount={this.props.product.rating_count} />
             </Card.Content>
           ) : null}
-          {this.props.product.categories.length === 0 ? null : <Card.Content>Categories: {this.getCategories()}</Card.Content>}
-          <Card.Content>Stock: {this.props.product.in_stock ? 'In Stock' : 'Out of Stock'}</Card.Content>
-          <Card.Content>Price: ${this.props.product.price}</Card.Content>
+          {this.props.product.categories.length === 0 ? null : <Card.Content>{this.getCategories()}</Card.Content>}
+          <Card.Content>{this.props.product.in_stock ? 'In Stock' : 'Out of Stock'}</Card.Content>
+          <Card.Content>${this.props.product.price}</Card.Content>
           {this.props.product.variations.length === 0 ? null : (
             <Variations sendSelections={this.receiveSelections} productId={this.props.product.id} variationIds={this.props.product.variations} />
           )}
