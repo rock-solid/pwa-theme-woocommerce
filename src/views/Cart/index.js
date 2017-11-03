@@ -18,7 +18,7 @@ class Cart extends Component {
     ) : (
       <div>
         <Header textAlign="center">Shopping Cart</Header>
-        {this.props.cart.map(product => <CardProduct key={product.id} product={product} />)}
+        {this.props.cart.map(product => <CardProduct key={_.isNil(product.variationId) ? product.id : product.variationId} product={product} />)}
         <CardSummary total={this.getTotalPrice()} cart={this.props.cart} />
       </div>
     );

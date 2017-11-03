@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { Card, Grid, Image, Button, Icon, Input } from 'semantic-ui-react';
 import { cartProductPropType } from './reducer';
@@ -23,8 +24,16 @@ class CartProduct extends Component {
     this.removeItem = this.removeItem.bind(this);
   }
 
-  toggleCardHeight() {
-    this.setState({ isExpanded: !this.state.isExpanded });
+  getProductDescription() {
+    if (_.isNil(this.props.product.variationId)) {
+      return this.props.product.name;
+    }
+
+    return _.reduce(
+      this.props.product.selections,
+      (selectionsString, selection, option) => _.startCase(selectionsString + ' ' + option + ' ' + selection),
+      this.props.product.name,
+    );
   }
 
   /**
@@ -35,7 +44,11 @@ class CartProduct extends Component {
     this.setState({ quantity });
 
     const { dispatch } = this.props;
-    dispatch(setQuantity(this.props.product.id, quantity));
+    dispatch(setQuantity(this.props.product.id, Number(this.props.product.variationId), quantity));
+  }
+
+  toggleCardHeight() {
+    this.setState({ isExpanded: !this.state.isExpanded });
   }
 
   /**
@@ -47,12 +60,12 @@ class CartProduct extends Component {
     const quantity = this.state.quantity - 1;
 
     if (quantity === 0) {
-      dispatch(removeProduct(this.props.product.id));
+      dispatch(removeProduct(this.props.product.id, Number(this.props.product.variationId)));
       return;
     }
 
     this.setState({ quantity });
-    dispatch(setQuantity(this.props.product.id, quantity));
+    dispatch(setQuantity(this.props.product.id, Number(this.props.product.variationId), quantity));
   }
 
   /**
@@ -60,7 +73,7 @@ class CartProduct extends Component {
    */
   removeItem() {
     const { dispatch } = this.props;
-    dispatch(removeProduct(this.props.product.id));
+    dispatch(removeProduct(this.props.product.id, Number(this.props.product.variationId)));
   }
 
   render() {
@@ -73,7 +86,7 @@ class CartProduct extends Component {
                 <Image shape="circular" src={this.props.product.image} />
               </Grid.Column>
               <Grid.Column width={5} className="break-words">
-                {this.props.product.name}
+                {this.getProductDescription()}
               </Grid.Column>
               <Grid.Column width={4}>
                 {this.state.quantity} x ${this.props.product.price}

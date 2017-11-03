@@ -9,11 +9,39 @@ export const cartProductPropType = PropTypes.shape({
   name: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
+  variationId: PropTypes.number,
+  selections: PropTypes.object,
 });
 
 const items = (state = [], action) => {
   switch (action.type) {
   case ADD_PRODUCT:
+    if (!_.isNull(action.variationId)) {
+      if (state.length === 0 || !_.find(state, ['variationId', action.variationId])) {
+        return [
+          ...state,
+          {
+            id: action.id,
+            price: action.price,
+            name: action.name,
+            image: action.image,
+            variationId: action.variationId,
+            selections: action.selections,
+            quantity: 1,
+          },
+        ];
+      }
+
+      return state.map((obj) => {
+        if (obj.id === action.id && obj.variationId === action.variationId) {
+          return Object.assign({}, obj, {
+            quantity: obj.quantity + 1,
+          });
+        }
+        return obj;
+      });
+    }
+
     if (state.length === 0 || !_.find(state, ['id', action.id])) {
       return [
         ...state,
@@ -37,9 +65,23 @@ const items = (state = [], action) => {
     });
 
   case REMOVE_PRODUCT:
+    if (!_.isNil(action.variationId)) {
+      return state.filter(item => item.variationId !== action.variationId);
+    }
     return state.filter(item => item.id !== action.id);
 
   case SET_QUANTITY:
+    if (!_.isNil(action.variationId)) {
+      return state.map((obj) => {
+        if (obj.id === action.id && obj.variationId === action.variationId) {
+          return Object.assign({}, obj, {
+            quantity: action.quantity,
+          });
+        }
+        return obj;
+      });
+    }
+
     return state.map((obj) => {
       if (obj.id === action.id) {
         return Object.assign({}, obj, {
