@@ -44,7 +44,7 @@ class CartProduct extends Component {
     this.setState({ quantity });
 
     const { dispatch } = this.props;
-    dispatch(setQuantity(this.props.product.id, Number(this.props.product.variationId), quantity));
+    dispatch(setQuantity(this.props.product.id, this.props.product.variationId, quantity));
   }
 
   toggleCardHeight() {
@@ -60,12 +60,12 @@ class CartProduct extends Component {
     const quantity = this.state.quantity - 1;
 
     if (quantity === 0) {
-      dispatch(removeProduct(this.props.product.id, Number(this.props.product.variationId)));
+      dispatch(removeProduct(this.props.product.id, this.props.product.variationId));
       return;
     }
 
     this.setState({ quantity });
-    dispatch(setQuantity(this.props.product.id, Number(this.props.product.variationId), quantity));
+    dispatch(setQuantity(this.props.product.id, this.props.product.variationId, quantity));
   }
 
   /**
@@ -73,7 +73,7 @@ class CartProduct extends Component {
    */
   removeItem() {
     const { dispatch } = this.props;
-    dispatch(removeProduct(this.props.product.id, Number(this.props.product.variationId)));
+    dispatch(removeProduct(this.props.product.id, this.props.product.variationId));
   }
 
   render() {

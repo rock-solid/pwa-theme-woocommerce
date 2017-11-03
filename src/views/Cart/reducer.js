@@ -25,7 +25,7 @@ const items = (state = [], action) => {
             price: action.price,
             name: action.name,
             image: action.image,
-            variationId: action.variationId,
+            variationId: Number(action.variationId),
             selections: action.selections,
             quantity: 1,
           },

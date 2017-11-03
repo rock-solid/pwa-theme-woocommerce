@@ -59,7 +59,7 @@ class ProductDetails extends Component {
     const product = this.props.product;
 
     toastr.success('Added to Cart', product.name + ' was added to your shopping cart.');
-    dispatch(addProduct(product.id, product.name, product.price, product.images[0].src, Number(this.state.variationId), this.state.selections));
+    dispatch(addProduct(product.id, product.name, product.price, product.images[0].src, this.state.variationId, this.state.selections));
   }
 
   render() {
