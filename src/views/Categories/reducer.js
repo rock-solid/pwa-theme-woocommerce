@@ -1,6 +1,18 @@
 import { combineReducers } from 'redux';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { REQUEST_CATEGORIES, RECEIVE_CATEGORIES } from './actions';
+
+export const categoryPropType = PropTypes.shape({
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  image: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.shape({
+      src: PropTypes.string,
+    }),
+  ]),
+});
 
 const items = (state = [], action) => {
   switch (action.type) {

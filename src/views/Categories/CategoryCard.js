@@ -8,11 +8,13 @@ class CategoryCard extends Component {
     return (
       <Card centered>
         <Card.Content>
-          {this.props.src !== '' ? <Image floated="left" size="tiny" shape="circular" src={this.props.src} /> : null}
+          {this.props.src !== '' ? (
+            <Image floated="left" size="tiny" shape="circular" src={this.props.src} />
+          ) : null}
           <Card.Header as={Header} className="break-words">
             {this.props.name}
           </Card.Header>
-          <Link to={'/category/' + this.props.categId}>
+          <Link to={'/category/' + this.props.id}>
             <Button color="purple" compact>
               View Products &gt;
             </Button>
@@ -24,9 +26,9 @@ class CategoryCard extends Component {
 }
 
 CategoryCard.propTypes = {
+  id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   src: PropTypes.string,
-  categId: PropTypes.number.isRequired,
 };
 
 CategoryCard.defaultProps = {
