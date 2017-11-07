@@ -19,7 +19,7 @@ const items = (state = [], action) => {
   case REQUEST_VARIATIONS:
     return state;
   case RECEIVE_VARIATIONS:
-    return _.unionBy(state, action.variations, 'id');
+    return _.unionBy(action.variations, state, 'id');
   default:
     return state;
   }
