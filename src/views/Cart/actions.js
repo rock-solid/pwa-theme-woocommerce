@@ -4,11 +4,11 @@ export const SET_QUANTITY = 'SET_QUANTITY';
 
 export const addProduct = (id, name, price, image, variationId, selections) => ({
   type: ADD_PRODUCT,
-  id: Number(id),
+  id,
   name,
   price,
   image,
-  variationId: Number(variationId),
+  variationId,
   selections,
 });
 

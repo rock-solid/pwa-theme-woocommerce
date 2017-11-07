@@ -15,55 +15,35 @@ export const cartProductPropType = PropTypes.shape({
 
 const items = (state = [], action) => {
   switch (action.type) {
-  case ADD_PRODUCT:
-    if (!_.isNull(action.variationId)) {
-      if (state.length === 0 || !_.find(state, ['variationId', action.variationId])) {
-        return [
-          ...state,
-          {
-            id: action.id,
-            price: action.price,
-            name: action.name,
-            image: action.image,
-            variationId: action.variationId,
-            selections: action.selections,
-            quantity: 1,
-          },
-        ];
-      }
-
-      return state.map((obj) => {
-        if (obj.id === action.id && obj.variationId === action.variationId) {
-          return Object.assign({}, obj, {
-            quantity: obj.quantity + 1,
-          });
-        }
-        return obj;
-      });
+  case ADD_PRODUCT: {
+    let product = null;
+    if (!_.isNil(action.variationId)) {
+      product = _.find(state, { id: action.id, variationId: action.variationId });
+    } else {
+      product = _.find(state, { id: action.id });
     }
 
-    if (state.length === 0 || !_.find(state, ['id', action.id])) {
-      return [
-        ...state,
-        {
-          id: action.id,
-          price: action.price,
-          name: action.name,
-          image: action.image,
-          quantity: 1,
-        },
-      ];
+    let newProduct = null;
+    if (!_.isNil(product)) {
+      newProduct = Object.assign({}, product);
+      newProduct.quantity += 1;
+    } else {
+      newProduct = {
+        id: action.id,
+        price: action.price,
+        name: action.name,
+        image: action.image,
+        quantity: 1,
+      };
+
+      if (!_.isNil(action.variationId)) {
+        newProduct.variationId = action.variationId;
+        newProduct.selections = action.selections;
+      }
     }
 
-    return state.map((obj) => {
-      if (obj.id === action.id) {
-        return Object.assign({}, obj, {
-          quantity: obj.quantity + 1,
-        });
-      }
-      return obj;
-    });
-
+    return _.unionBy([newProduct], state, !_.isNil(action.variationId) ? 'variationId' : 'id');
+  }
   case REMOVE_PRODUCT:
     if (!_.isNil(action.variationId)) {
       return state.filter(item => item.variationId !== action.variationId);

@@ -31,9 +31,14 @@ class CartProduct extends Component {
 
     return _.reduce(
       this.props.product.selections,
-      (selectionsString, selection, option) => _.startCase(selectionsString + ' ' + option + ' ' + selection),
+      (selectionsString, selection, option) =>
+        _.startCase(selectionsString + ' ' + option + ' ' + selection),
       this.props.product.name,
     );
+  }
+
+  toggleCardHeight() {
+    this.setState({ isExpanded: !this.state.isExpanded });
   }
 
   /**
@@ -45,10 +50,6 @@ class CartProduct extends Component {
 
     const { dispatch } = this.props;
     dispatch(setQuantity(this.props.product.id, this.props.product.variationId, quantity));
-  }
-
-  toggleCardHeight() {
-    this.setState({ isExpanded: !this.state.isExpanded });
   }
 
   /**

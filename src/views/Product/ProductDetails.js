@@ -30,26 +30,26 @@ class ProductDetails extends Component {
   }
 
   getCategories() {
-    return this.props.product.categories.reduce(
-      (categString, category, index) =>
-        categString +
-        category.name +
-        (index === this.props.product.categories.length - 1 ? '' : ', '),
-      ' ',
-    );
+    return this.props.product.categories.map(category => category.name).join(', ');
   }
 
   getImageGallery() {
     return this.props.product.images.map(image => ({ original: image.src }));
   }
 
+  /**
+   * Modify component's state when a variation is selected.
+   * @param {Object} selections
+   * @param {Number} variationId
+   */
   receiveSelections(selections, variationId) {
-    this.setState({
-      selections,
-      variationId,
-    });
+    this.setState({ selections, variationId });
   }
 
+  /**
+   * Add product to cart.
+   * Display a warning if the product has variations and attributes were not selected.
+   */
   addItem() {
     if (this.props.product.variations.length !== 0) {
       if (_.isNull(this.state.selections)) {
@@ -61,7 +61,6 @@ class ProductDetails extends Component {
     const { dispatch } = this.props;
     const product = this.props.product;
 
-    toastr.success('Added to Cart', product.name + ' was added to your shopping cart.');
     dispatch(
       addProduct(
         product.id,
@@ -72,6 +71,8 @@ class ProductDetails extends Component {
         this.state.selections,
       ),
     );
+
+    toastr.success('Added to Cart', product.name + ' was added to your shopping cart.');
   }
 
   render() {
