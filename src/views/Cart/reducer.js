@@ -18,7 +18,7 @@ const items = (state = [], action) => {
   case ADD_PRODUCT: {
     let product = null;
     if (!_.isNil(action.variationId)) {
-      product = _.find(state, { id: action.id, variationId: action.variationId });
+      product = _.find(state, { id: action.id, variationId: Number(action.variationId) });
     } else {
       product = _.find(state, { id: action.id });
     }
@@ -37,7 +37,7 @@ const items = (state = [], action) => {
       };
 
       if (!_.isNil(action.variationId)) {
-        newProduct.variationId = action.variationId;
+        newProduct.variationId = Number(action.variationId);
         newProduct.selections = action.selections;
       }
     }
@@ -46,31 +46,28 @@ const items = (state = [], action) => {
   }
   case REMOVE_PRODUCT:
     if (!_.isNil(action.variationId)) {
-      return state.filter(item => item.variationId !== action.variationId);
+      return state.filter(item => item.variationId !== Number(action.variationId));
     }
     return state.filter(item => item.id !== action.id);
 
-  case SET_QUANTITY:
+  case SET_QUANTITY: {
+    let product = null;
     if (!_.isNil(action.variationId)) {
-      return state.map((obj) => {
-        if (obj.id === action.id && obj.variationId === action.variationId) {
-          return Object.assign({}, obj, {
-            quantity: action.quantity,
-          });
-        }
-        return obj;
-      });
+      product = _.find(state, { id: action.id, variationId: Number(action.variationId) });
+    } else {
+      product = _.find(state, { id: action.id });
     }
 
-    return state.map((obj) => {
-      if (obj.id === action.id) {
-        return Object.assign({}, obj, {
-          quantity: action.quantity,
-        });
-      }
-      return obj;
-    });
+    if (!_.isNil(product)) {
+      const newProduct = Object.assign({}, product, {
+        quantity: action.quantity,
+      });
 
+      return _.unionBy([newProduct], state, !_.isNil(action.variationId) ? 'variationId' : 'id');
+    }
+
+    return state;
+  }
   default:
     return state;
   }
