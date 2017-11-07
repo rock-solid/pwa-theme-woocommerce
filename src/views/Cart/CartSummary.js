@@ -11,6 +11,7 @@ const CartSummary = props => (
         Order Summary
       </Card.Header>
       <Grid doubling>
+        {/*
         <Grid.Row>
           <Grid.Column width={12}>Items price</Grid.Column>
           <Grid.Column textAlign="right" width={4}>
@@ -23,10 +24,11 @@ const CartSummary = props => (
             $10
           </Grid.Column>
         </Grid.Row>
+        */}
         <Grid.Row>
           <Grid.Column width={12}>Total</Grid.Column>
           <Grid.Column textAlign="right" width={4}>
-            ${props.total + 10}
+            ${props.total}
           </Grid.Column>
         </Grid.Row>
       </Grid>
