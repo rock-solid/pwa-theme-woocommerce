@@ -24,16 +24,19 @@ class CartProduct extends Component {
     this.removeItem = this.removeItem.bind(this);
   }
 
-  getProductDescription() {
-    if (_.isNil(this.props.product.variationId)) {
-      return this.props.product.name;
+  getProductSelections() {
+    if (_.isNil(this.props.product.selections)) {
+      return null;
     }
 
-    return _.reduce(
-      this.props.product.selections,
-      (selectionsString, selection, option) =>
-        _.startCase(selectionsString + ' ' + option + ' ' + selection),
-      this.props.product.name,
+    const description = Object.keys(this.props.product.selections)
+      .map(key => _.startCase(key) + ': ' + this.props.product.selections[key])
+      .join(', ');
+
+    return (
+      <Grid.Row>
+        <Grid.Column width={16}>{description}</Grid.Column>
+      </Grid.Row>
     );
   }
 
@@ -87,7 +90,7 @@ class CartProduct extends Component {
                 <Image shape="circular" src={this.props.product.image} />
               </Grid.Column>
               <Grid.Column width={5} className="break-words">
-                {this.getProductDescription()}
+                {this.props.product.name}
               </Grid.Column>
               <Grid.Column width={4}>
                 {this.state.quantity} x ${this.props.product.price}
@@ -104,6 +107,7 @@ class CartProduct extends Component {
                 </Button>
               </div>
             </Grid.Row>
+            {this.getProductSelections()}
             {this.state.isExpanded ? (
               <Grid.Row>
                 <Grid.Column width={4}>
