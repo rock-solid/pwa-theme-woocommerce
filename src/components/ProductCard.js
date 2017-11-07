@@ -5,21 +5,17 @@ import { Card, Image, Button, Header } from 'semantic-ui-react';
 
 class ProductCard extends Component {
   render() {
-    const categories = this.props.categories.map(category => (
-      <Header.Subheader key={category.id}>{category.name}</Header.Subheader>
-    ));
+    const categories = this.props.categories.map(category => category.name);
 
     return (
       <Card centered>
         <Card.Content>
           <Image floated="left" size="tiny" shape="circular" src={this.props.src} />
-          <Card.Header as={Header} className="break-words">
-            {this.props.name}
-            {categories}
-            <Header.Subheader as={Header} color="purple" size="huge">
-              ${this.props.price}
-            </Header.Subheader>
-          </Card.Header>
+          <Card.Header className="break-words">{this.props.name}</Card.Header>
+          <Card.Meta>{categories.join(',')}</Card.Meta>
+          <Header as="h3" color="purple">
+            ${this.props.price}
+          </Header>
         </Card.Content>
         <Card.Content extra>
           <Link to={'/product/' + this.props.id}>
