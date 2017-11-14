@@ -69,8 +69,10 @@ class Variations extends Component {
   }
 
   render() {
-    if (this.props.loading === 0 && !_.isEmpty(this.props.variations)) {
-      return <VariationsDropdown handleSelect={this.handleSelect} variations={this.getVariationsByProduct()} />;
+    const variationsByPrododcut = this.getVariationsByProduct();
+
+    if (this.props.loading === 0 && !_.isEmpty(this.props.variations) && !_.isEmpty(variationsByPrododcut)) {
+      return <VariationsDropdown handleSelect={this.handleSelect} variations={variationsByPrododcut} />;
     }
 
     return (
