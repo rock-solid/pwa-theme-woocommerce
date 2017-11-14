@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { Card, Grid, Image, Button, Icon, Input } from 'semantic-ui-react';
 import { cartProductPropType } from './reducer';
 import { setQuantity, removeProduct } from './actions';
+import config from '../../config/config';
 
 import './styles.css';
 
@@ -93,10 +94,10 @@ class CartProduct extends Component {
                 {this.props.product.name}
               </Grid.Column>
               <Grid.Column width={4}>
-                {this.state.quantity} x ${this.props.product.price}
+                <div dangerouslySetInnerHTML={{ __html: this.state.quantity + ' x ' + config.CURRENCY + this.props.product.price }} />
               </Grid.Column>
               <Grid.Column width={3} textAlign="right">
-                ${this.props.product.price * this.state.quantity}{' '}
+                <div dangerouslySetInnerHTML={{ __html: config.CURRENCY + this.props.product.price * this.state.quantity }} />
               </Grid.Column>
               <div className="cart-buttons">
                 <Button icon onClick={this.toggleCardHeight} color="purple">

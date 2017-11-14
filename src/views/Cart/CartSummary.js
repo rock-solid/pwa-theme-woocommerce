@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Grid, Card, Header } from 'semantic-ui-react';
 import { cartProductPropType } from './reducer';
 import Checkout from './Checkout';
+import config from '../../config/config';
 
 const CartSummary = props => (
   <Card centered>
@@ -28,7 +29,7 @@ const CartSummary = props => (
         <Grid.Row>
           <Grid.Column width={12}>Total</Grid.Column>
           <Grid.Column textAlign="right" width={4}>
-            ${props.total}
+            <div dangerouslySetInnerHTML={{ __html: config.CURRENCY + props.total }} />
           </Grid.Column>
         </Grid.Row>
       </Grid>

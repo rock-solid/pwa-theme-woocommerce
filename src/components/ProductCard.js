@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 import { Card, Image, Button, Header } from 'semantic-ui-react';
+import config from '../config/config';
 
 class ProductCard extends Component {
   render() {
@@ -14,7 +15,7 @@ class ProductCard extends Component {
           <Card.Header className="break-words">{this.props.name}</Card.Header>
           <Card.Meta>{categories.join(',')}</Card.Meta>
           <Header as="h3" color="purple">
-            ${this.props.price}
+            <div dangerouslySetInnerHTML={{ __html: config.CURRENCY + this.props.price }} />
           </Header>
         </Card.Content>
         <Card.Content extra>
