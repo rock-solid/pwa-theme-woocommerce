@@ -32,7 +32,11 @@ class Variations extends Component {
 
     // build an array with attributes for easier processing
     _.forEach(this.props.variations, (variation) => {
-      attributesArray[variation.id] = variation.attributes;
+      // since the variations array can contain variations from other products we also need
+      // to make sure the variation belongs to the current product
+      if (this.props.variationIds.includes(variation.id)) {
+        attributesArray[variation.id] = variation.attributes;
+      }
     });
 
     // create an array that will contain the filtered values and initialize it by filtering based on the first option
