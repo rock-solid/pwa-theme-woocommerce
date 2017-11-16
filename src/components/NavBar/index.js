@@ -38,21 +38,11 @@ class NavBar extends Component {
           </Menu.Item>
           <Menu.Item position="right" fitted>
             <Menu.Item fitted>
-              <Icon name="search" size="large" className="shop-icon" />
-            </Menu.Item>
-            <Menu.Item fitted>
               <Icon.Group>
                 <Link to="/cart" className="cart-link">
                   <Icon name="cart" size="large" className="shop-icon" />
                   {_.isEmpty(this.props.cart) ? null : (
-                    <Label
-                      color="orange"
-                      size="mini"
-                      floating
-                      circular
-                      content={this.getQuantity()}
-                      className="cart-counter"
-                    />
+                    <Label color="orange" size="mini" floating circular content={this.getQuantity()} className="cart-counter" />
                   )}
                 </Link>
               </Icon.Group>
