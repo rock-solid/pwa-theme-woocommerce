@@ -1,3 +1,4 @@
+import 'semantic-ui-css/semantic.min.css';
 import React, { Component } from 'react';
 import ReduxToastr from 'react-redux-toastr';
 import PropTypes from 'prop-types';
