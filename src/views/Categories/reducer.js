@@ -7,6 +7,7 @@ export const categoryPropType = PropTypes.shape({
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   image: PropTypes.oneOfType([
+    null,
     PropTypes.array,
     PropTypes.shape({
       src: PropTypes.string,
