@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
-import { Card, Button, Header } from 'semantic-ui-react';
+import { Card, Button, Header, Grid } from 'semantic-ui-react';
 import config from '../config/config';
-
 import CircularImage from './CircularImage';
 
 class ProductCard extends Component {
@@ -13,12 +12,18 @@ class ProductCard extends Component {
     return (
       <Card centered>
         <Card.Content>
-          <CircularImage src={this.props.src} />
-          <Card.Header className="break-words">{this.props.name}</Card.Header>
-          <Card.Meta>{categories.join(',')}</Card.Meta>
-          <Header as="h3" color="purple">
-            <div dangerouslySetInnerHTML={{ __html: config.CURRENCY + this.props.price }} />
-          </Header>
+          <Grid>
+            <Grid.Column width={5}>
+              <CircularImage src={this.props.src} />
+            </Grid.Column>
+            <Grid.Column width={11}>
+              <Card.Header className="break-words">{this.props.name}</Card.Header>
+              <Card.Meta>{categories.join(',')}</Card.Meta>
+              <Header as="h3" color="purple">
+                <div dangerouslySetInnerHTML={{ __html: config.CURRENCY + this.props.price }} />
+              </Header>
+            </Grid.Column>
+          </Grid>
         </Card.Content>
         <Card.Content extra>
           <Link to={'/product/' + this.props.id}>
