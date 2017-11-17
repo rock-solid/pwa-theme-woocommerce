@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import { Card, Grid, Image, Button, Icon, Input } from 'semantic-ui-react';
+import { Card, Grid, Button, Icon, Input } from 'semantic-ui-react';
 import { cartProductPropType } from './reducer';
 import { setQuantity, removeProduct } from './actions';
+import CircularImage from '../../components/CircularImage';
 import config from '../../config/config';
 
 import './styles.css';
@@ -88,16 +89,25 @@ class CartProduct extends Component {
           <Grid doubling>
             <Grid.Row centered key={this.props.product.id}>
               <Grid.Column width={4} textAlign="center">
-                <Image shape="circular" src={this.props.product.image} />
+                <CircularImage src={this.props.product.image} width={50} height={50} />
               </Grid.Column>
               <Grid.Column width={5} className="break-words">
                 {this.props.product.name}
               </Grid.Column>
               <Grid.Column width={4}>
-                <div dangerouslySetInnerHTML={{ __html: this.state.quantity + ' x ' + config.CURRENCY + this.props.product.price }} />
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      this.state.quantity + ' x ' + config.CURRENCY + this.props.product.price,
+                  }}
+                />
               </Grid.Column>
               <Grid.Column width={3} textAlign="right">
-                <div dangerouslySetInnerHTML={{ __html: config.CURRENCY + this.props.product.price * this.state.quantity }} />
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: config.CURRENCY + this.props.product.price * this.state.quantity,
+                  }}
+                />
               </Grid.Column>
               <div className="cart-buttons">
                 <Button icon onClick={this.toggleCardHeight} color="purple">

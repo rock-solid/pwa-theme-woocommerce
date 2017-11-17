@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
-import { Card, Image, Button, Header } from 'semantic-ui-react';
+import { Card, Button, Header } from 'semantic-ui-react';
 import config from '../config/config';
+
+import CircularImage from './CircularImage';
 
 class ProductCard extends Component {
   render() {
@@ -11,7 +13,7 @@ class ProductCard extends Component {
     return (
       <Card centered>
         <Card.Content>
-          <Image floated="left" size="tiny" shape="circular" src={this.props.src} />
+          <CircularImage src={this.props.src} />
           <Card.Header className="break-words">{this.props.name}</Card.Header>
           <Card.Meta>{categories.join(',')}</Card.Meta>
           <Header as="h3" color="purple">
