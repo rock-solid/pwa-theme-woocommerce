@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import store from './configureStore';
 import App from './App';
+import registerServiceWorker from './registerServiceWorker';
 
 import Home from './views/Home';
 import Products from './views/Products';
@@ -30,3 +31,4 @@ render(
   document.getElementById('root'),
 );
 
+registerServiceWorker();
