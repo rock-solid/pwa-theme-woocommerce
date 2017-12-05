@@ -4,8 +4,8 @@
   "start_url": "./index.html",
   "display": "standalone",
   "orientation": "any",
-  "theme_color": "#e74c3c",
-  "background_color": "#e74c3c",
+  "theme_color": "#a333c8",
+  "background_color": "#a333c8",
   "icons": [
     {
       "src": "https://pwa-woo.wpmobilepack.com/48icon_1512486555.jpg",
