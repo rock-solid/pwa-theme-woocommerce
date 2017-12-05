@@ -26,7 +26,7 @@ class Home extends Component {
       return <p>No products found.</p>;
     }
 
-    return <ProductsList products={this.props.products} categoryName="Home" />;
+    return <ProductsList products={this.props.products} title="Home" />;
   }
 }
 

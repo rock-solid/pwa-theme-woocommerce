@@ -61,7 +61,7 @@ class Products extends Component {
     return (
       <ProductsList
         products={filteredProducts}
-        categoryName={this.getCategoryName(filteredProducts[0].categories)}
+        title={this.getCategoryName(filteredProducts[0].categories)}
       />
     );
   }

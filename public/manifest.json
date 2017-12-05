@@ -8,22 +8,22 @@
   "background_color": "#e74c3c",
   "icons": [
     {
-      "src": "https://pwa-woo.wpmobilepack.com/48icon_1504177390.png",
+      "src": "https://pwa-woo.wpmobilepack.com/48icon_1512486555.jpg",
       "sizes": "48x48",
       "type": "image/png"
     },
     {
-      "src": "https://pwa-woo.wpmobilepack.com//96icon_1504177390.png",
+      "src": "https://pwa-woo.wpmobilepack.com//96icon_1512486555.jpg",
       "sizes": "96x96",
       "type": "image/png"
     },
     {
-      "src": "https://pwa-woo.wpmobilepack.com/144icon_1504177390.png",
+      "src": "https://pwa-woo.wpmobilepack.com/144icon_1512486555.jpg",
       "sizes": "144x144",
       "type": "image/png"
     },
     {
-      "src": "https://pwa-woo.wpmobilepack.com/196icon_1504177390.png",
+      "src": "https://pwa-woo.wpmobilepack.com/196icon_1512486555.png",
       "sizes": "196x196",
       "type": "image/png"
     }

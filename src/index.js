@@ -3,7 +3,6 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import store from './configureStore';
-import registerServiceWorker from './registerServiceWorker';
 import App from './App';
 
 import Home from './views/Home';
@@ -30,4 +29,4 @@ render(
   </Provider>,
   document.getElementById('root'),
 );
-registerServiceWorker();
+

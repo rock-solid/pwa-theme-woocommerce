@@ -1,0 +1,5 @@
+.circular-image {
+  background-size: cover !important;
+  background-position: 50% !important;
+  display: inline-block !important;
+}

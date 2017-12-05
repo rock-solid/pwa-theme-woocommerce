@@ -4,6 +4,7 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Segment, Icon, Label, Menu } from 'semantic-ui-react';
+import config from '../../config/config';
 import { openMenu } from './actions';
 import { getCart } from '../../views/Cart/reducer';
 import './NavBar.css';
@@ -33,12 +34,9 @@ class NavBar extends Component {
             <Icon name="content" size="large" onClick={this.showSidebar} className="shop-icon" />
           </Menu.Item>
           <Menu.Item className="shop-name" fitted>
-            <Link to="/">MY SHOP</Link>
+            <Link to="/">{config.SHOP_NAME}</Link>
           </Menu.Item>
           <Menu.Item position="right" fitted>
-            <Menu.Item fitted>
-              <Icon name="search" size="large" className="shop-icon" />
-            </Menu.Item>
             <Menu.Item fitted>
               <Icon.Group>
                 <Link to="/cart" className="cart-link">
@@ -60,7 +58,6 @@ NavBar.propTypes = {
   openMenu: PropTypes.func.isRequired,
   cart: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
       quantity: PropTypes.number.isRequired,
     }),
   ).isRequired,

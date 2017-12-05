@@ -30,9 +30,12 @@ const SideMenu = props => (
         <Icon name="browser" />Categories
       </Menu.Item>
     </Link>
-    <Menu.Item name="ordering">
-      <Icon name="shopping basket" />Ordering Online
-    </Menu.Item>
+    <Link to="/cart" onClick={props.closeMenu}>
+      <Menu.Item name="ordering">
+        <Icon name="shopping basket" />Shopping Cart
+      </Menu.Item>
+    </Link>
+    {/*
     <Menu.Item name="service">
       <Icon name="setting" />Customer Service
     </Menu.Item>
@@ -48,6 +51,7 @@ const SideMenu = props => (
     <Menu.Item name="account">
       <Icon name="user" />User Account
     </Menu.Item>
+    */}
   </Sidebar>
 );
 
