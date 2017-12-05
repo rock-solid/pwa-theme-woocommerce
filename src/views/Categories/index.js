@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Header, Loader } from 'semantic-ui-react';
 import { fetchCategories } from './actions';
-import { getCategories, getCategoriesFetching } from './reducer';
-import CategoriesList from '../../components/CategoriesList';
+import { getCategories, getCategoriesFetching, categoryPropType } from './reducer';
+import CategoriesList from './CategoriesList';
 
 class Categories extends Component {
   componentWillMount() {
@@ -34,18 +34,7 @@ class Categories extends Component {
 Categories.propTypes = {
   dispatch: PropTypes.func.isRequired,
   loading: PropTypes.number.isRequired,
-  categories: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      image: PropTypes.oneOfType([
-        PropTypes.array,
-        PropTypes.shape({
-          src: PropTypes.string,
-        }),
-      ]),
-    }),
-  ).isRequired,
+  categories: PropTypes.arrayOf(categoryPropType).isRequired,
 };
 
 const mapStateToProps = state => ({

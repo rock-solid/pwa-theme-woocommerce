@@ -20,6 +20,7 @@ export const productPropType = PropTypes.shape({
   ).isRequired,
   average_rating: PropTypes.string.isRequired,
   rating_count: PropTypes.number.isRequired,
+  variations: PropTypes.arrayOf(PropTypes.number).isRequired,
 });
 
 const items = (state = [], action) => {
@@ -28,9 +29,9 @@ const items = (state = [], action) => {
     return state;
   case RECEIVE_PRODUCTS:
     if (Array.isArray(action.products)) {
-      return _.unionBy(state, action.products, 'id');
+      return _.unionBy(action.products, state, 'id');
     }
-    return _.unionBy(state, [action.products], 'id');
+    return _.unionBy([action.products], state, 'id');
   default:
     return state;
   }

@@ -14,13 +14,12 @@ class ProductsList extends Component {
         name={element.name}
         price={element.price}
         categories={element.categories}
-        productId={element.id}
       />
     ));
 
     return (
       <div>
-        <Header textAlign="center">{this.props.categoryName}</Header>
+        <Header textAlign="center">{this.props.title}</Header>
         {list}
       </div>
     );
@@ -29,7 +28,7 @@ class ProductsList extends Component {
 
 ProductsList.propTypes = {
   products: PropTypes.arrayOf(productPropType).isRequired,
-  categoryName: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 export default ProductsList;
