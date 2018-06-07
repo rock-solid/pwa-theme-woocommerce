@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { Loader } from 'semantic-ui-react';
+import InfiniteScroll from 'react-infinite-scroller';
 
 import { fetchProducts } from './actions';
 import { getProductsFetching, getProducts, productPropType } from './reducer';
@@ -12,17 +13,27 @@ import { closeSearch } from '../../components/NavBar/actions';
 import { getSearchInput } from '../../components/NavBar/reducer';
 
 class Products extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      page: 1,
+    };
+  }
+
   componentWillMount() {
     const { searchVisible, match } = this.props;
-    this.readProducts(match.params.categId);
+    const { page } = this.state;
+    this.readProducts(match.params.categId, page);
     if (searchVisible) {
       this.props.closeSearch();
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.match.params.categId !== nextProps.match.params.categId) {
-      this.readProducts(nextProps.match.params.categId);
+    const { match } = this.props;
+    const { page } = this.state;
+    if (match.params.categId !== nextProps.match.params.categId) {
+      this.readProducts(nextProps.match.params.categId, page);
     }
   }
 
@@ -45,9 +56,9 @@ class Products extends Component {
     );
   }
 
-  readProducts(categId) {
+  readProducts(categId, page) {
     const { dispatch } = this.props;
-    dispatch(fetchProducts({ categId }));
+    dispatch(fetchProducts({ categId, page }));
   }
 
   render() {
@@ -66,10 +77,22 @@ class Products extends Component {
     }
 
     return (
-      <ProductsList
-        products={filteredProducts}
-        title={this.getCategoryName(filteredProducts[0].categories)}
-      />
+      <InfiniteScroll
+        pageStart={0}
+        loadMore={() => {
+          if (this.props.products.length % 10) {
+            this.setState({ state: this.state.page + 1 });
+            this.readProducts(this.props.match.params.categId, this.state.page);
+          }
+        }}
+        hasMore={true || false}
+        useWindow={false}
+      >
+        <ProductsList
+          products={filteredProducts}
+          title={this.getCategoryName(filteredProducts[0].categories)}
+        />
+      </InfiniteScroll>
     );
   }
 }
