@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Header, Loader } from 'semantic-ui-react';
+import InfiniteScroll from 'react-infinite-scroller';
 
 import { fetchCategories } from './actions';
 import { getCategories, getCategoriesFetching, categoryPropType } from './reducer';
@@ -11,6 +12,14 @@ import { closeSearch } from '../../components/NavBar/actions';
 import { getSearchInput } from '../../components/NavBar/reducer';
 
 class Categories extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      page: 2,
+    };
+    this.loadCategories = this.loadCategories.bind(this);
+  }
+
   componentWillMount() {
     const { dispatch, searchVisible } = this.props;
     dispatch(fetchCategories);
@@ -19,8 +28,17 @@ class Categories extends Component {
     }
   }
 
+  loadCategories() {
+    if (this.props.categories.length % 10) {
+      this.props.dispatch(fetchCategories({ page: this.state.page }));
+      this.setState({ state: this.state.page + 1 });
+    }
+  }
+
   render() {
-    if (this.props.loading === 1) {
+    const { loading, categories } = this.props;
+
+    if (loading === 1) {
       return (
         <div>
           <Loader active />
@@ -31,7 +49,14 @@ class Categories extends Component {
     return (
       <div>
         <Header textAlign="center">Categories</Header>
-        <CategoriesList categories={this.props.categories} />
+        <InfiniteScroll
+          pageStart={0}
+          loadMore={this.loadCategories}
+          hasMore={true || false}
+          useWindow={false}
+        >
+          <CategoriesList categories={categories} />
+        </InfiniteScroll>
       </div>
     );
   }

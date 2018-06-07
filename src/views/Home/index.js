@@ -28,7 +28,7 @@ class Home extends Component {
   }
 
   render() {
-    const { loading, products } = this.props;
+    const { loading, products, dispatch } = this.props;
     const { page } = this.state;
 
     if (loading === 1) {
@@ -53,13 +53,13 @@ class Home extends Component {
         loadMore={() => {
           if (products.length % 10) {
             this.setState({ state: page + 1 });
-            this.readProducts(page);
+            dispatch(fetchProducts({ page }));
           }
         }}
         hasMore={true || false}
         useWindow={false}
       >
-        <ProductsList products={products} title="Home" />{' '}
+        <ProductsList products={products} title="Home" />
       </InfiniteScroll>
     );
   }
