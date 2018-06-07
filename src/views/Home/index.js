@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Loader } from 'semantic-ui-react';
+import { Loader, Container } from 'semantic-ui-react';
+import InfiniteScroll from 'react-infinite-scroller';
 
 import { fetchProducts } from '../Products/actions';
 import { getProductsFetching, getProducts, productPropType } from '../Products/reducer';
@@ -11,6 +12,13 @@ import { closeSearch } from '../../components/NavBar/actions';
 import { getSearchInput } from '../../components/NavBar/reducer';
 
 class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      page: 1,
+    };
+  }
+
   componentWillMount() {
     const { dispatch, searchVisible } = this.props;
     dispatch(fetchProducts());
@@ -20,7 +28,10 @@ class Home extends Component {
   }
 
   render() {
-    if (this.props.loading === 1) {
+    const { loading, products } = this.props;
+    const { page } = this.state;
+
+    if (loading === 1) {
       return (
         <div>
           <Loader active />
@@ -28,11 +39,29 @@ class Home extends Component {
       );
     }
 
-    if (this.props.products.length === 0) {
-      return <p>No products found.</p>;
+    if (products.length === 0) {
+      return (
+        <Container>
+          <p>No products found.</p>
+        </Container>
+      );
     }
 
-    return <ProductsList products={this.props.products} title="Home" />;
+    return (
+      <InfiniteScroll
+        pageStart={0}
+        loadMore={() => {
+          if (products.length % 10) {
+            this.setState({ state: page + 1 });
+            this.readProducts(page);
+          }
+        }}
+        hasMore={true || false}
+        useWindow={false}
+      >
+        <ProductsList products={products} title="Home" />{' '}
+      </InfiniteScroll>
+    );
   }
 }
 
