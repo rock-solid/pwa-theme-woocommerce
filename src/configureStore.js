@@ -2,10 +2,10 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { createTransform, persistStore, autoRehydrate } from 'redux-persist';
 import { reducer as toastrReducer } from 'react-redux-toastr';
 import thunk from 'redux-thunk';
-// import logger from 'redux-logger';
+import logger from 'redux-logger';
 import createHistory from 'history/createBrowserHistory';
 import { routerMiddleware } from 'react-router-redux';
-import sideMenuVisible from './components/NavBar/reducer';
+import navbar from './components/NavBar/reducer';
 
 import categories from './views/Categories/reducer';
 import search from './views/Search/reducer';
@@ -17,7 +17,10 @@ import variations from './components/Variations/reducer';
 const history = createHistory();
 
 const defaultState = {
-  sideMenuVisible: false,
+  navbar: {
+    sidemenu: false,
+    searchInput: false,
+  },
   categories: {
     items: [],
     isFetching: 0,
@@ -44,7 +47,7 @@ const defaultState = {
 };
 
 const rootReducer = combineReducers({
-  sideMenuVisible,
+  navbar,
   categories,
   // reducer for searched items, that will not be persisted
   search,
@@ -69,13 +72,13 @@ const store = createStore(
   rootReducer,
   defaultState,
   compose(
-    applyMiddleware(thunk, routerMiddleware(history)),
+    applyMiddleware(thunk, logger, routerMiddleware(history)),
     autoRehydrate(),
   ),
 );
 
 persistStore(store, {
-  blacklist: ['sideMenuVisible', 'search', 'toastr', 'reviews'],
+  blacklist: ['navbar', 'search', 'toastr', 'reviews'],
   transforms: [skipIsFetchingTransform],
 });
 
