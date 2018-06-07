@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Segment, Icon, Label, Menu } from 'semantic-ui-react';
+import { Segment, Icon, Label, Menu, Button, Transition, Input } from 'semantic-ui-react';
 import config from '../../config/config';
 import { openMenu } from './actions';
 import { getCart } from '../../views/Cart/reducer';
@@ -12,13 +12,26 @@ import './NavBar.css';
 class NavBar extends Component {
   constructor(props) {
     super(props);
-
+    this.state = {
+      visible: false,
+      search: null,
+    };
     this.showSidebar = this.showSidebar.bind(this);
+    this.setSearch = this.setSearch.bind(this);
+    this.toggleVisibility = this.toggleVisibility.bind(this);
   }
 
   getQuantity() {
     const cart = this.props.cart;
     return cart.reduce((quantity, item) => item.quantity + quantity, 0);
+  }
+
+  setSearch(e) {
+    this.setState({ search: e.target.value });
+  }
+
+  toggleVisibility() {
+    this.setState({ visible: !this.state.visible });
   }
 
   showSidebar(e) {
@@ -27,6 +40,8 @@ class NavBar extends Component {
   }
 
   render() {
+    const { visible, search } = this.state;
+
     return (
       <Segment basic color="purple" inverted size="small" className="nav-bar">
         <Menu fluid secondary>
@@ -37,12 +52,34 @@ class NavBar extends Component {
             <Link to="/">{config.SHOP_NAME}</Link>
           </Menu.Item>
           <Menu.Item position="right" fitted>
+            <Transition visible={visible} animation="fade right" duration={(100, 400)}>
+              <Input
+                name="search"
+                type="text"
+                className="search"
+                onChange={e => this.setSearch(e)}
+              />
+            </Transition>
+            {search ? (
+              <Link to={`/search/${search}`}>
+                <Button icon="search" circular size="big" />
+              </Link>
+            ) : (
+              <Button icon="search" onClick={this.toggleVisibility} circular size="big" />
+            )}
             <Menu.Item fitted>
               <Icon.Group>
                 <Link to="/cart" className="cart-link">
                   <Icon name="cart" size="large" className="shop-icon" />
                   {_.isEmpty(this.props.cart) ? null : (
-                    <Label color="orange" size="mini" floating circular content={this.getQuantity()} className="cart-counter" />
+                    <Label
+                      color="orange"
+                      size="mini"
+                      floating
+                      circular
+                      content={this.getQuantity()}
+                      className="cart-counter"
+                    />
                   )}
                 </Link>
               </Icon.Group>
@@ -67,4 +104,7 @@ const mapStateToProps = state => ({
   cart: getCart(state.cart),
 });
 
-export default connect(mapStateToProps, { openMenu })(NavBar);
+export default connect(
+  mapStateToProps,
+  { openMenu },
+)(NavBar);
