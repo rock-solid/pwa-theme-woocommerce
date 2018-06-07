@@ -22,6 +22,7 @@
     "react-ga": "^2.2.0",
     "react-helmet": "^5.1.3",
     "react-image-gallery": "^0.8.3",
+    "react-infinite-scroller": "^1.1.4",
     "react-redux": "^5.0.4",
     "react-redux-form": "^1.12.1",
     "react-redux-toastr": "^7.1.5",
