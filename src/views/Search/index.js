@@ -18,6 +18,7 @@ class Search extends Component {
     super(props);
     this.state = {
       page: 1,
+      hasMore: false,
     };
     this.readProducts = this.readProducts.bind(this);
     this.loadMore = this.loadMore.bind(this);
@@ -25,7 +26,6 @@ class Search extends Component {
 
   componentWillMount() {
     this.readProducts(this.props.match.params.search, this.state.page);
-
     if (this.props.searchVisible) {
       this.props.closeSearch();
     }
@@ -35,12 +35,15 @@ class Search extends Component {
     if (this.props.match.params.search !== nextProps.match.params.search) {
       this.readProducts(nextProps.match.params.search, this.state.page);
     }
+    if (nextProps.products.length > this.props.products.length) {
+      this.setState({ page: this.state.page + 1, hasMore: true });
+    }
   }
 
   loadMore() {
-    if (this.props.products.length % 10 === 0) {
-      this.setState({ page: this.state.page + 1 });
+    if (this.state.hasMore) {
       this.readProducts(this.props.match.params.search, this.state.page);
+      this.setState({ hasMore: false });
     }
   }
 
@@ -50,7 +53,10 @@ class Search extends Component {
   }
 
   render() {
-    if (this.props.loading === 1) {
+    const { loading, products } = this.props;
+    const { hasMore } = this.state;
+
+    if (loading === 1 && products.length === 0) {
       return (
         <div>
           <Loader active />
@@ -58,7 +64,7 @@ class Search extends Component {
       );
     }
 
-    if (this.props.products.length === 0) {
+    if (products.length === 0) {
       if (!navigator.onLine) {
         return (
           <Container>
@@ -73,13 +79,8 @@ class Search extends Component {
       );
     }
     return (
-      <InfiniteScroll
-        pageStart={0}
-        loadMore={this.loadMore}
-        hasMore={true || false}
-        useWindow={false}
-      >
-        <ProductsList products={this.props.products} title="Search" />
+      <InfiniteScroll pageStart={0} loadMore={this.loadMore} hasMore={hasMore} useWindow={false}>
+        <ProductsList products={products} title="Search" />
       </InfiniteScroll>
     );
   }
