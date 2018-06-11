@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Loader, Container } from 'semantic-ui-react';
+import _ from 'lodash';
 import InfiniteScroll from 'react-infinite-scroller';
 
 import { fetchProducts } from '../Products/actions';
@@ -16,22 +17,37 @@ class Home extends Component {
     super(props);
     this.state = {
       page: 1,
+      hasMore: false,
     };
+    this.loadProducts = this.loadProducts.bind(this);
   }
 
   componentWillMount() {
     const { dispatch, searchVisible } = this.props;
-    dispatch(fetchProducts());
+    dispatch(fetchProducts({ per_page: 3, page: this.state.page }));
     if (searchVisible) {
       this.props.closeSearch();
     }
   }
 
-  render() {
-    const { loading, products, dispatch } = this.props;
-    const { page } = this.state;
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.products.length > this.props.products.length) {
+      this.setState({ page: this.state.page + 1, hasMore: true });
+    }
+  }
 
-    if (loading === 1) {
+  loadProducts() {
+    if (this.state.hasMore) {
+      this.props.dispatch(fetchProducts({ per_page: 3, page: this.state.page }));
+      this.setState({ hasMore: false });
+    }
+  }
+
+  render() {
+    const { loading, products } = this.props;
+    const { hasMore } = this.state;
+
+    if (loading === 1 && products.length === 0) {
       return (
         <div>
           <Loader active />
@@ -50,16 +66,12 @@ class Home extends Component {
     return (
       <InfiniteScroll
         pageStart={0}
-        loadMore={() => {
-          if (products.length % 10) {
-            this.setState({ state: page + 1 });
-            dispatch(fetchProducts({ page }));
-          }
-        }}
-        hasMore={true || false}
+        loadMore={this.loadProducts}
+        loader={<Container className="loader">Loading ...</Container>}
+        hasMore={hasMore}
         useWindow={false}
       >
-        <ProductsList products={products} title="Home" />
+        <ProductsList products={_.orderBy(products, ['date_created'], ['desc'])} title="Home" />
       </InfiniteScroll>
     );
   }
