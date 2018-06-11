@@ -17,7 +17,9 @@ class Products extends Component {
     super(props);
     this.state = {
       page: 1,
+      hasMore: false,
     };
+    this.loadProducts = this.loadProducts.bind(this);
   }
 
   componentWillMount() {
@@ -30,10 +32,13 @@ class Products extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { match } = this.props;
+    const { match, products } = this.props;
     const { page } = this.state;
     if (match.params.categId !== nextProps.match.params.categId) {
       this.readProducts(nextProps.match.params.categId, page);
+    }
+    if (nextProps.products.length > products.length) {
+      this.setState({ page: page + 1, hasMore: true });
     }
   }
 
@@ -56,13 +61,25 @@ class Products extends Component {
     );
   }
 
+  loadProducts() {
+    const { hasMore, page } = this.state;
+    const { match } = this.props;
+    if (hasMore) {
+      this.readProducts(match.params.categId, page);
+      this.setState({ hasMore: false });
+    }
+  }
+
   readProducts(categId, page) {
     const { dispatch } = this.props;
-    dispatch(fetchProducts({ categId, page }));
+    dispatch(fetchProducts({ categId, page, per_page: 2 }));
   }
 
   render() {
-    if (this.props.loading === 1) {
+    const { loading, products } = this.props;
+    const { hasMore } = this.state;
+
+    if (loading === 1 && products.length === 0) {
       return (
         <div>
           <Loader active />
@@ -79,13 +96,8 @@ class Products extends Component {
     return (
       <InfiniteScroll
         pageStart={0}
-        loadMore={() => {
-          if (this.props.products.length % 10) {
-            this.setState({ state: this.state.page + 1 });
-            this.readProducts(this.props.match.params.categId, this.state.page);
-          }
-        }}
-        hasMore={true || false}
+        loadMore={this.loadProducts}
+        hasMore={hasMore}
         useWindow={false}
       >
         <ProductsList
