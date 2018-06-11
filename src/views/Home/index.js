@@ -67,7 +67,6 @@ class Home extends Component {
       <InfiniteScroll
         pageStart={0}
         loadMore={this.loadProducts}
-        loader={<Container className="loader">Loading ...</Container>}
         hasMore={hasMore}
         useWindow={false}
       >

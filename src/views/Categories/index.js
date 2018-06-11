@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Header, Loader } from 'semantic-ui-react';
+import { Header, Loader, Container } from 'semantic-ui-react';
 import InfiniteScroll from 'react-infinite-scroller';
 
 import { fetchCategories } from './actions';
@@ -15,34 +15,50 @@ class Categories extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      page: 2,
+      page: 1,
+      hasMore: false,
     };
     this.loadCategories = this.loadCategories.bind(this);
   }
 
   componentWillMount() {
     const { dispatch, searchVisible } = this.props;
-    dispatch(fetchCategories);
+    dispatch(fetchCategories({ page: this.state.page }));
     if (searchVisible) {
       this.props.closeSearch();
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.categories.length > this.props.categories.length) {
+      this.setState({ page: this.state.page + 1, hasMore: true });
+    }
+  }
+
   loadCategories() {
-    if (this.props.categories.length % 10) {
+    if (this.state.hasMore) {
       this.props.dispatch(fetchCategories({ page: this.state.page }));
-      this.setState({ state: this.state.page + 1 });
+      this.setState({ hasMore: false });
     }
   }
 
   render() {
     const { loading, categories } = this.props;
+    const { hasMore } = this.state;
 
-    if (loading === 1) {
+    if (loading === 1 && categories.length === 0) {
       return (
         <div>
           <Loader active />
         </div>
+      );
+    }
+
+    if (categories.length === 0) {
+      return (
+        <Container>
+          <p>No categories found.</p>
+        </Container>
       );
     }
 
@@ -52,7 +68,7 @@ class Categories extends Component {
         <InfiniteScroll
           pageStart={0}
           loadMore={this.loadCategories}
-          hasMore={true || false}
+          hasMore={hasMore}
           useWindow={false}
         >
           <CategoriesList categories={categories} />
