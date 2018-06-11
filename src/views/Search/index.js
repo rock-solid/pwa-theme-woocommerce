@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Loader, Container } from 'semantic-ui-react';
 import InfiniteScroll from 'react-infinite-scroller';
+import _ from 'lodash';
 
 import { fetchProducts } from '../Products/actions';
 import { productPropType } from '../Products/reducer';
@@ -80,7 +81,7 @@ class Search extends Component {
     }
     return (
       <InfiniteScroll pageStart={0} loadMore={this.loadMore} hasMore={hasMore} useWindow={false}>
-        <ProductsList products={products} title="Search" />
+        <ProductsList products={_.orderBy(products, ['date_created'], ['desc'])} title="Search" />
       </InfiniteScroll>
     );
   }

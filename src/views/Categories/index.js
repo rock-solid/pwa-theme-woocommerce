@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Header, Loader, Container } from 'semantic-ui-react';
 import InfiniteScroll from 'react-infinite-scroller';
+import _ from 'lodash';
 
 import { fetchCategories } from './actions';
 import { getCategories, getCategoriesFetching, categoryPropType } from './reducer';
@@ -71,7 +72,7 @@ class Categories extends Component {
           hasMore={hasMore}
           useWindow={false}
         >
-          <CategoriesList categories={categories} />
+          <CategoriesList categories={_.orderBy(categories, ['name'], ['asc'])} />
         </InfiniteScroll>
       </div>
     );

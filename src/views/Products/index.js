@@ -101,7 +101,7 @@ class Products extends Component {
         useWindow={false}
       >
         <ProductsList
-          products={filteredProducts}
+          products={_.orderBy(filteredProducts, ['date_created'], ['desc'])}
           title={this.getCategoryName(filteredProducts[0].categories)}
         />
       </InfiniteScroll>
