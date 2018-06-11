@@ -24,7 +24,7 @@ class Home extends Component {
 
   componentWillMount() {
     const { dispatch, searchVisible } = this.props;
-    dispatch(fetchProducts({ per_page: 3, page: this.state.page }));
+    dispatch(fetchProducts({ page: this.state.page }));
     if (searchVisible) {
       this.props.closeSearch();
     }
@@ -38,7 +38,7 @@ class Home extends Component {
 
   loadProducts() {
     if (this.state.hasMore) {
-      this.props.dispatch(fetchProducts({ per_page: 3, page: this.state.page }));
+      this.props.dispatch(fetchProducts({ page: this.state.page }));
       this.setState({ hasMore: false });
     }
   }
