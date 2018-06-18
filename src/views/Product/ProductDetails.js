@@ -118,9 +118,10 @@ class ProductDetails extends Component {
             <Card.Content>{this.getCategories()}</Card.Content>
           )}
           <Card.Content>{this.props.product.in_stock ? 'In Stock' : 'Out of Stock'}</Card.Content>
-          <Card.Content>
-            <div dangerouslySetInnerHTML={{ __html: config.CURRENCY + this.props.product.price }} />
-          </Card.Content>
+          {this.props.product.price ?
+            (<Card.Content>
+              <div dangerouslySetInnerHTML={{ __html: config.CURRENCY + this.props.product.price }} />
+            </Card.Content>) : null}
           {this.props.product.variations.length === 0 ? null : (
             <Variations
               sendSelections={this.receiveSelections}
