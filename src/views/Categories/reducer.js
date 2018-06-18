@@ -6,34 +6,30 @@ import { REQUEST_CATEGORIES, RECEIVE_CATEGORIES } from './actions';
 export const categoryPropType = PropTypes.shape({
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
-  image: PropTypes.oneOfType([
-    null,
-    PropTypes.array,
-    PropTypes.shape({
-      src: PropTypes.string,
-    }),
-  ]),
+  image: PropTypes.shape({
+    src: PropTypes.string,
+  }),
 });
 
 const items = (state = [], action) => {
   switch (action.type) {
-  case REQUEST_CATEGORIES:
-    return state;
-  case RECEIVE_CATEGORIES:
-    return _.unionBy(action.categories, state, 'id');
-  default:
-    return state;
+    case REQUEST_CATEGORIES:
+      return state;
+    case RECEIVE_CATEGORIES:
+      return _.unionBy(action.categories, state, 'id');
+    default:
+      return state;
   }
 };
 
 const isFetching = (state = 0, action) => {
   switch (action.type) {
-  case REQUEST_CATEGORIES:
-    return state + 1;
-  case RECEIVE_CATEGORIES:
-    return state - 1;
-  default:
-    return state;
+    case REQUEST_CATEGORIES:
+      return state + 1;
+    case RECEIVE_CATEGORIES:
+      return state - 1;
+    default:
+      return state;
   }
 };
 
