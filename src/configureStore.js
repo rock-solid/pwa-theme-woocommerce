@@ -3,7 +3,7 @@ import { persistCombineReducers, persistReducer, persistStore } from 'redux-pers
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 import { reducer as toastrReducer } from 'react-redux-toastr';
 import thunk from 'redux-thunk';
-import logger from 'redux-logger';
+// import logger from 'redux-logger';
 import createHistory from 'history/createBrowserHistory';
 import { routerMiddleware } from 'react-router-redux';
 
@@ -75,7 +75,7 @@ const history = createHistory();
 const store = createStore(
   rootReducer,
   undefined,
-  applyMiddleware(thunk, routerMiddleware(history), logger),
+  applyMiddleware(thunk, routerMiddleware(history)),
 );
 
 if (config.OFFLINE) {
