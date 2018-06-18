@@ -1,12 +1,13 @@
 import { createStore, applyMiddleware } from 'redux';
-import { persistCombineReducers, persistReducer } from 'redux-persist';
+import { persistCombineReducers, persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 import { reducer as toastrReducer } from 'react-redux-toastr';
 import thunk from 'redux-thunk';
-// import logger from 'redux-logger';
+import logger from 'redux-logger';
 import createHistory from 'history/createBrowserHistory';
 import { routerMiddleware } from 'react-router-redux';
 
+import config from './config/config';
 import categories from './views/Categories/reducer';
 import products from './views/Products/reducer';
 import reviews from './components/Reviews/reducer';
@@ -74,8 +75,12 @@ const history = createHistory();
 const store = createStore(
   rootReducer,
   undefined,
-  applyMiddleware(thunk, routerMiddleware(history)),
+  applyMiddleware(thunk, routerMiddleware(history), logger),
 );
+
+if (config.OFFLINE) {
+  persistStore(store);
+}
 
 export { history };
 export default store;
