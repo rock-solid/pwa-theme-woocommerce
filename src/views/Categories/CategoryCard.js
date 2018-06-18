@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
-import { Card, Button, Header, Segment, Icon } from 'semantic-ui-react';
+import { Card, Button, Header, Segment } from 'semantic-ui-react';
 import CircularImage from '../../components/CircularImage';
 
 import './styles.css';
@@ -13,9 +13,7 @@ class CategoryCard extends Component {
         <Card.Content>
           {this.props.src !== '' ? (
             <CircularImage src={this.props.src} />
-          ) : (
-            <Icon name="image" circular size="big" />
-          )}
+          ) : null}
           <Segment basic className="category-meta-container">
             <Card.Header as={Header} className="break-words">
               {this.props.name}
