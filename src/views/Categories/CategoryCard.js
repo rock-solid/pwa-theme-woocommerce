@@ -9,7 +9,7 @@ import './styles.css';
 class CategoryCard extends Component {
   render() {
     return (
-      <Card centered className="category-card">
+      <Card centered>
         <Card.Content>
           {this.props.src !== '' ? (
             <CircularImage src={this.props.src} />
