@@ -9,7 +9,7 @@ import { getReviewsFetching, getReviews, reviewPropType } from './reducer';
 import Review from './Review';
 
 class Reviews extends Component {
-  componentWillMount() {
+  componentDidMount() {
     const { dispatch } = this.props;
     dispatch(fetchReviews(this.props.productId));
   }
