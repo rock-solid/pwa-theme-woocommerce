@@ -10,7 +10,7 @@ import { fetchProducts } from './actions';
 import { getProductsFetching, getProducts, productPropType } from './reducer';
 import ProductsList from '../../components/ProductsList';
 import { closeSearch } from '../../components/NavBar/actions';
-import { getSearchInput } from '../../components/NavBar/reducer';
+import { isSearchVisible } from '../../components/NavBar/reducer';
 
 class Products extends Component {
   constructor(props) {
@@ -124,7 +124,7 @@ Products.propTypes = {
 const mapStateToProps = state => ({
   loading: getProductsFetching(state.products),
   products: getProducts(state.products),
-  searchVisible: getSearchInput(state.navbar),
+  searchVisible: isSearchVisible(state.navbar),
 });
 
 function mapDispatchToProps(dispatch) {

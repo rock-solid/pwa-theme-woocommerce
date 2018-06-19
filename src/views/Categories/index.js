@@ -10,7 +10,7 @@ import { fetchCategories } from './actions';
 import { getCategories, getCategoriesFetching, categoryPropType } from './reducer';
 import CategoriesList from './CategoriesList';
 import { closeSearch } from '../../components/NavBar/actions';
-import { getSearchInput } from '../../components/NavBar/reducer';
+import { isSearchVisible } from '../../components/NavBar/reducer';
 
 class Categories extends Component {
   constructor(props) {
@@ -90,7 +90,7 @@ Categories.propTypes = {
 const mapStateToProps = state => ({
   loading: getCategoriesFetching(state.categories),
   categories: getCategories(state.categories),
-  searchVisible: getSearchInput(state.navbar),
+  searchVisible: isSearchVisible(state.navbar),
 });
 
 function mapDispatchToProps(dispatch) {

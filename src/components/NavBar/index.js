@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Segment, Icon, Label, Menu, Button, Transition, Input } from 'semantic-ui-react';
+import { Segment, Icon, Label, Menu, Button, Input } from 'semantic-ui-react';
 import config from '../../config/config';
 import { openMenu, openSearch, closeSearch } from './actions';
-import { getSearchInput } from './reducer';
+import { isSearchVisible } from './reducer';
 import { getCart } from '../../views/Cart/reducer';
 import './NavBar.css';
 
@@ -36,7 +36,7 @@ class NavBar extends Component {
   }
 
   toggleVisibility() {
-    if (this.props.visible) {
+    if (this.props.searchVisible) {
       this.props.closeSearch();
     } else {
       this.resetSearch();
@@ -51,7 +51,7 @@ class NavBar extends Component {
 
   render() {
     const { search } = this.state;
-    const { visible } = this.props;
+    const { searchVisible } = this.props;
 
     return (
       <Segment basic color="purple" inverted size="small" className="nav-bar">
@@ -60,25 +60,27 @@ class NavBar extends Component {
             <Icon name="content" size="large" onClick={this.showSidebar} className="shop-icon" />
           </Menu.Item>
           <Menu.Item className="shop-name" fitted>
-            <Link to="/">{config.SHOP_NAME}</Link>
+            {searchVisible === false ?
+              <Link to="/">{config.SHOP_NAME}</Link> :
+              (
+                <Input
+                  name="search"
+                  type="text"
+                  className="search"
+                  value={search}
+                  onChange={e => this.setSearch(e)}
+                />
+              )
+            }
           </Menu.Item>
           <Menu.Item position="right" fitted>
-            <Transition visible={visible} animation="fade right" duration={(100, 400)}>
-              <Input
-                name="search"
-                type="text"
-                className="search"
-                value={search}
-                onChange={e => this.setSearch(e)}
-              />
-            </Transition>
-            {search && visible ? (
-              <Link to={`/search/${search}`} onClick={this.resetSearch}>
+            {search && searchVisible ? (
+              <Link to={`/search`} onClick={this.resetSearch}>
                 <Button icon="search" circular size="big" />
               </Link>
             ) : (
-              <Button icon="search" onClick={this.toggleVisibility} circular size="big" />
-            )}
+                <Button icon="search" onClick={this.toggleVisibility} circular size="big" />
+              )}
             <Menu.Item fitted>
               <Icon.Group>
                 <Link to="/cart" className="cart-link">
@@ -107,7 +109,7 @@ NavBar.propTypes = {
   openMenu: PropTypes.func.isRequired,
   openSearch: PropTypes.func.isRequired,
   closeSearch: PropTypes.func.isRequired,
-  visible: PropTypes.bool.isRequired,
+  searchVisible: PropTypes.bool.isRequired,
   cart: PropTypes.arrayOf(
     PropTypes.shape({
       quantity: PropTypes.number.isRequired,
@@ -117,7 +119,7 @@ NavBar.propTypes = {
 
 const mapStateToProps = state => ({
   cart: getCart(state.cart),
-  visible: getSearchInput(state.navbar),
+  searchVisible: isSearchVisible(state.navbar),
 });
 
 export default connect(

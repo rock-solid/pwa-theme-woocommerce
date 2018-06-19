@@ -9,7 +9,7 @@ import { getCart, cartProductPropType } from './reducer';
 import CardProduct from './CartProduct';
 import CardSummary from './CartSummary';
 import { closeSearch } from '../../components/NavBar/actions';
-import { getSearchInput } from '../../components/NavBar/reducer';
+import { isSearchVisible } from '../../components/NavBar/reducer';
 
 class Cart extends Component {
   componentWillMount() {
@@ -26,17 +26,17 @@ class Cart extends Component {
     return _.isEmpty(this.props.cart) ? (
       <Segment textAlign="center">Your Cart is Empty</Segment>
     ) : (
-      <div>
-        <Header textAlign="center">Shopping Cart</Header>
-        {this.props.cart.map(product => (
-          <CardProduct
-            key={_.isNil(product.variationId) ? product.id : product.variationId}
-            product={product}
-          />
-        ))}
-        <CardSummary total={this.getTotalPrice()} cart={this.props.cart} />
-      </div>
-    );
+        <div>
+          <Header textAlign="center">Shopping Cart</Header>
+          {this.props.cart.map(product => (
+            <CardProduct
+              key={_.isNil(product.variationId) ? product.id : product.variationId}
+              product={product}
+            />
+          ))}
+          <CardSummary total={this.getTotalPrice()} cart={this.props.cart} />
+        </div>
+      );
   }
 }
 
@@ -48,7 +48,7 @@ Cart.propTypes = {
 
 const mapStateToProps = state => ({
   cart: getCart(state.cart),
-  searchVisible: getSearchInput(state.navbar),
+  searchVisible: isSearchVisible(state.navbar),
 });
 
 function mapDispatchToProps(dispatch) {

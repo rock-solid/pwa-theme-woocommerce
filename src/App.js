@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Sidebar } from 'semantic-ui-react';
 import { withRouter } from 'react-router';
 
-import { getSideMenu } from './components/NavBar/reducer';
+import { isMenuVisible } from './components/NavBar/reducer';
 import { closeMenu } from './components/NavBar/actions';
 import NavBar from './components/NavBar';
 import SideMenu from './views/SideMenu';
@@ -59,7 +59,7 @@ App.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  sideMenuVisible: getSideMenu(state.navbar),
+  sideMenuVisible: isMenuVisible(state.navbar),
 });
 
 export default withRouter(
