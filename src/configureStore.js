@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import { persistCombineReducers, persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
-import { reducer as toastrReducer } from 'react-redux-toastr';
+import { reducer as toastr } from 'react-redux-toastr';
 import thunk from 'redux-thunk';
 // import logger from 'redux-logger';
 import createHistory from 'history/createBrowserHistory';
@@ -60,16 +60,16 @@ const rootReducer = persistCombineReducers(rootPersistConfig, {
     },
     variations,
   ),
-  cart,
-  navbar,
-  search,
-  toastr: persistReducer(
+  cart: persistReducer(
     {
-      key: 'toastr',
+      key: 'cart',
       storage,
     },
-    toastrReducer,
+    cart,
   ),
+  navbar,
+  search,
+  toastr,
 });
 
 const history = createHistory();
