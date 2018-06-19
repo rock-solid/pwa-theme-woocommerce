@@ -4,25 +4,49 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { Loader } from 'semantic-ui-react';
+import InfiniteScroll from 'react-infinite-scroller';
+
 import { fetchProducts } from './actions';
 import { getProductsFetching, getProducts, productPropType } from './reducer';
 import ProductsList from '../../components/ProductsList';
+import { closeSearch } from '../../components/NavBar/actions';
+import { getSearchInput } from '../../components/NavBar/reducer';
 
 class Products extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      page: 1,
+      hasMore: false,
+    };
+    this.loadProducts = this.loadProducts.bind(this);
+  }
+
   componentDidMount() {
-    this.readProducts(this.props.match.params.categId);
+    const { searchVisible, match } = this.props;
+    const { page } = this.state;
+    this.readProducts(match.params.categId, page);
+    if (searchVisible) {
+      this.props.closeSearch();
+    }
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.match.params.categId !== prevProps.match.params.categId) {
-      this.readProducts(this.props.match.params.categId);
+    const { match, products } = this.props;
+    const { page } = this.state;
+
+    if (match.params.categId !== prevProps.match.params.categId) {
+      this.readProducts(match.params.categId, page);
+    }
+
+    if (prevProps.products.length < products.length) {
+      this.setState({ page: page + 1, hasMore: true });
     }
   }
 
   getCategoryName(categories) {
-    return categories.find(
-      category => Number(category.id) === Number(this.props.match.params.categId),
-    ).name;
+    return categories.find(category =>
+      Number(category.id) === Number(this.props.match.params.categId)).name;
   }
 
   getProductsByCategory() {
@@ -31,20 +55,30 @@ class Products extends Component {
       return [];
     }
 
-    return this.props.products.filter(
-      product =>
-        Array.isArray(product.categories) &&
-        !_.isNil(_.find(product.categories, { id: categoryId })),
-    );
+    return this.props.products.filter(product =>
+      Array.isArray(product.categories) &&
+      !_.isNil(_.find(product.categories, { id: categoryId })));
   }
 
-  readProducts(category) {
+  loadProducts() {
+    const { hasMore, page } = this.state;
+    const { match } = this.props;
+    if (hasMore) {
+      this.readProducts(match.params.categId, page);
+      this.setState({ hasMore: false });
+    }
+  }
+
+  readProducts(category, page) {
     const { dispatch } = this.props;
-    dispatch(fetchProducts({ category }));
+    dispatch(fetchProducts({ category, page, per_page: 2 }));
   }
 
   render() {
-    if (this.props.loading === 1) {
+    const { loading, products } = this.props;
+    const { hasMore } = this.state;
+
+    if (loading === 1 && products.length === 0) {
       return (
         <div>
           <Loader active />
@@ -59,10 +93,17 @@ class Products extends Component {
     }
 
     return (
-      <ProductsList
-        products={filteredProducts}
-        title={this.getCategoryName(filteredProducts[0].categories)}
-      />
+      <InfiniteScroll
+        pageStart={0}
+        loadMore={this.loadProducts}
+        hasMore={hasMore}
+        useWindow={false}
+      >
+        <ProductsList
+          products={_.orderBy(filteredProducts, ['date_created'], ['desc'])}
+          title={this.getCategoryName(filteredProducts[0].categories)}
+        />
+      </InfiniteScroll>
     );
   }
 }
@@ -76,15 +117,21 @@ Products.propTypes = {
       categId: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  searchVisible: PropTypes.bool.isRequired,
+  closeSearch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   loading: getProductsFetching(state.products),
   products: getProducts(state.products),
+  searchVisible: getSearchInput(state.navbar),
 });
 
 function mapDispatchToProps(dispatch) {
-  return Object.assign({ dispatch }, bindActionCreators({ fetchProducts }, dispatch));
+  return Object.assign({ dispatch }, bindActionCreators({ fetchProducts, closeSearch }, dispatch));
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Products);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Products);

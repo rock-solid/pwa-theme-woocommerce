@@ -13,13 +13,15 @@ import products from './views/Products/reducer';
 import reviews from './components/Reviews/reducer';
 import cart from './views/Cart/reducer';
 import variations from './components/Variations/reducer';
-import sideMenuVisible from './components/NavBar/reducer';
+import search from './views/Search/reducer';
+import navbar from './components/NavBar/reducer';
 
 const rootPersistConfig = {
   key: 'root',
   storage,
   blacklist: [
-    'sideMenuVisible',
+    'navbar',
+    'search',
     'toastr',
   ],
   // debug: true,
@@ -59,7 +61,8 @@ const rootReducer = persistCombineReducers(rootPersistConfig, {
     variations,
   ),
   cart,
-  sideMenuVisible,
+  navbar,
+  search,
   toastr: persistReducer(
     {
       key: 'toastr',

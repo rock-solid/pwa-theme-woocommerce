@@ -3,44 +3,54 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Loader, Container } from 'semantic-ui-react';
-import _ from 'lodash';
 import InfiniteScroll from 'react-infinite-scroller';
+import _ from 'lodash';
 
 import { fetchProducts } from '../Products/actions';
-import { getProductsFetching, getProducts, productPropType } from '../Products/reducer';
+import { productPropType } from '../Products/reducer';
+import { getSearchProductsFetching, getSearchProducts } from './reducer';
 import ProductsList from '../../components/ProductsList';
+
 import { closeSearch } from '../../components/NavBar/actions';
 import { getSearchInput } from '../../components/NavBar/reducer';
 
-class Home extends Component {
+class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
       page: 1,
       hasMore: false,
     };
-    this.loadProducts = this.loadProducts.bind(this);
+    this.readProducts = this.readProducts.bind(this);
+    this.loadMore = this.loadMore.bind(this);
   }
 
-  componentDidMount() {
-    const { dispatch, searchVisible } = this.props;
-    dispatch(fetchProducts({ page: this.state.page, featured: 1 }));
-    if (searchVisible) {
+  componentWillMount() {
+    this.readProducts(this.props.match.params.search, this.state.page);
+    if (this.props.searchVisible) {
       this.props.closeSearch();
     }
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.products.length < this.props.products.length) {
+  componentWillReceiveProps(nextProps) {
+    if (this.props.match.params.search !== nextProps.match.params.search) {
+      this.readProducts(nextProps.match.params.search, this.state.page);
+    }
+    if (nextProps.products.length > this.props.products.length) {
       this.setState({ page: this.state.page + 1, hasMore: true });
     }
   }
 
-  loadProducts() {
+  loadMore() {
     if (this.state.hasMore) {
-      this.props.dispatch(fetchProducts({ page: this.state.page }));
+      this.readProducts(this.props.match.params.search, this.state.page);
       this.setState({ hasMore: false });
     }
+  }
+
+  readProducts(search, page) {
+    const { dispatch } = this.props;
+    dispatch(fetchProducts({ search, page }));
   }
 
   render() {
@@ -56,42 +66,43 @@ class Home extends Component {
     }
 
     if (products.length === 0) {
+      if (!navigator.onLine) {
+        return (
+          <Container>
+            <p>No internet connection.</p>
+          </Container>
+        );
+      }
       return (
         <Container>
           <p>No products found.</p>
         </Container>
       );
     }
-
-    // Filter featured products (if there are any)
-    const featuredProducts = this.props.products.filter(
-      product => product.featured,
-    );
-
     return (
-      <InfiniteScroll
-        pageStart={0}
-        loadMore={this.loadProducts}
-        hasMore={hasMore}
-        useWindow={false}
-      >
-        <ProductsList products={_.orderBy(featuredProducts.length > 0 ? featuredProducts : this.props.products, ['date_created'], ['desc'])} title="Home" />
+      <InfiniteScroll pageStart={0} loadMore={this.loadMore} hasMore={hasMore} useWindow={false}>
+        <ProductsList products={_.orderBy(products, ['date_created'], ['desc'])} title="Search" />
       </InfiniteScroll>
     );
   }
 }
 
-Home.propTypes = {
+Search.propTypes = {
   dispatch: PropTypes.func.isRequired,
   loading: PropTypes.number.isRequired,
   products: PropTypes.arrayOf(productPropType).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      search: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
   searchVisible: PropTypes.bool.isRequired,
   closeSearch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  loading: getProductsFetching(state.products),
-  products: getProducts(state.products),
+  loading: getSearchProductsFetching(state.search),
+  products: getSearchProducts(state.search),
   searchVisible: getSearchInput(state.navbar),
 });
 
@@ -102,4 +113,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Home);
+)(Search);
