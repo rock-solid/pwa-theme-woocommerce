@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Loader, Container } from 'semantic-ui-react';
-import InfiniteScroll from 'react-infinite-scroller';
+import { Loader, Container, Header } from 'semantic-ui-react';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import _ from 'lodash';
 
 import { productPropType } from '../Products/reducer';
@@ -17,40 +17,49 @@ import { isSearchVisible } from '../../components/NavBar/reducer';
 class Search extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       page: 1,
       hasMore: false,
     };
+
     this.readProducts = this.readProducts.bind(this);
     this.loadMore = this.loadMore.bind(this);
   }
 
   componentDidMount() {
-    this.readProducts(this.props.match.params.search, this.state.page);
     if (this.props.searchVisible) {
       this.props.closeSearch();
     }
+
+    this.readProducts(1);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.match.params.search !== nextProps.match.params.search) {
-      this.readProducts(nextProps.match.params.search, this.state.page);
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.search !== prevProps.match.params.search) {
+      this.readProducts(1);
     }
-    if (nextProps.products.length > this.props.products.length) {
-      this.setState({ page: this.state.page + 1, hasMore: true });
+
+    if (prevProps.products.length < this.props.products.length) {
+      this.setState({ hasMore: true });
     }
   }
 
   loadMore() {
     if (this.state.hasMore) {
-      this.readProducts(this.props.match.params.search, this.state.page);
-      this.setState({ hasMore: false });
+      this.readProducts(this.state.page + 1);
     }
   }
 
-  readProducts(search, page) {
+  readProducts(page) {
     const { dispatch } = this.props;
-    dispatch(fetchProducts({ search, page }));
+    dispatch(fetchProducts({
+      search: this.props.match.params.search,
+      page,
+      order: 'asc',
+      orderby: 'title',
+    }));
+    this.setState({ page, hasMore: false });
   }
 
   render() {
@@ -75,13 +84,21 @@ class Search extends Component {
       }
       return (
         <Container>
+          <Header textAlign="center">Search `{this.props.match.params.search}`</Header>
           <p>No products found.</p>
         </Container>
       );
     }
+
+    const items = _.orderBy(products, ['name'], ['asc']);
+
     return (
-      <InfiniteScroll pageStart={0} loadMore={this.loadMore} hasMore={hasMore} useWindow={false}>
-        <ProductsList products={_.orderBy(products, ['date_created'], ['desc'])} title="Search" />
+      <InfiniteScroll
+        dataLength={items.length}
+        next={this.loadMore}
+        hasMore={hasMore}
+      >
+        <ProductsList products={items} title={`Search '${this.props.match.params.search}'`} />
       </InfiniteScroll>
     );
   }

@@ -4,9 +4,8 @@ import config from '../../config/config';
 export const REQUEST_SEARCH_PRODUCTS = 'REQUEST_SEARCH_PRODUCTS';
 export const RECEIVE_SEARCH_PRODUCTS = 'RECEIVE_SEARCH_PRODUCTS';
 
-export const requestSearchProducts = search => ({
+export const requestSearchProducts = () => ({
   type: REQUEST_SEARCH_PRODUCTS,
-  search,
 });
 
 export const receiveSearchProducts = products => ({
