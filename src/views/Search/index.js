@@ -6,8 +6,8 @@ import { Loader, Container } from 'semantic-ui-react';
 import InfiniteScroll from 'react-infinite-scroller';
 import _ from 'lodash';
 
-import { fetchProducts } from '../Products/actions';
 import { productPropType } from '../Products/reducer';
+import { fetchProducts } from './actions';
 import { getSearchProductsFetching, getSearchProducts } from './reducer';
 import ProductsList from '../../components/ProductsList';
 
@@ -25,7 +25,7 @@ class Search extends Component {
     this.loadMore = this.loadMore.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.readProducts(this.props.match.params.search, this.state.page);
     if (this.props.searchVisible) {
       this.props.closeSearch();
