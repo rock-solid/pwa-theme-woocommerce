@@ -20,9 +20,11 @@ class ProductCard extends Component {
               <Card.Header className="break-words">{this.props.name}</Card.Header>
               <Card.Meta>{categories.join(',')}</Card.Meta>
               {this.props.price ?
-                (<Header as="h3" color="purple">
-                  <div dangerouslySetInnerHTML={{ __html: config.CURRENCY + this.props.price }} />
-                </Header>)
+                (
+                  <Header as="h3" color="purple">
+                    <div dangerouslySetInnerHTML={{ __html: config.CURRENCY + this.props.price }} />
+                  </Header>
+                )
                 : null}
             </Grid.Column>
           </Grid>
