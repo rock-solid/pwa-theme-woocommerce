@@ -3,8 +3,6 @@ import config from '../../config/config';
 
 export const REQUEST_PRODUCTS = 'REQUEST_PRODUCTS';
 export const RECEIVE_PRODUCTS = 'RECEIVE_PRODUCTS';
-export const REQUEST_SEARCH_PRODUCTS = 'REQUEST_SEARCH_PRODUCTS';
-export const RECEIVE_SEARCH_PRODUCTS = 'RECEIVE_SEARCH_PRODUCTS';
 
 export const requestProducts = () => ({
   type: REQUEST_PRODUCTS,
@@ -15,22 +13,8 @@ export const receiveProducts = products => ({
   products,
 });
 
-export const requestSearchProducts = search => ({
-  type: REQUEST_SEARCH_PRODUCTS,
-  search,
-});
-
-export const receiveSearchProducts = products => ({
-  type: RECEIVE_SEARCH_PRODUCTS,
-  products,
-});
-
 export const fetchProducts = (params = {}) => (dispatch) => {
-  if (params.search) {
-    dispatch(requestSearchProducts(params.search));
-  } else {
-    dispatch(requestProducts());
-  }
+  dispatch(requestProducts());
 
   let url;
   if (params && params.id) {
@@ -46,18 +30,8 @@ export const fetchProducts = (params = {}) => (dispatch) => {
 
   return fetch(url)
     .then(response => response.json())
-    .then((json) => {
-      if (params.search) {
-        dispatch(receiveSearchProducts(json));
-      } else {
-        dispatch(receiveProducts(json));
-      }
-    })
+    .then(json => dispatch(receiveProducts(json)))
     .catch(() => {
-      if (params.search) {
-        dispatch(receiveSearchProducts([]));
-      } else {
-        dispatch(receiveProducts([]));
-      }
+      dispatch(receiveProducts([]));
     });
 };
