@@ -3,6 +3,7 @@ import config from '../../config/config';
 
 export const REQUEST_SEARCH_PRODUCTS = 'REQUEST_SEARCH_PRODUCTS';
 export const RECEIVE_SEARCH_PRODUCTS = 'RECEIVE_SEARCH_PRODUCTS';
+export const RESET_SEARCH_PRODUCTS = 'RESET_SEARCH_PRODUCTS';
 
 export const requestSearchProducts = () => ({
   type: REQUEST_SEARCH_PRODUCTS,
@@ -11,6 +12,10 @@ export const requestSearchProducts = () => ({
 export const receiveSearchProducts = products => ({
   type: RECEIVE_SEARCH_PRODUCTS,
   products,
+});
+
+export const resetSearchProducts = () => ({
+  type: RESET_SEARCH_PRODUCTS,
 });
 
 export const fetchProducts = (params = {}) => (dispatch) => {

@@ -7,7 +7,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import _ from 'lodash';
 
 import { productPropType } from '../Products/reducer';
-import { fetchProducts } from './actions';
+import { fetchProducts, resetSearchProducts } from './actions';
 import { getSearchProductsFetching, getSearchProducts } from './reducer';
 import ProductsList from '../../components/ProductsList';
 
@@ -37,6 +37,7 @@ class Search extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.match.params.search !== prevProps.match.params.search) {
+      this.props.resetSearchProducts();
       this.readProducts(1);
     }
 
@@ -115,6 +116,7 @@ Search.propTypes = {
   }).isRequired,
   searchVisible: PropTypes.bool.isRequired,
   closeSearch: PropTypes.func.isRequired,
+  resetSearchProducts: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -124,7 +126,7 @@ const mapStateToProps = state => ({
 });
 
 function mapDispatchToProps(dispatch) {
-  return Object.assign({ dispatch }, bindActionCreators({ fetchProducts, closeSearch }, dispatch));
+  return Object.assign({ dispatch }, bindActionCreators({ fetchProducts, closeSearch, resetSearchProducts }, dispatch));
 }
 
 export default connect(
