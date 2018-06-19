@@ -12,7 +12,7 @@ import { closeSearch } from '../../components/NavBar/actions';
 import { isSearchVisible } from '../../components/NavBar/reducer';
 
 class Cart extends Component {
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.searchVisible) {
       this.props.closeSearch();
     }
