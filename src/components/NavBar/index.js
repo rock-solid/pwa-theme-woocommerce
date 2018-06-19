@@ -75,7 +75,7 @@ class NavBar extends Component {
           </Menu.Item>
           <Menu.Item position="right" fitted>
             {search && searchVisible ? (
-              <Link to={`/search`} onClick={this.resetSearch}>
+              <Link to={`/search/${search}`} onClick={this.resetSearch}>
                 <Button icon="search" circular size="big" />
               </Link>
             ) : (
