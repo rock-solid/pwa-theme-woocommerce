@@ -21,9 +21,8 @@ const rootPersistConfig = {
   blacklist: [
     'sideMenuVisible',
     'toastr',
-    'reviews' // @todo Why is reviews blacklisted?
   ],
-  //debug: true,
+  // debug: true,
 };
 
 const rootReducer = persistCombineReducers(rootPersistConfig, {

@@ -10,6 +10,16 @@ import Review from './Review';
 
 class Reviews extends Component {
   componentDidMount() {
+    this.readReviews();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.productId !== prevProps.productId) {
+      this.readReviews();
+    }
+  }
+
+  readReviews() {
     const { dispatch } = this.props;
     dispatch(fetchReviews(this.props.productId));
   }
@@ -35,9 +45,9 @@ Reviews.propTypes = {
   reviews: PropTypes.arrayOf(reviewPropType).isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, props) => ({
   loading: getReviewsFetching(state.reviews),
-  reviews: getReviews(state.reviews),
+  reviews: getReviews(state.reviews, props.productId),
 });
 
 function mapDispatchToProps(dispatch) {
