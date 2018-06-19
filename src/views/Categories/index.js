@@ -8,9 +8,9 @@ import { getCategories, getCategoriesFetching, categoryPropType } from './reduce
 import CategoriesList from './CategoriesList';
 
 class Categories extends Component {
-  componentWillMount() {
+  componentDidMount() {
     const { dispatch } = this.props;
-    dispatch(fetchCategories);
+    dispatch(fetchCategories({ hide_empty: true }));
   }
 
   render() {

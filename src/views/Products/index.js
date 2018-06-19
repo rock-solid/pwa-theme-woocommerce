@@ -9,13 +9,13 @@ import { getProductsFetching, getProducts, productPropType } from './reducer';
 import ProductsList from '../../components/ProductsList';
 
 class Products extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.readProducts(this.props.match.params.categId);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.match.params.categId !== nextProps.match.params.categId) {
-      this.readProducts(nextProps.match.params.categId);
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.categId !== prevProps.match.params.categId) {
+      this.readProducts(this.props.match.params.categId);
     }
   }
 
@@ -38,9 +38,9 @@ class Products extends Component {
     );
   }
 
-  readProducts(categId) {
+  readProducts(category) {
     const { dispatch } = this.props;
-    dispatch(fetchProducts({ categId }));
+    dispatch(fetchProducts({ category }));
   }
 
   render() {

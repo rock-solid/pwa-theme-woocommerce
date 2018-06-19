@@ -8,9 +8,10 @@ export const requestReviews = () => ({
   type: REQUEST_REVIEWS,
 });
 
-export const receiveReviews = reviews => ({
+export const receiveReviews = (reviews, productId) => ({
   type: RECEIVE_REVIEWS,
   reviews,
+  productId,
 });
 
 export const fetchReviews = productId => (dispatch) => {
@@ -18,8 +19,8 @@ export const fetchReviews = productId => (dispatch) => {
 
   return fetch(config.API_REVIEWS_URL + productId)
     .then(response => response.json())
-    .then(json => dispatch(receiveReviews(json)))
+    .then(json => dispatch(receiveReviews(json, productId)))
     .catch(() => {
-      dispatch(receiveReviews([]));
+      dispatch(receiveReviews([], productId));
     });
 };

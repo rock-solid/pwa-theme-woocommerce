@@ -8,9 +8,9 @@ import { getProductsFetching, getProducts, productPropType } from '../Products/r
 import ProductsList from '../../components/ProductsList';
 
 class Home extends Component {
-  componentWillMount() {
+  componentDidMount() {
     const { dispatch } = this.props;
-    dispatch(fetchProducts());
+    dispatch(fetchProducts({ featured: 1 }));
   }
 
   render() {
@@ -26,7 +26,15 @@ class Home extends Component {
       return <p>No products found.</p>;
     }
 
-    return <ProductsList products={this.props.products} title="Home" />;
+    // Filter featured products (if there are any)
+    const featuredProducts = this.props.products.filter(
+      product => product.featured,
+    );
+
+    return (<ProductsList
+      products={featuredProducts.length > 0 ? featuredProducts : this.props.products}
+      title="Home"
+    />);
   }
 }
 

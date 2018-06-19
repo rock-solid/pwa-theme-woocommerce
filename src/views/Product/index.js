@@ -9,13 +9,13 @@ import { getProducts, getProductsFetching, productPropType } from '../Products/r
 import ProductDetails from './ProductDetails';
 
 class Product extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.readProduct(this.props.match.params.productId);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.match.params.productId !== nextProps.match.params.productId) {
-      this.readProduct(nextProps.match.params.productId);
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.productId !== prevProps.match.params.productId) {
+      this.readProduct(this.props.match.params.productId);
     }
   }
 

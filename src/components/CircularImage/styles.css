@@ -3,3 +3,18 @@
   background-position: 50% !important;
   display: inline-block !important;
 }
+
+.circular-image-container {
+  float: left;
+}
+
+.circular-image-container .icon.big.circular {
+  width: 80px !important;
+  height: 80px !important;
+  margin-right: 1rem;
+  font-size: 2.7em;
+  border: 2px solid rgba(34, 36, 38, 0.15);
+  box-shadow: none;
+  color: #8e8a8a;
+  background-color: #ededed;
+}

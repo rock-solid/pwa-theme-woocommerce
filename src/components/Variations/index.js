@@ -19,7 +19,7 @@ class Variations extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.readVariations(this.props.productId);
   }
 

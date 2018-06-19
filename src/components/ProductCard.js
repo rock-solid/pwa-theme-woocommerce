@@ -19,9 +19,13 @@ class ProductCard extends Component {
             <Grid.Column width={11}>
               <Card.Header className="break-words">{this.props.name}</Card.Header>
               <Card.Meta>{categories.join(',')}</Card.Meta>
-              <Header as="h3" color="purple">
-                <div dangerouslySetInnerHTML={{ __html: config.CURRENCY + this.props.price }} />
-              </Header>
+              {this.props.price ?
+                (
+                  <Header as="h3" color="purple">
+                    <div dangerouslySetInnerHTML={{ __html: config.CURRENCY + this.props.price }} />
+                  </Header>
+                )
+                : null}
             </Grid.Column>
           </Grid>
         </Card.Content>

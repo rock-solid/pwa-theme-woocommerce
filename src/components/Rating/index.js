@@ -14,18 +14,20 @@ class Rating extends Component {
         return <Icon key={index} name="star" color="yellow" />;
       }
 
-      return <Icon key={index} name="empty star" color="yellow" />;
+      return <Icon key={index} name="star outline" color="yellow" />;
     });
   }
 
   render() {
-    return this.props.ratingCount !== null ? (
-      <div>
-        {this.generateStarRating()} ({this.props.ratingCount})
-      </div>
-    ) : (
-      <div className="make-inline">{this.generateStarRating()}</div>
-    );
+    if (this.props.ratingCount !== null) {
+      return (
+        <div>
+          {this.generateStarRating()} ({this.props.ratingCount})
+        </div>
+      );
+    }
+
+    return <div className="make-inline">{this.generateStarRating()}</div>;
   }
 }
 

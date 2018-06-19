@@ -18,6 +18,16 @@ import config from '../../config/config';
 import './styles.css';
 
 class ProductDetails extends Component {
+  static isAnyCached(images) {
+    return images
+      .map((image) => {
+        const newImage = new Image();
+        newImage.src = image.original;
+        return newImage.complete;
+      })
+      .filter(isCached => isCached === false);
+  }
+
   constructor(props) {
     super(props);
 
@@ -62,31 +72,62 @@ class ProductDetails extends Component {
     const { dispatch } = this.props;
     const product = this.props.product;
 
-    dispatch(addProduct(product.id, product.name, product.price, product.images[0].src, this.state.variationId, this.state.selections));
+    dispatch(
+      addProduct(
+        product.id,
+        product.name,
+        product.price,
+        product.images[0].src,
+        this.state.variationId,
+        this.state.selections,
+      ),
+    );
 
     toastr.success('Added to Cart', product.name + ' was added to your shopping cart.');
   }
 
   render() {
+    const anyCached =
+      ProductDetails.isAnyCached(this.getImageGallery())[0] === false
+        ? ProductDetails.isAnyCached(this.getImageGallery())[0]
+        : true;
+
     return (
       <div>
         <Header textAlign="center" className="break-words">
           {this.props.product.name}
         </Header>
         <Card centered>
-          <ImageGallery items={this.getImageGallery()} slideDuration={550} showPlayButton={false} showThumbnails={false} />
+          <ImageGallery
+            items={this.getImageGallery()}
+            slideDuration={550}
+            showPlayButton={false}
+            showThumbnails={false}
+            showNav={window.navigator.onLine || anyCached}
+            disableSwipe={!window.navigator.onLine || !anyCached}
+          />
           {this.props.product.rating_count > 0 ? (
             <Card.Content extra>
-              <Rating rating={Math.round(Number(this.props.product.average_rating))} ratingCount={this.props.product.rating_count} />
+              <Rating
+                rating={Math.round(Number(this.props.product.average_rating))}
+                ratingCount={this.props.product.rating_count}
+              />
             </Card.Content>
           ) : null}
-          {this.props.product.categories.length === 0 ? null : <Card.Content>{this.getCategories()}</Card.Content>}
+          {this.props.product.categories.length === 0 ? null : (
+            <Card.Content>{this.getCategories()}</Card.Content>
+          )}
           <Card.Content>{this.props.product.in_stock ? 'In Stock' : 'Out of Stock'}</Card.Content>
-          <Card.Content>
-            <div dangerouslySetInnerHTML={{ __html: config.CURRENCY + this.props.product.price }} />
-          </Card.Content>
+          {this.props.product.price ?
+            (<Card.Content>
+              <div dangerouslySetInnerHTML={{ __html: config.CURRENCY + this.props.product.price }} />
+            </Card.Content>) : null}
           {this.props.product.variations.length === 0 ? null : (
-            <Variations sendSelections={this.receiveSelections} productId={this.props.product.id} variationIds={this.props.product.variations} />
+            <Variations
+              sendSelections={this.receiveSelections}
+              productId={this.props.product.id}
+              variationIds={this.props.product.variations}
+            />
           )}
           {this.props.product.backorders_allowed || this.props.product.in_stock ? (
             <Button color="purple" fluid onClick={this.addItem}>
