@@ -23,6 +23,11 @@ const rootPersistConfig = {
     'navbar',
     'search',
     'toastr',
+    'categories',
+    'products',
+    'reviews',
+    'variations',
+    'cart',
   ],
   // debug: true,
 };
@@ -32,7 +37,7 @@ const rootReducer = persistCombineReducers(rootPersistConfig, {
     {
       key: 'categories',
       storage,
-      blacklist: ['isFetching'],
+      blacklist: ['isFetching', 'hasMore'],
     },
     categories,
   ),
@@ -40,7 +45,7 @@ const rootReducer = persistCombineReducers(rootPersistConfig, {
     {
       key: 'products',
       storage,
-      blacklist: ['isFetching'],
+      blacklist: ['isFetching', 'hasMore'],
     },
     products,
   ),

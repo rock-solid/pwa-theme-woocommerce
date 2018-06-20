@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Loader, Container } from 'semantic-ui-react';
 import _ from 'lodash';
-import InfiniteScroll from 'react-infinite-scroller';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { fetchProducts } from '../Products/actions';
-import { getProductsFetching, getProducts, productPropType } from '../Products/reducer';
+import { getProductsFetching, getProducts, productPropType, getProductsHasMore } from '../Products/reducer';
 import ProductsList from '../../components/ProductsList';
 import { closeSearch } from '../../components/NavBar/actions';
 import { isSearchVisible } from '../../components/NavBar/reducer';
@@ -15,37 +15,52 @@ import { isSearchVisible } from '../../components/NavBar/reducer';
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      page: 1,
-      hasMore: false,
-    };
     this.loadProducts = this.loadProducts.bind(this);
   }
 
   componentDidMount() {
-    const { dispatch, searchVisible } = this.props;
-    dispatch(fetchProducts({ page: this.state.page, featured: 1 }));
-    if (searchVisible) {
+    if (this.props.searchVisible) {
       this.props.closeSearch();
     }
+
+    this.readProducts(1);
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.products.length < this.props.products.length) {
-      this.setState({ page: this.state.page + 1, hasMore: true });
+  /**
+   * Filter and return featured products (if there are any)
+   */
+  getFilteredProducts() {
+    const items = this.props.products.filter(product => product.featured);
+    if (items.length > 0) {
+      return items;
     }
+
+    return this.props.products;
   }
 
   loadProducts() {
-    if (this.state.hasMore) {
-      this.props.dispatch(fetchProducts({ page: this.state.page }));
-      this.setState({ hasMore: false });
+    if (this.props.hasMore) {
+      const items = this.getFilteredProducts();
+
+      // 20 is the default per_page number used for paginating products
+      const nextPage = Math.round(items.length / 20) + 1;
+      this.readProducts(nextPage);
     }
   }
 
+  readProducts(page) {
+    const { dispatch } = this.props;
+    dispatch(fetchProducts({
+      page,
+      featured: 1,
+      order: 'asc',
+      orderby: 'title',
+      per_page: 20,
+    }));
+  }
+
   render() {
-    const { loading, products } = this.props;
-    const { hasMore } = this.state;
+    const { loading, products, hasMore } = this.props;
 
     if (loading === 1 && products.length === 0) {
       return (
@@ -64,18 +79,15 @@ class Home extends Component {
     }
 
     // Filter featured products (if there are any)
-    const featuredProducts = this.props.products.filter(
-      product => product.featured,
-    );
+    const items = this.getFilteredProducts();
 
     return (
       <InfiniteScroll
-        pageStart={0}
-        loadMore={this.loadProducts}
+        dataLength={items.length}
+        next={this.loadProducts}
         hasMore={hasMore}
-        useWindow={false}
       >
-        <ProductsList products={_.orderBy(featuredProducts.length > 0 ? featuredProducts : this.props.products, ['date_created'], ['desc'])} title="Home" />
+        <ProductsList products={_.orderBy(items, ['name'], ['asc'])} title="Home" />
       </InfiniteScroll>
     );
   }
@@ -85,6 +97,7 @@ Home.propTypes = {
   dispatch: PropTypes.func.isRequired,
   loading: PropTypes.number.isRequired,
   products: PropTypes.arrayOf(productPropType).isRequired,
+  hasMore: PropTypes.bool.isRequired,
   searchVisible: PropTypes.bool.isRequired,
   closeSearch: PropTypes.func.isRequired,
 };
@@ -92,6 +105,7 @@ Home.propTypes = {
 const mapStateToProps = state => ({
   loading: getProductsFetching(state.products),
   products: getProducts(state.products),
+  hasMore: getProductsHasMore(state.products),
   searchVisible: isSearchVisible(state.navbar),
 });
 
