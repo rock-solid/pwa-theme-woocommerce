@@ -55,7 +55,7 @@ class Variations extends Component {
   }
 
   handleSelect(option, value) {
-    const selections = this.state.selections;
+    const { selections } = this.state;
     selections[option] = value;
 
     this.setState({
@@ -73,10 +73,10 @@ class Variations extends Component {
   }
 
   render() {
-    const variationsByPrododcut = this.getVariationsByProduct();
+    const variationsByProduct = this.getVariationsByProduct();
 
-    if (this.props.loading === 0 && !_.isEmpty(this.props.variations) && !_.isEmpty(variationsByPrododcut)) {
-      return <VariationsDropdown handleSelect={this.handleSelect} variations={variationsByPrododcut} />;
+    if (this.props.loading === 0 && !_.isEmpty(this.props.variations) && !_.isEmpty(variationsByProduct)) {
+      return <VariationsDropdown handleSelect={this.handleSelect} variations={variationsByProduct} />;
     }
 
     return (
