@@ -4,24 +4,32 @@ import PropTypes from 'prop-types';
 import { Loader } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+
 import { fetchProducts } from '../Products/actions';
 import { getProducts, getProductsFetching, productPropType } from '../Products/reducer';
 import ProductDetails from './ProductDetails';
+import { closeSearch } from '../../components/NavBar/actions';
+import { isSearchVisible } from '../../components/NavBar/reducer';
 
 class Product extends Component {
   componentDidMount() {
-    this.readProduct(this.props.match.params.productId);
+    const { searchVisible } = this.props;
+    this.readProduct();
+
+    if (searchVisible) {
+      this.props.closeSearch();
+    }
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.match.params.productId !== prevProps.match.params.productId) {
-      this.readProduct(this.props.match.params.productId);
+      this.readProduct();
     }
   }
 
-  readProduct(productId) {
+  readProduct() {
     const { dispatch } = this.props;
-    dispatch(fetchProducts({ id: productId }));
+    dispatch(fetchProducts({ id: this.props.match.params.productId }));
   }
 
   render() {
@@ -54,15 +62,21 @@ Product.propTypes = {
     }).isRequired,
   }).isRequired,
   products: PropTypes.arrayOf(productPropType).isRequired,
+  searchVisible: PropTypes.bool.isRequired,
+  closeSearch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   loading: getProductsFetching(state.products),
   products: getProducts(state.products),
+  searchVisible: isSearchVisible(state.navbar),
 });
 
 function mapDispatchToProps(dispatch) {
-  return Object.assign({ dispatch }, bindActionCreators({ fetchProducts }, dispatch));
+  return Object.assign({ dispatch }, bindActionCreators({ fetchProducts, closeSearch }, dispatch));
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Product);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Product);

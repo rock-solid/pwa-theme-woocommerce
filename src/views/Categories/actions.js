@@ -27,7 +27,6 @@ export const fetchCategories = (params = {}) => (dispatch) => {
         .map(k => k + '=' + encodeURIComponent(params[k]))
         .join('&');
   }
-
   return fetch(url)
     .then(response => response.json())
     .then(json => dispatch(receiveCategories(json)))

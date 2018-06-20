@@ -1,6 +1,7 @@
 .shop-name {
-  text-align: center;
+  text-align: left;
   flex: 1;
+  max-width: 60%;
 }
 .shop-name a:focus,
 .shop-name a {
@@ -18,4 +19,15 @@
 .cart-link:focus,
 .cart-link {
   color: white;
+}
+
+/* search button */
+.ui.button.circular {
+  color: white;
+  background: transparent;
+  margin: -0.5em 0 !important;
+  font-size: 1.37rem !important;
+}
+.ui.input.search input {
+  border-radius: 50px;
 }

@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import { persistCombineReducers, persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
-import { reducer as toastrReducer } from 'react-redux-toastr';
+import { reducer as toastr } from 'react-redux-toastr';
 import thunk from 'redux-thunk';
 // import logger from 'redux-logger';
 import createHistory from 'history/createBrowserHistory';
@@ -13,14 +13,21 @@ import products from './views/Products/reducer';
 import reviews from './components/Reviews/reducer';
 import cart from './views/Cart/reducer';
 import variations from './components/Variations/reducer';
-import sideMenuVisible from './components/NavBar/reducer';
+import search from './views/Search/reducer';
+import navbar from './components/NavBar/reducer';
 
 const rootPersistConfig = {
   key: 'root',
   storage,
   blacklist: [
-    'sideMenuVisible',
+    'navbar',
+    'search',
     'toastr',
+    'categories',
+    'products',
+    'reviews',
+    'variations',
+    'cart',
   ],
   // debug: true,
 };
@@ -30,7 +37,7 @@ const rootReducer = persistCombineReducers(rootPersistConfig, {
     {
       key: 'categories',
       storage,
-      blacklist: ['isFetching'],
+      blacklist: ['isFetching', 'hasMore'],
     },
     categories,
   ),
@@ -38,7 +45,7 @@ const rootReducer = persistCombineReducers(rootPersistConfig, {
     {
       key: 'products',
       storage,
-      blacklist: ['isFetching'],
+      blacklist: ['isFetching', 'hasMore'],
     },
     products,
   ),
@@ -58,15 +65,16 @@ const rootReducer = persistCombineReducers(rootPersistConfig, {
     },
     variations,
   ),
-  cart,
-  sideMenuVisible,
-  toastr: persistReducer(
+  cart: persistReducer(
     {
-      key: 'toastr',
+      key: 'cart',
       storage,
     },
-    toastrReducer,
+    cart,
   ),
+  navbar,
+  search,
+  toastr,
 });
 
 const history = createHistory();

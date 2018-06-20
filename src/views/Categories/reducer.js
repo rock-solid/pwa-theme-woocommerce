@@ -22,6 +22,18 @@ const items = (state = [], action) => {
   }
 };
 
+const hasMore = (state = false, action) => {
+  switch (action.type) {
+    case REQUEST_CATEGORIES:
+      return true;
+    case RECEIVE_CATEGORIES:
+      // 20 is the default per_page number used for paginating categories
+      return action.categories.length >= 20;
+    default:
+      return state;
+  }
+};
+
 const isFetching = (state = 0, action) => {
   switch (action.type) {
     case REQUEST_CATEGORIES:
@@ -35,8 +47,10 @@ const isFetching = (state = 0, action) => {
 
 export const getCategories = state => state.items;
 export const getCategoriesFetching = state => state.isFetching;
+export const getCategoriesHasMore = state => state.hasMore;
 
 export default combineReducers({
   items,
   isFetching,
+  hasMore,
 });
