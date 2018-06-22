@@ -19,7 +19,8 @@ class Cart extends Component {
   }
 
   getTotalPrice() {
-    return this.props.cart.reduce((total, item) => (total + Number(item.price)) * item.quantity, 0);
+    const total = _.sumBy(this.props.cart, item => (Number(item.quantity) * Number(item.price)));
+    return Math.round(total * 100) / 100;
   }
 
   render() {
