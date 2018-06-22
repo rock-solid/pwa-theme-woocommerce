@@ -14,7 +14,9 @@ class ProductCard extends Component {
         <Card.Content>
           <Grid>
             <Grid.Column width={5}>
-              <CircularImage src={this.props.src} />
+              <Link to={'/product/' + this.props.id}>
+                <CircularImage src={this.props.src} />
+              </Link>
             </Grid.Column>
             <Grid.Column width={11}>
               <Card.Header className="break-words">{this.props.name}</Card.Header>
