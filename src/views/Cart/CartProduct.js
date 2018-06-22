@@ -91,7 +91,7 @@ class CartProduct extends Component {
               <Grid.Column width={4} textAlign="center">
                 <CircularImage src={this.props.product.image} width={50} height={50} />
               </Grid.Column>
-              <Grid.Column width={5} className="break-words">
+              <Grid.Column width={4} className="break-words">
                 {this.props.product.name}
               </Grid.Column>
               <Grid.Column width={4}>
@@ -102,10 +102,10 @@ class CartProduct extends Component {
                   }}
                 />
               </Grid.Column>
-              <Grid.Column width={3} textAlign="right">
+              <Grid.Column width={4} textAlign="right">
                 <div
                   dangerouslySetInnerHTML={{
-                    __html: config.CURRENCY + this.props.product.price * this.state.quantity,
+                    __html: config.CURRENCY + (Math.round(Number(this.props.product.price) * Number(this.state.quantity) * 100) / 100),
                   }}
                 />
               </Grid.Column>

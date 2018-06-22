@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Segment, Icon, Label, Menu, Button, Input } from 'semantic-ui-react';
+import { Segment, Icon, Label, Menu, Button, Input, Form } from 'semantic-ui-react';
 import config from '../../config/config';
 import { openMenu, openSearch, closeSearch } from './actions';
 import { isSearchVisible } from './reducer';
@@ -13,13 +13,16 @@ import './NavBar.css';
 class NavBar extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       search: '',
+      toSearchPage: false,
     };
+
     this.showSidebar = this.showSidebar.bind(this);
     this.setSearch = this.setSearch.bind(this);
-    this.resetSearch = this.resetSearch.bind(this);
-    this.toggleVisibility = this.toggleVisibility.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.openSearch = this.openSearch.bind(this);
   }
 
   getQuantity() {
@@ -31,17 +34,20 @@ class NavBar extends Component {
     this.setState({ search: e.target.value });
   }
 
-  resetSearch() {
-    this.setState({ search: '' });
+  /**
+   * Handle search form submit.
+   * Set state for redirecting to search page and close search box.
+   */
+  handleSubmit() {
+    this.setState({ toSearchPage: this.state.search, search: '' }, () => this.props.closeSearch());
   }
 
-  toggleVisibility() {
-    if (this.props.searchVisible) {
-      this.props.closeSearch();
-    } else {
-      this.resetSearch();
-      this.props.openSearch();
-    }
+  /**
+   * Open search box when icon is clicked.
+   * Reset search input and redirect when the search is opened.
+   */
+  openSearch() {
+    this.setState({ toSearchPage: false, search: '' }, () => this.props.openSearch());
   }
 
   showSidebar(e) {
@@ -50,7 +56,6 @@ class NavBar extends Component {
   }
 
   render() {
-    const { search } = this.state;
     const { searchVisible } = this.props;
 
     return (
@@ -61,27 +66,30 @@ class NavBar extends Component {
           </Menu.Item>
           <Menu.Item className="shop-name" fitted>
             {searchVisible === false ?
-              <Link to="/">{config.SHOP_NAME}</Link> :
               (
-                <Input
-                  name="search"
-                  type="text"
-                  className="search"
-                  value={search}
-                  onChange={e => this.setSearch(e)}
-                />
+                <Link to="/">{config.SHOP_NAME}</Link>
+              ) :
+              (
+                <Form onSubmit={this.handleSubmit}>
+                  <Input
+                    name="search"
+                    type="text"
+                    className="search"
+                    value={this.state.search}
+                    onChange={this.setSearch}
+                    placeholder="Search..."
+                    autoFocus
+                    icon="search"
+                  />
+                </Form>
               )
             }
           </Menu.Item>
           <Menu.Item position="right" fitted>
-            {search && searchVisible ? (
-              <Link to={`/search/${search}`} onClick={this.resetSearch}>
-                <Button icon="search" circular size="big" />
-              </Link>
-            ) : (
-                <Button icon="search" onClick={this.toggleVisibility} circular size="big" />
-              )}
             <Menu.Item fitted>
+              {searchVisible === false ?
+                <Button icon="search" circular size="big" onClick={this.openSearch} />
+                : null}
               <Icon.Group>
                 <Link to="/cart" className="cart-link">
                   <Icon name="cart" size="large" className="shop-icon" />
@@ -100,6 +108,7 @@ class NavBar extends Component {
             </Menu.Item>
           </Menu.Item>
         </Menu>
+        {this.state.toSearchPage !== false && searchVisible ? <Redirect to={`/search/${this.state.toSearchPage}`} /> : null}
       </Segment>
     );
   }

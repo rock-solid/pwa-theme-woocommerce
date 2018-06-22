@@ -6,7 +6,7 @@ import Checkout from './Checkout';
 import config from '../../config/config';
 
 const CartSummary = props => (
-  <Card centered>
+  <Card centered className="cart-summary">
     <Card.Content>
       <Card.Header as={Header} textAlign="left">
         Order Summary
@@ -27,8 +27,8 @@ const CartSummary = props => (
         </Grid.Row>
         */}
         <Grid.Row>
-          <Grid.Column width={12}>Total</Grid.Column>
-          <Grid.Column textAlign="right" width={4}>
+          <Grid.Column width={11}>Total</Grid.Column>
+          <Grid.Column textAlign="right" width={5}>
             <div dangerouslySetInnerHTML={{ __html: config.CURRENCY + props.total }} />
           </Grid.Column>
         </Grid.Row>

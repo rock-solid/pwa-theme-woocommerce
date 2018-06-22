@@ -1,5 +1,6 @@
-.cart-product {
-  margin-top: 2em !important;
+.cart-product, .cart-summary {
+  margin-top: 2.5em !important;
+  width: 90% !important;
 }
 
 .cart-product .content {

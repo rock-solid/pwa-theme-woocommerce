@@ -12,7 +12,9 @@ class CategoryCard extends Component {
       <Card centered>
         <Card.Content>
           {this.props.src !== '' ? (
-            <CircularImage src={this.props.src} />
+            <Link to={'/category/' + this.props.id}>
+              <CircularImage src={this.props.src} />
+            </Link>
           ) : null}
           <Segment basic className="category-meta-container">
             <Card.Header as={Header} className="break-words">

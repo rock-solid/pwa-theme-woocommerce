@@ -1,7 +1,7 @@
 .shop-name {
   text-align: left;
   flex: 1;
-  max-width: 60%;
+  max-width: 70%;
 }
 .shop-name a:focus,
 .shop-name a {
@@ -28,6 +28,9 @@
   margin: -0.5em 0 !important;
   font-size: 1.37rem !important;
 }
-.ui.input.search input {
+.ui.input.search input,
+.ui.input.search input:focus,
+.ui.input.search input:active {
   border-radius: 50px;
+  min-width: 220px;
 }
