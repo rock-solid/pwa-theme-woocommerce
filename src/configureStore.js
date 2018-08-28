@@ -37,7 +37,7 @@ const rootReducer = persistCombineReducers(rootPersistConfig, {
     {
       key: 'categories',
       storage,
-      blacklist: ['isFetching', 'hasMore'],
+      blacklist: config.OFFLINE ? ['isFetching', 'hasMore'] : ['isFetching', 'hasMore', 'items'],
     },
     categories,
   ),
@@ -45,7 +45,7 @@ const rootReducer = persistCombineReducers(rootPersistConfig, {
     {
       key: 'products',
       storage,
-      blacklist: ['isFetching', 'hasMore'],
+      blacklist: config.OFFLINE ? ['isFetching', 'hasMore'] : ['isFetching', 'hasMore', 'items'],
     },
     products,
   ),
@@ -53,7 +53,7 @@ const rootReducer = persistCombineReducers(rootPersistConfig, {
     {
       key: 'reviews',
       storage,
-      blacklist: ['isFetching'],
+      blacklist: config.OFFLINE ? ['isFetching'] : ['isFetching', 'items'],
     },
     reviews,
   ),
@@ -61,7 +61,7 @@ const rootReducer = persistCombineReducers(rootPersistConfig, {
     {
       key: 'variations',
       storage,
-      blacklist: ['isFetching'],
+      blacklist: config.OFFLINE ? ['isFetching'] : ['isFetching', 'items'],
     },
     variations,
   ),
@@ -85,9 +85,7 @@ const store = createStore(
   applyMiddleware(thunk, routerMiddleware(history)),
 );
 
-if (config.OFFLINE) {
-  persistStore(store);
-}
+persistStore(store);
 
 export { history };
 export default store;

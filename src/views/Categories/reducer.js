@@ -6,9 +6,12 @@ import { REQUEST_CATEGORIES, RECEIVE_CATEGORIES } from './actions';
 export const categoryPropType = PropTypes.shape({
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
-  image: PropTypes.shape({
-    src: PropTypes.string,
-  }),
+  image: PropTypes.oneOfType([
+    PropTypes.shape({
+      src: PropTypes.string,
+    }),
+    PropTypes.array,
+  ]),
 });
 
 const items = (state = [], action) => {
